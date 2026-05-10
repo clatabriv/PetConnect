@@ -1,0 +1,67 @@
+<div class="home-container">
+  <nav class="navbar">
+    <div class="brand">PetConnect</div>
+    <div class="nav-buttons">
+      <a routerLink="/home">Inicio</a>
+      <a routerLink="/animales">Animales</a>
+      <a routerLink="/refugios">Refugios</a>
+      @if (authService.hasRole('ADOPTANTE', 'ADMIN')) {
+        <a routerLink="/favoritos">Favoritos</a>
+      }
+      @if (authService.hasRole('REFUGIO', 'ADMIN')) {
+        <a routerLink="/panel-refugio">Mi refugio</a>
+      }
+      @if (authService.hasRole('ADMIN')) {
+        <a routerLink="/panel-admin">Admin</a>
+      }
+      @if (!authService.isAuthenticated()) {
+        <a class="cta" routerLink="/login">Login</a>
+      } @else {
+        <a routerLink="/home" (click)="cerrarSesion()">Salir</a>
+      }
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="titulo-container">
+      <h1>Encuentra a tu nuevo compañero</h1>
+      <p>
+        Plataforma de adopcion responsable donde usuarios, refugios y administradores colaboran para
+        dar una segunda oportunidad.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/animales">Ver animales</a>
+        <a routerLink="/refugios">Ver refugios</a>
+      </div>
+    </div>
+
+    <div class="carrusel">
+      <button class="carrusel-btn" (click)="anterior()">&#10094;</button>
+      <img [src]="imagenes[indiceActual]" alt="Animal en adopcion" />
+      <button class="carrusel-btn" (click)="siguiente()">&#10095;</button>
+      <div class="indicadores">
+        <span
+          *ngFor="let img of imagenes; let i = index"
+          [ngClass]="{ activo: i === indiceActual }"
+          (click)="irA(i)"
+          >●</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <section class="cards">
+    <article>
+      <h3>Adopcion segura</h3>
+      <p>Gestiona solicitudes y estado de adopcion desde un flujo claro para todos los perfiles.</p>
+    </article>
+    <article>
+      <h3>Refugios activos</h3>
+      <p>Cada refugio publica y mantiene sus animales con informacion actualizada.</p>
+    </article>
+    <article>
+      <h3>Favoritos personales</h3>
+      <p>Guarda los animales que te interesan y revisalos rapidamente en tu panel.</p>
+    </article>
+  </section>
+</div>

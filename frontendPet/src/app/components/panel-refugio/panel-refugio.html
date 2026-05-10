@@ -1,0 +1,52 @@
+<section class="page">
+  <header>
+    <h1>Gestion de mi refugio</h1>
+    <a routerLink="/home">Inicio</a>
+  </header>
+
+  <form class="editor" (ngSubmit)="guardar()">
+    <input [(ngModel)]="form.nombre" name="nombre" placeholder="Nombre" required />
+    <input [(ngModel)]="form.especie" name="especie" placeholder="Especie" required />
+    <input [(ngModel)]="form.raza" name="raza" placeholder="Raza" />
+    <input [(ngModel)]="form.edad" name="edad" type="number" placeholder="Edad" />
+    <input [(ngModel)]="form.estadoSalud" name="estadoSalud" placeholder="Estado de salud" />
+    <input [(ngModel)]="form.ubicacion" name="ubicacion" placeholder="Ubicacion" />
+    <input [(ngModel)]="form.foto" name="foto" placeholder="URL de foto" />
+    <select [(ngModel)]="form.estadoAdopcion" name="estadoAdopcion">
+      <option value="DISPONIBLE">Disponible</option>
+      <option value="EN_PROCESO">En proceso</option>
+      <option value="ADOPTADO">Adoptado</option>
+    </select>
+
+    <div class="actions">
+      <button type="submit">{{ editandoId ? 'Guardar cambios' : 'Crear animal' }}</button>
+      @if (editandoId) {
+        <button type="button" class="secondary" (click)="cancelarEdicion()">Cancelar</button>
+      }
+    </div>
+  </form>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Especie</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let animal of animales">
+          <td>{{ animal.nombre }}</td>
+          <td>{{ animal.especie }}</td>
+          <td>{{ animal.estadoAdopcion }}</td>
+          <td>
+            <button (click)="editar(animal)">Editar</button>
+            <button class="danger" (click)="borrar(animal.id)">Borrar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

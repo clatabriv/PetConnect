@@ -1,0 +1,51 @@
+.page {
+  min-height: 100vh;
+  background-color: #f5f8fc;
+  padding: 24px 5vw;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a {
+  text-decoration: none;
+  border: 1px solid #cad5e6;
+  border-radius: 999px;
+  padding: 6px 11px;
+  color: #1f3147;
+  background: #fff;
+}
+
+.list {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+article {
+  background-color: #fff;
+  border: 1px solid #dde5f0;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+h3 {
+  margin: 0;
+}
+
+p {
+  margin: 8px 0;
+  color: #5a6f87;
+}
+
+span {
+  font-size: 12px;
+  color: #285f3f;
+  background-color: #e9f9ef;
+  border-radius: 999px;
+  padding: 3px 8px;
+}

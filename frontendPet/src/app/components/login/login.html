@@ -1,0 +1,52 @@
+<section class="login-page">
+  <div class="login-card">
+    <h1>PetConnect</h1>
+    <p class="subtitle">
+      {{ modoRegistro ? 'Crea una cuenta para empezar' : 'Inicia sesion para acceder a tu panel' }}
+    </p>
+
+    @if (modoRegistro) {
+      <label>
+        Nombre
+        <input [(ngModel)]="nombreRegistro" placeholder="Tu nombre" />
+      </label>
+    }
+
+    <label>
+      Email
+      <input type="email" [(ngModel)]="email" placeholder="tu@email.com" />
+    </label>
+
+    <label>
+      Contrasena
+      <input type="password" [(ngModel)]="password" placeholder="********" />
+    </label>
+
+    @if (modoRegistro) {
+      <label>
+        Tipo de cuenta
+        <select [(ngModel)]="rolRegistro">
+          <option value="ADOPTANTE">Usuario</option>
+          <option value="REFUGIO">Refugio</option>
+          <option value="ADMIN">Admin</option>
+        </select>
+      </label>
+    }
+
+    @if (error) {
+      <div class="error">{{ error }}</div>
+    }
+
+    @if (!modoRegistro) {
+      <button class="primary" [disabled]="cargando" (click)="login()">Entrar</button>
+    } @else {
+      <button class="primary" [disabled]="cargando" (click)="registrar()">Crear cuenta</button>
+    }
+
+    <button class="secondary" (click)="toggleModo()">
+      {{ modoRegistro ? 'Ya tengo cuenta' : 'Crear cuenta nueva' }}
+    </button>
+
+    <a routerLink="/home">Volver al inicio</a>
+  </div>
+</section>

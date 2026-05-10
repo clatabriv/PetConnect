@@ -1,0 +1,14 @@
+<section class="page">
+  <header>
+    <h1>Refugios disponibles</h1>
+    <a routerLink="/home">Volver</a>
+  </header>
+
+  <div class="list">
+    <article *ngFor="let refugio of refugios">
+      <h3>{{ refugio.nombre }}</h3>
+      <p>{{ refugio.email }}</p>
+      <span>Refugio verificado</span>
+    </article>
+  </div>
+</section>

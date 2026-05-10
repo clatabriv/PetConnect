@@ -1,0 +1,67 @@
+<section class="page">
+  <header>
+    <h1>Panel de administracion</h1>
+    <a routerLink="/home">Inicio</a>
+  </header>
+
+  <section class="create-user">
+    <h2>Crear usuario</h2>
+    <div class="fields">
+      <input [(ngModel)]="nuevoUsuario.nombre" placeholder="Nombre" />
+      <input [(ngModel)]="nuevoUsuario.email" placeholder="Email" />
+      <input [(ngModel)]="nuevoUsuario.password" placeholder="Contrasena" />
+      <select [(ngModel)]="nuevoUsuario.rol">
+        <option value="ADOPTANTE">ADOPTANTE</option>
+        <option value="REFUGIO">REFUGIO</option>
+        <option value="ADMIN">ADMIN</option>
+      </select>
+      <button (click)="crearUsuario()">Crear</button>
+    </div>
+  </section>
+
+  <section class="tables">
+    <article>
+      <h2>Usuarios</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.rol }}</td>
+            <td><button class="danger" (click)="borrarUsuario(usuario.id)">Borrar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article>
+      <h2>Animales</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Especie</th>
+            <th>Estado</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let animal of animales">
+            <td>{{ animal.nombre }}</td>
+            <td>{{ animal.especie }}</td>
+            <td>{{ animal.estadoAdopcion }}</td>
+            <td><button class="danger" (click)="borrarAnimal(animal.id)">Borrar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+  </section>
+</section>

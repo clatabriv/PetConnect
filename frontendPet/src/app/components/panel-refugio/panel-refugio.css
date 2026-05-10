@@ -1,0 +1,88 @@
+.page {
+  min-height: 100vh;
+  padding: 24px 5vw;
+  background-color: #f7f9fd;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+header a {
+  text-decoration: none;
+  border: 1px solid #cad5e4;
+  border-radius: 999px;
+  padding: 6px 11px;
+  color: #1f3147;
+  background-color: #fff;
+}
+
+.editor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+  background-color: #fff;
+  border: 1px solid #dfe6f1;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+input,
+select,
+button {
+  padding: 9px 10px;
+  border-radius: 10px;
+  border: 1px solid #cfd8e6;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  background-color: #1f3147;
+  color: #fff;
+  border-color: #1f3147;
+}
+
+.actions .secondary {
+  background-color: #e8edf7;
+  color: #1f3147;
+  border-color: #e8edf7;
+}
+
+.table-wrap {
+  overflow: auto;
+  background-color: #fff;
+  border: 1px solid #dfe6f1;
+  border-radius: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #edf1f7;
+}
+
+td button {
+  margin-right: 6px;
+  background-color: #1f3147;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+td .danger {
+  background-color: #7a2630;
+}
