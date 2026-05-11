@@ -34,6 +34,12 @@ public class Usuario {
     @Column(nullable = false)
     private Rol rol;
     
+    private String descripcion;  // descripción del refugio
+
+    private String foto;         // URL foto del refugio
+
+    private String telefono;
+    
     // Para que funcione la clase Animal
     @JsonManagedReference
     @OneToMany(mappedBy = "refugio", cascade = CascadeType.ALL)
@@ -46,11 +52,14 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(String nombre, String email, String password, Rol rol) {
+    public Usuario(String nombre, String email, String password, Rol rol, String descripcion, String foto, String telefono) {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
         this.rol = rol;
+        this.descripcion = descripcion;
+        this.foto = foto;
+        this.telefono = telefono;
     }
 
     // Getters y Setters
@@ -64,4 +73,10 @@ public class Usuario {
     public void setPassword(String password) { this.password = password; }
     public Rol getRol() { return rol; }
     public void setRol(Rol rol) { this.rol = rol; }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public String getFoto() { return foto; }
+    public void setFoto(String foto) { this.foto = foto; }
+    public String getTelefono() { return telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
 }

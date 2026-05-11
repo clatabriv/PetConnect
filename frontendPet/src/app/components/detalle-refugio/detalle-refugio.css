@@ -1,0 +1,197 @@
+.page {
+  min-height: 100vh;
+  padding: 24px 5vw 48px;
+  background-color: #f5f8fc;
+}
+
+/* ── Cabecera ── */
+header {
+  margin-bottom: 24px;
+}
+
+.back {
+  text-decoration: none;
+  color: #1f3147;
+  border: 1px solid #cad5e6;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: #fff;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.back:hover {
+  background: #edf2f8;
+}
+
+/* ── Hero ── */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+  border: 1px solid #dde5f0;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #1f3147;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hero-info h1 {
+  margin: 0 0 4px;
+  font-size: 1.6rem;
+  color: #1f3147;
+}
+
+.email {
+  margin: 0 0 10px;
+  color: #5a6f87;
+  font-size: 0.95rem;
+}
+
+.badge-verificado {
+  display: inline-block;
+  background: #e9f9ef;
+  color: #1a7a42;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ── Título sección ── */
+.section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.section-title h2 {
+  margin: 0;
+  color: #1f3147;
+  font-size: 1.2rem;
+}
+
+.count {
+  color: #7a8fa6;
+  font-size: 0.88rem;
+}
+
+/* ── Grid de animales ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.card {
+  border-radius: 14px;
+  border: 1px solid #dde5f0;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.body {
+  padding: 14px;
+  flex: 1;
+}
+
+.body h3 {
+  margin: 0 0 6px;
+  color: #1f3147;
+}
+
+.body p {
+  margin: 0 0 4px;
+  color: #5a6d87;
+  font-size: 0.9rem;
+}
+
+.ubicacion,
+.edad {
+  font-size: 0.85rem;
+}
+
+.estado {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.disponible {
+  background: #e6f7ee;
+  color: #1a7a42;
+}
+
+.btn-adoptar {
+  display: block;
+  margin: 0 14px 14px;
+  text-align: center;
+  text-decoration: none;
+  background: #1f3147;
+  color: #fff;
+  border-radius: 10px;
+  padding: 9px;
+  font-size: 0.88rem;
+  transition: background 0.2s;
+}
+.btn-adoptar:hover {
+  background: #2c4460;
+}
+
+/* ── Vacío ── */
+.empty {
+  text-align: center;
+  padding: 48px 20px;
+  color: #7a8fa6;
+}
+.empty a {
+  display: inline-block;
+  margin-top: 12px;
+  color: #1f3147;
+  text-decoration: underline;
+}
+
+/* ── Spinner ── */
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #dde5f0;
+  border-top-color: #1f3147;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

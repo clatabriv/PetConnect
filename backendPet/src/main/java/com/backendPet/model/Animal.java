@@ -29,6 +29,10 @@ public class Animal {
     private String ubicacion;
 
     private String foto; // URL de la foto
+    
+    private String descripcion;  // texto largo para la ficha detalle
+
+    private String genero;       // Macho / Hembra
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -48,7 +52,7 @@ public class Animal {
     public Animal() {}
 
     public Animal(String nombre, String especie, String raza, 
-                  Integer edad, String estadoSalud, String ubicacion) {
+                  Integer edad, String estadoSalud, String ubicacion, String descripcion, String genero) {
         this.nombre = nombre;
         this.especie = especie;
         this.raza = raza;
@@ -56,6 +60,8 @@ public class Animal {
         this.estadoSalud = estadoSalud;
         this.ubicacion = ubicacion;
         this.estadoAdopcion = EstadoAdopcion.DISPONIBLE; // Por defecto
+        this.descripcion = descripcion;
+        this.genero = genero;
     }
 
     // Getters y Setters
@@ -75,6 +81,10 @@ public class Animal {
     public void setUbicacion(String ubicacion) { this.ubicacion = ubicacion; }
     public String getFoto() { return foto; }
     public void setFoto(String foto) { this.foto = foto; }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public String getGenero() { return genero; }
+    public void setGenero(String genero) { this.genero = genero; }
     public EstadoAdopcion getEstadoAdopcion() { return estadoAdopcion; }
     public void setEstadoAdopcion(EstadoAdopcion estadoAdopcion) { this.estadoAdopcion = estadoAdopcion; }
     public Usuario getRefugio() { return refugio; }

@@ -7,6 +7,9 @@ export interface Usuario {
   nombre: string;
   email: string;
   rol: Rol;
+  descripcion?: string;
+  foto?: string;
+  telefono?: string;
 }
 
 export interface Animal {
@@ -15,7 +18,9 @@ export interface Animal {
   especie: string;
   raza?: string;
   edad?: number;
+  genero?: string;
   estadoSalud?: string;
+  descripcion?: string;
   ubicacion?: string;
   foto?: string;
   estadoAdopcion: EstadoAdopcion;

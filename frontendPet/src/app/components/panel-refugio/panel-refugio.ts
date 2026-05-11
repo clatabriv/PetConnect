@@ -31,10 +31,10 @@ export class PanelRefugioComponent implements OnInit {
 
   cargarAnimales(): void {
     const user = this.authService.getCurrentUser();
-    if (!user) {
-      return;
-    }
-    this.apiService.getAnimalesDeRefugio(user.id).subscribe((animales) => (this.animales = animales));
+    if (!user) return;
+    this.apiService
+      .getAnimalesDeRefugio(user.id)
+      .subscribe((animales) => (this.animales = animales));
   }
 
   editar(animal: Animal): void {
@@ -44,7 +44,9 @@ export class PanelRefugioComponent implements OnInit {
       especie: animal.especie,
       raza: animal.raza,
       edad: animal.edad,
+      genero: animal.genero,
       estadoSalud: animal.estadoSalud,
+      descripcion: animal.descripcion,
       ubicacion: animal.ubicacion,
       foto: animal.foto,
       estadoAdopcion: animal.estadoAdopcion,
@@ -53,9 +55,7 @@ export class PanelRefugioComponent implements OnInit {
 
   guardar(): void {
     const user = this.authService.getCurrentUser();
-    if (!user) {
-      return;
-    }
+    if (!user) return;
 
     if (this.editandoId) {
       this.apiService.editarAnimal(this.editandoId, this.form).subscribe(() => {
@@ -72,6 +72,7 @@ export class PanelRefugioComponent implements OnInit {
   }
 
   borrar(id: number): void {
+    if (!confirm('¿Seguro que quieres borrar este animal?')) return;
     this.apiService.borrarAnimal(id).subscribe(() => this.cargarAnimales());
   }
 
@@ -86,7 +87,9 @@ export class PanelRefugioComponent implements OnInit {
       especie: '',
       raza: '',
       edad: undefined,
+      genero: '',
       estadoSalud: '',
+      descripcion: '',
       ubicacion: '',
       foto: '',
       estadoAdopcion: 'DISPONIBLE' as EstadoAdopcion,

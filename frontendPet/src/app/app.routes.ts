@@ -3,6 +3,7 @@ import { LoginComponent } from './components/login/login';
 import { HomeComponent } from './components/home/home';
 import { AnimalesComponent } from './components/animales/animales';
 import { RefugiosComponent } from './components/refugios/refugios';
+import { DetalleRefugioComponent } from './components/detalle-refugio/detalle-refugio';
 import { FavoritosComponent } from './components/favoritos/favoritos';
 import { PanelRefugioComponent } from './components/panel-refugio/panel-refugio';
 import { PanelAdminComponent } from './components/panel-admin/panel-admin';
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'animales', component: AnimalesComponent },
   { path: 'refugios', component: RefugiosComponent },
+  { path: 'refugios/:id', component: DetalleRefugioComponent },
   {
     path: 'favoritos',
     component: FavoritosComponent,

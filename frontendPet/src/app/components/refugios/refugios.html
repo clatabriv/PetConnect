@@ -9,6 +9,8 @@
       <h3>{{ refugio.nombre }}</h3>
       <p>{{ refugio.email }}</p>
       <span>Refugio verificado</span>
+      <br>
+      <a [routerLink]="['/refugios', refugio.id]" class="btn-ver"> Ver más información </a>
     </article>
   </div>
 </section>
