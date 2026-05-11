@@ -39,7 +39,8 @@ public class FavoritoService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No puedes ver favoritos de otro usuario");
         }
 
-        return favoritoRepository.findByAdoptanteId(adoptanteId)
+        // Para que funcione el panel de favoritos
+        return favoritoRepository.findByAdoptanteIdWithAnimal(adoptanteId)
             .stream()
             .map(Favorito::getAnimal)
             .toList();

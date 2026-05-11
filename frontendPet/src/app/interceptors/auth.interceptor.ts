@@ -9,8 +9,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const token = authService.getBasicToken();
   const isApiCall = req.url.includes('/api/');
-  const isPublicEndpoint = req.url.endsWith('/api/login') || req.url.endsWith('/api/usuarios');
 
+  const isPublicEndpoint = req.url.endsWith('/api/login');
   if (!token || !isApiCall || isPublicEndpoint) {
     return next(req);
   }

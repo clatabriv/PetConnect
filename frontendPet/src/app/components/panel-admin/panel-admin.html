@@ -1,67 +1,159 @@
 <section class="page">
   <header>
-    <h1>Panel de administracion</h1>
+    <h1>Panel de administración</h1>
     <a routerLink="/home">Inicio</a>
   </header>
 
-  <section class="create-user">
+  <!-- ── Crear usuario ── -->
+  <section class="card">
     <h2>Crear usuario</h2>
     <div class="fields">
       <input [(ngModel)]="nuevoUsuario.nombre" placeholder="Nombre" />
-      <input [(ngModel)]="nuevoUsuario.email" placeholder="Email" />
-      <input [(ngModel)]="nuevoUsuario.password" placeholder="Contrasena" />
+      <input [(ngModel)]="nuevoUsuario.email" placeholder="Email" type="email" />
+      <input [(ngModel)]="nuevoUsuario.password" placeholder="Contraseña" type="password" />
       <select [(ngModel)]="nuevoUsuario.rol">
         <option value="ADOPTANTE">ADOPTANTE</option>
         <option value="REFUGIO">REFUGIO</option>
         <option value="ADMIN">ADMIN</option>
       </select>
-      <button (click)="crearUsuario()">Crear</button>
+      <button class="btn-primary" (click)="crearUsuario()">Crear</button>
     </div>
   </section>
 
-  <section class="tables">
-    <article>
-      <h2>Usuarios</h2>
+  <!-- ── Tabla usuarios ── -->
+  <section class="card">
+    <h2>Usuarios</h2>
+    <div class="table-wrap">
       <table>
         <thead>
           <tr>
             <th>Nombre</th>
             <th>Email</th>
             <th>Rol</th>
-            <th>Accion</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let usuario of usuarios">
-            <td>{{ usuario.nombre }}</td>
-            <td>{{ usuario.email }}</td>
-            <td>{{ usuario.rol }}</td>
-            <td><button class="danger" (click)="borrarUsuario(usuario.id)">Borrar</button></td>
+          <tr *ngFor="let u of usuarios">
+            <td>{{ u.nombre }}</td>
+            <td>{{ u.email }}</td>
+            <td><span class="badge" [class]="'badge-' + u.rol.toLowerCase()">{{ u.rol }}</span></td>
+            <td class="actions">
+              <button class="btn-edit" (click)="abrirEditarUsuario(u)">Editar</button>
+              <button class="btn-danger" (click)="borrarUsuario(u.id)">Borrar</button>
+            </td>
+          </tr>
+          <tr *ngIf="usuarios.length === 0">
+            <td colspan="4" class="empty">No hay usuarios</td>
           </tr>
         </tbody>
       </table>
-    </article>
+    </div>
+  </section>
 
-    <article>
-      <h2>Animales</h2>
+  <!-- ── Tabla animales ── -->
+  <section class="card">
+    <h2>Animales</h2>
+    <div class="table-wrap">
       <table>
         <thead>
           <tr>
             <th>Nombre</th>
             <th>Especie</th>
+            <th>Raza</th>
+            <th>Edad</th>
+            <th>Ubicación</th>
             <th>Estado</th>
-            <th>Accion</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let animal of animales">
-            <td>{{ animal.nombre }}</td>
-            <td>{{ animal.especie }}</td>
-            <td>{{ animal.estadoAdopcion }}</td>
-            <td><button class="danger" (click)="borrarAnimal(animal.id)">Borrar</button></td>
+          <tr *ngFor="let a of animales">
+            <td>{{ a.nombre }}</td>
+            <td>{{ a.especie }}</td>
+            <td>{{ a.raza || '—' }}</td>
+            <td>{{ a.edad != null ? a.edad + ' años' : '—' }}</td>
+            <td>{{ a.ubicacion || '—' }}</td>
+            <td><span class="badge" [class]="'badge-' + a.estadoAdopcion.toLowerCase()">{{ a.estadoAdopcion }}</span>
+            </td>
+            <td class="actions">
+              <button class="btn-edit" (click)="abrirEditarAnimal(a)">Editar</button>
+              <button class="btn-danger" (click)="borrarAnimal(a.id)">Borrar</button>
+            </td>
+          </tr>
+          <tr *ngIf="animales.length === 0">
+            <td colspan="7" class="empty">No hay animales</td>
           </tr>
         </tbody>
       </table>
-    </article>
+    </div>
   </section>
 </section>
+
+<!-- ══════════════════════════════════════
+     MODAL — Editar usuario
+════════════════════════════════════════ -->
+<div class="modal-overlay" *ngIf="usuarioEditando" (click)="cancelarUsuario()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>Editar usuario</h3>
+
+    <label>Nombre
+      <input [(ngModel)]="usuarioEdit.nombre" />
+    </label>
+    <label>Email
+      <input [(ngModel)]="usuarioEdit.email" type="email" />
+    </label>
+    <label>Rol
+      <select [(ngModel)]="usuarioEdit.rol">
+        <option value="ADOPTANTE">ADOPTANTE</option>
+        <option value="REFUGIO">REFUGIO</option>
+        <option value="ADMIN">ADMIN</option>
+      </select>
+    </label>
+    <label>Nueva contraseña <span class="hint">(dejar vacío para no cambiarla)</span>
+      <input [(ngModel)]="usuarioEdit.password" type="password" placeholder="••••••••" />
+    </label>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="cancelarUsuario()">Cancelar</button>
+      <button class="btn-primary" (click)="guardarUsuario()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MODAL — Editar animal
+════════════════════════════════════════ -->
+<div class="modal-overlay" *ngIf="animalEditando" (click)="cancelarAnimal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>Editar animal</h3>
+
+    <label>Nombre
+      <input [(ngModel)]="animalEdit.nombre" />
+    </label>
+    <label>Especie
+      <input [(ngModel)]="animalEdit.especie" />
+    </label>
+    <label>Raza
+      <input [(ngModel)]="animalEdit.raza" />
+    </label>
+    <label>Edad (años)
+      <input [(ngModel)]="animalEdit.edad" type="number" min="0" />
+    </label>
+    <label>Ubicación
+      <input [(ngModel)]="animalEdit.ubicacion" />
+    </label>
+    <label>Estado de adopción
+      <select [(ngModel)]="animalEdit.estadoAdopcion">
+        <option value="DISPONIBLE">DISPONIBLE</option>
+        <option value="EN_PROCESO">EN PROCESO</option>
+        <option value="ADOPTADO">ADOPTADO</option>
+      </select>
+    </label>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="cancelarAnimal()">Cancelar</button>
+      <button class="btn-primary" (click)="guardarAnimal()">Guardar</button>
+    </div>
+  </div>
+</div>

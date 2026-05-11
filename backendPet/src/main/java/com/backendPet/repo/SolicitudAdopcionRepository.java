@@ -17,4 +17,8 @@ public interface SolicitudAdopcionRepository extends JpaRepository<SolicitudAdop
     // Solicitudes pendientes
     List<SolicitudAdopcion> findByEstadoSolicitud(
         SolicitudAdopcion.EstadoSolicitud estadoSolicitud);
+    
+    // ADMIN
+    void deleteByAdoptanteId(Long andoptanteId);
+    void deleteByAnimalId(Long animalId);
 }

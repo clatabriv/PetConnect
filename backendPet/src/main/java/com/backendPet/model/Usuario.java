@@ -25,7 +25,7 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @NotBlank(message = "La contraseña es obligatoria")
+    // @NotBlank(message = "La contraseña es obligatoria")
     @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;

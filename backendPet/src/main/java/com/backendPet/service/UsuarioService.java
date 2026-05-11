@@ -8,15 +8,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
+// Añade estos imports arriba del todo en UsuarioService.java:
+import com.backendPet.repo.FavoritoRepository;
+import com.backendPet.repo.SolicitudAdopcionRepository;
+import com.backendPet.repo.AnimalRepository;
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final FavoritoRepository favoritoRepository;
+    private final SolicitudAdopcionRepository solicitudRepository;
+    private final AnimalRepository animalRepository;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder, FavoritoRepository favoritoRepository, SolicitudAdopcionRepository solicitudRepository,
+        AnimalRepository animalRepository) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
+        this.favoritoRepository = favoritoRepository;
+        this.solicitudRepository = solicitudRepository;
+        this.animalRepository = animalRepository;
     }
 
     public List<Usuario> findAll() {
@@ -55,14 +68,38 @@ public class UsuarioService {
         }
         return usuarioRepository.save(existing);
     }
+// ANTES:
+//    public void delete(Long id) {
+//        if (!usuarioRepository.existsById(id)) {
+//            throw new ResponseStatusException(
+//                HttpStatus.NOT_FOUND, "Usuario no encontrado");
+//        }
+//        usuarioRepository.deleteById(id);
+//    }
+// AHORA:
+@Transactional
+public void delete(Long id) {
+    Usuario usuario = findById(id);
 
-    public void delete(Long id) {
-        if (!usuarioRepository.existsById(id)) {
-            throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Usuario no encontrado");
+    if (usuario.getRol() == Usuario.Rol.ADOPTANTE) {
+        // Borrar favoritos y solicitudes del adoptante
+        favoritoRepository.deleteByAdoptanteId(id);
+        solicitudRepository.deleteByAdoptanteId(id);
+
+    } else if (usuario.getRol() == Usuario.Rol.REFUGIO) {
+        // Para cada animal del refugio, borrar sus favoritos y solicitudes primero
+        List<Long> animalIds = animalRepository.findByRefugioId(id)
+            .stream().map(a -> a.getId()).toList();
+
+        for (Long animalId : animalIds) {
+            favoritoRepository.deleteByAnimalId(animalId);
+            solicitudRepository.deleteByAnimalId(animalId);
         }
-        usuarioRepository.deleteById(id);
+        // Los animales se borran solos por CascadeType.ALL en Usuario
     }
+
+    usuarioRepository.deleteById(id);
+}
 
     // Para el login
     public Usuario login(String email, String password) {
