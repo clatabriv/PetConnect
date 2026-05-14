@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
 import { Animal } from '../../models/types';
+import { NavbarComponent } from '../navbar/navbar';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-animales',
   standalone: true,
-  imports: [FormsModule, RouterLink, NgFor],
+  imports: [RouterLink, NgFor, NavbarComponent, FormsModule],
   templateUrl: './animales.html',
   styleUrl: './animales.css',
 })
@@ -70,11 +71,15 @@ export class AnimalesComponent implements OnInit {
     }
 
     if (this.esFavorito(animalId)) {
-      this.apiService.eliminarFavorito(user.id, animalId).subscribe(() => this.favoritosIds.delete(animalId));
+      this.apiService
+        .eliminarFavorito(user.id, animalId)
+        .subscribe(() => this.favoritosIds.delete(animalId));
       return;
     }
 
-    this.apiService.agregarFavorito(user.id, animalId).subscribe(() => this.favoritosIds.add(animalId));
+    this.apiService
+      .agregarFavorito(user.id, animalId)
+      .subscribe(() => this.favoritosIds.add(animalId));
   }
 
   private cargarFavoritosSiAplica(): void {

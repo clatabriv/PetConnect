@@ -28,6 +28,7 @@ public class Animal {
 
     private String ubicacion;
 
+    @Column(length = 1000)
     private String foto; // URL de la foto
     
     private String descripcion;  // texto largo para la ficha detalle
@@ -36,7 +37,7 @@ public class Animal {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private EstadoAdopcion estadoAdopcion;
+    private EstadoAdopcion estadoAdopcion = EstadoAdopcion.DISPONIBLE;;
 
     public enum EstadoAdopcion {
         DISPONIBLE, EN_PROCESO, ADOPTADO

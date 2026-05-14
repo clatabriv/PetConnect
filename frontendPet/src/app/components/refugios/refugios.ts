@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { Usuario } from '../../models/types';
+import { NavbarComponent } from '../navbar/navbar';
 
 @Component({
   selector: 'app-refugios',
   standalone: true,
-  imports: [RouterLink, NgFor],
+  imports: [RouterLink, NgFor, NavbarComponent],
   templateUrl: './refugios.html',
   styleUrl: './refugios.css',
 })

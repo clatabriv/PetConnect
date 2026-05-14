@@ -5,13 +5,14 @@ import { NgFor } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
 import { Animal, EstadoAdopcion } from '../../models/types';
+import { NavbarComponent } from '../navbar/navbar';
 
 type AnimalForm = Omit<Animal, 'id'>;
 
 @Component({
   selector: 'app-panel-refugio',
   standalone: true,
-  imports: [FormsModule, RouterLink, NgFor],
+  imports: [FormsModule, RouterLink, NgFor, NavbarComponent],
   templateUrl: './panel-refugio.html',
   styleUrl: './panel-refugio.css',
 })

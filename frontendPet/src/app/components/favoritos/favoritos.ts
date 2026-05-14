@@ -4,11 +4,12 @@ import { NgFor } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { Animal } from '../../models/types';
 import { AuthService } from '../../services/auth';
+import { NavbarComponent } from '../navbar/navbar';
 
 @Component({
   selector: 'app-favoritos',
   standalone: true,
-  imports: [RouterLink, NgFor],
+  imports: [RouterLink, NgFor, NavbarComponent],
   templateUrl: './favoritos.html',
   styleUrl: './favoritos.css',
 })

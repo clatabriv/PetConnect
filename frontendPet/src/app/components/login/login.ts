@@ -5,11 +5,12 @@ import { finalize } from 'rxjs';
 import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
 import { Rol, Usuario } from '../../models/types';
+import { NavbarComponent } from '../navbar/navbar';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, NavbarComponent],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -41,14 +42,14 @@ export class LoginComponent {
       .login(email, password)
       .pipe(finalize(() => (this.cargando = false)))
       .subscribe({
-      next: (usuario) => {
-        this.authService.setSession(usuario, email, password);
-        this.redirigirPorRol(usuario);
-      },
-      error: () => {
-        this.error = 'Credenciales incorrectas o usuario sin permisos.';
-      },
-    });
+        next: (usuario) => {
+          this.authService.setSession(usuario, email, password);
+          this.redirigirPorRol(usuario);
+        },
+        error: () => {
+          this.error = 'Credenciales incorrectas o usuario sin permisos.';
+        },
+      });
   }
 
   registrar() {

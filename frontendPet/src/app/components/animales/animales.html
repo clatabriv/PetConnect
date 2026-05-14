@@ -1,11 +1,14 @@
+<app-navbar />
 <section class="page">
+
   <header class="topbar">
+
     <h1>Animales del portal</h1>
     <div class="links">
       <a routerLink="/home">Inicio</a>
       <a routerLink="/refugios">Refugios</a>
       @if (authService.hasRole('ADOPTANTE', 'ADMIN')) {
-        <a routerLink="/favoritos">Favoritos</a>
+      <a routerLink="/favoritos">Favoritos</a>
       }
     </div>
   </header>
@@ -22,26 +25,23 @@
   </div>
 
   @if (loading) {
-    <p>Cargando animales...</p>
+  <p>Cargando animales...</p>
   } @else {
-    <div class="grid">
-      <article class="card" *ngFor="let animal of animalesFiltrados">
-        <img
-          [src]="animal.foto || 'https://placehold.co/600x400?text=Animal+sin+foto'"
-          [alt]="animal.nombre"
-        />
-        <div class="body">
-          <h3>{{ animal.nombre }}</h3>
-          <p>{{ animal.especie }} · {{ animal.raza || 'Raza no indicada' }}</p>
-          <p>{{ animal.ubicacion || 'Ubicacion no indicada' }}</p>
-          <span class="status">{{ animal.estadoAdopcion }}</span>
-        </div>
-        @if (authService.hasRole('ADOPTANTE', 'ADMIN')) {
-          <button class="fav" (click)="alternarFavorito(animal.id)">
-            {{ esFavorito(animal.id) ? 'Quitar de favoritos' : 'Guardar en favoritos' }}
-          </button>
-        }
-      </article>
-    </div>
+  <div class="grid">
+    <article class="card" *ngFor="let animal of animalesFiltrados">
+      <img [src]="animal.foto || 'https://placehold.co/600x400?text=Animal+sin+foto'" [alt]="animal.nombre" />
+      <div class="body">
+        <h3>{{ animal.nombre }}</h3>
+        <p>{{ animal.especie }} · {{ animal.raza || 'Raza no indicada' }}</p>
+        <p>{{ animal.ubicacion || 'Ubicacion no indicada' }}</p>
+        <span class="status">{{ animal.estadoAdopcion }}</span>
+      </div>
+      @if (authService.hasRole('ADOPTANTE', 'ADMIN')) {
+      <button class="fav" (click)="alternarFavorito(animal.id)">
+        {{ esFavorito(animal.id) ? 'Quitar de favoritos' : 'Guardar en favoritos' }}
+      </button>
+      }
+    </article>
+  </div>
   }
 </section>

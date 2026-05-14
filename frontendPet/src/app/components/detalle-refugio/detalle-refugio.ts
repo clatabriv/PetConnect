@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { Animal, Usuario } from '../../models/types';
 import { AuthService } from '../../services/auth';
+import { NavbarComponent } from '../navbar/navbar';
 
 @Component({
   selector: 'app-detalle-refugio',
   standalone: true,
-  imports: [RouterLink, NgFor, NgIf],
+  imports: [RouterLink, NgFor, NgIf, NavbarComponent],
   templateUrl: './detalle-refugio.html',
   styleUrl: './detalle-refugio.css',
 })

@@ -1,34 +1,5 @@
+<app-navbar />
 <div class="home-container">
-  <nav class="navbar">
-    <div class="brand">PetConnect</div>
-    @if (authService.isAuthenticated()) {
-    <div class="user-badge">
-      <span class="user-badge-rol">{{ authService.getCurrentUser()?.rol }}</span>
-      <span class="user-badge-nombre">{{ authService.getCurrentUser()?.nombre }}</span>
-    </div>
-    }
-
-    <div class="nav-buttons">
-      <a routerLink="/home">Inicio</a>
-      <a routerLink="/animales">Animales</a>
-      <a routerLink="/refugios">Refugios</a>
-
-      @if (authService.hasRole('ADOPTANTE', 'ADMIN')) {
-      <a routerLink="/favoritos">Favoritos</a>
-      }
-      @if (authService.hasRole('REFUGIO', 'ADMIN')) {
-      <a routerLink="/panel-refugio">Mi refugio</a>
-      }
-      @if (authService.hasRole('ADMIN')) {
-      <a routerLink="/panel-admin">Admin</a>
-      }
-      @if (!authService.isAuthenticated()) {
-      <a class="cta" routerLink="/login">Login</a>
-      } @else {
-      <a routerLink="/home" (click)="cerrarSesion()">Salir</a>
-      }
-    </div>
-  </nav>
 
   <div class="hero">
     <div class="titulo-container">

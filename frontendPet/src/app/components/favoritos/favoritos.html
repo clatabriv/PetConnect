@@ -1,3 +1,4 @@
+<app-navbar />
 <section class="page">
   <header>
     <h1>Mis favoritos</h1>
@@ -6,10 +7,7 @@
 
   <div class="grid">
     <article *ngFor="let animal of favoritos">
-      <img
-        [src]="animal.foto || 'https://placehold.co/500x320?text=Sin+foto'"
-        [alt]="animal.nombre"
-      />
+      <img [src]="animal.foto || 'https://placehold.co/500x320?text=Sin+foto'" [alt]="animal.nombre" />
       <div>
         <h3>{{ animal.nombre }}</h3>
         <p>{{ animal.especie }} · {{ animal.ubicacion || 'Sin ubicacion' }}</p>
