@@ -52,9 +52,35 @@
     </div>
   </section>
 
+  <!-- ── Crear animal ── -->
+  <section class="card">
+    <div class="card-header">
+      <h2>Animales</h2>
+      <button class="btn-primary" (click)="mostrarFormAnimal = !mostrarFormAnimal">
+        {{ mostrarFormAnimal ? 'Cancelar' : '+ Nuevo animal' }}
+      </button>
+    </div>
+
+    <div class="fields" *ngIf="mostrarFormAnimal">
+      <select [(ngModel)]="nuevoAnimalRefugioId">
+        <option [ngValue]="null" disabled>Selecciona refugio *</option>
+        <option *ngFor="let r of refugios" [ngValue]="r.id">{{ r.nombre }}</option>
+      </select>
+      <input [(ngModel)]="nuevoAnimal.nombre" placeholder="Nombre *" />
+      <input [(ngModel)]="nuevoAnimal.especie" placeholder="Especie *" />
+      <input [(ngModel)]="nuevoAnimal.raza" placeholder="Raza" />
+      <input [(ngModel)]="nuevoAnimal.edad" type="number" placeholder="Edad" />
+      <input [(ngModel)]="nuevoAnimal.genero" placeholder="Género" />
+      <input [(ngModel)]="nuevoAnimal.estadoSalud" placeholder="Estado de salud" />
+      <input [(ngModel)]="nuevoAnimal.ubicacion" placeholder="Ubicación" />
+      <input [(ngModel)]="nuevoAnimal.foto" placeholder="URL de foto" />
+      <textarea [(ngModel)]="nuevoAnimal.descripcion" placeholder="Descripción"></textarea>
+      <button class="btn-primary" (click)="crearAnimal()">Crear animal</button>
+    </div>
+  </section>
+
   <!-- ── Tabla animales ── -->
   <section class="card">
-    <h2>Animales</h2>
     <div class="table-wrap">
       <table>
         <thead>

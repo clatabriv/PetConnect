@@ -26,6 +26,22 @@ export class PanelAdminComponent implements OnInit {
 
   // ── Editar animal ──────────────────────────────────────────
   animalEditando: Animal | null = null;
+  mostrarFormAnimal = false;
+  refugios: Usuario[] = [];
+  nuevoAnimalRefugioId: number | null = null;
+  nuevoAnimal = {
+    nombre: '',
+    especie: '',
+    raza: '',
+    edad: 0,
+    genero: '',
+    estadoSalud: '',
+    descripcion: '',
+    ubicacion: '',
+    foto: '',
+    estadoAdopcion: 'DISPONIBLE' as EstadoAdopcion,
+  };
+
   animalEdit = {
     nombre: '',
     especie: '',
@@ -43,6 +59,28 @@ export class PanelAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.recargar();
+    this.apiService.getRefugios().subscribe((r) => (this.refugios = r));
+  }
+
+  crearAnimal(): void {
+    if (!this.nuevoAnimalRefugioId || !this.nuevoAnimal.nombre || !this.nuevoAnimal.especie) return;
+    this.apiService.crearAnimal(this.nuevoAnimalRefugioId, this.nuevoAnimal).subscribe(() => {
+      this.mostrarFormAnimal = false;
+      this.nuevoAnimal = {
+        nombre: '',
+        especie: '',
+        raza: '',
+        edad: 0,
+        genero: '',
+        estadoSalud: '',
+        descripcion: '',
+        ubicacion: '',
+        foto: '',
+        estadoAdopcion: 'DISPONIBLE',
+      };
+      this.nuevoAnimalRefugioId = null;
+      this.recargar();
+    });
   }
 
   recargar(): void {
