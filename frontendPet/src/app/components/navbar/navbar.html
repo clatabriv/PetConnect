@@ -12,10 +12,10 @@
         <a routerLink="/home">Inicio</a>
         <a routerLink="/animales">Animales</a>
         <a routerLink="/refugios">Refugios</a>
-        @if (authService.hasRole('ADOPTANTE', 'ADMIN')) {
+        @if (authService.hasRole('ADOPTANTE')) {
         <a routerLink="/favoritos">Favoritos</a>
         }
-        @if (authService.hasRole('REFUGIO', 'ADMIN')) {
+        @if (authService.hasRole('REFUGIO')) {
         <a routerLink="/panel-refugio">Mi refugio</a>
         }
         @if (authService.hasRole('ADMIN')) {
