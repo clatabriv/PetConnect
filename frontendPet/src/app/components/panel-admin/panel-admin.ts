@@ -80,7 +80,11 @@ export class PanelAdminComponent implements OnInit {
     especie: '',
     raza: '',
     edad: 0,
+    genero: '',
+    estadoSalud: '',
+    descripcion: '',
     ubicacion: '',
+    foto: '',
     estadoAdopcion: 'DISPONIBLE' as EstadoAdopcion,
   };
 
@@ -148,7 +152,11 @@ export class PanelAdminComponent implements OnInit {
       especie: a.especie,
       raza: a.raza ?? '',
       edad: a.edad ?? 0,
+      genero: a.genero ?? '',
+      estadoSalud: a.estadoSalud ?? '',
+      descripcion: a.descripcion ?? '',
       ubicacion: a.ubicacion ?? '',
+      foto: a.foto ?? '', // ← ¡esto faltaba!
       estadoAdopcion: a.estadoAdopcion,
     };
   }

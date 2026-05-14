@@ -83,6 +83,8 @@ public class AnimalService {
         existing.setUbicacion(animal.getUbicacion());
         existing.setFoto(animal.getFoto());
         existing.setEstadoAdopcion(animal.getEstadoAdopcion());
+        existing.setDescripcion(animal.getDescripcion());  // ← añadir
+        existing.setGenero(animal.getGenero());            // ← añadir
         return animalRepository.save(existing);
     }
 

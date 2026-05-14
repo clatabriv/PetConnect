@@ -77,7 +77,7 @@ Este documento resume la arquitectura del proyecto, los flujos por rol y las rut
 - `/animales`: listado general con filtros y favoritos.
 - `/refugios`: listado de refugios disponibles.
 - `/favoritos`: lista personal de favoritos (ADOPTANTE/ADMIN).
-- `/panel-refugio`: CRUD de animales del refugio logueado.
+- `/panel-refugio-update`: CRUD de animales del refugio logueado.
 - `/panel-admin`: administracion de usuarios y animales.
 
 ## 6. Estructura clave de frontend
