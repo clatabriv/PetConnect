@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
-import { Animal, EstadoAdopcion } from '../../models/types';
+import { Animal, EstadoAdopcion, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
 
 type AnimalForm = Omit<Animal, 'id'>;
@@ -12,7 +12,7 @@ type AnimalForm = Omit<Animal, 'id'>;
 @Component({
   selector: 'app-panel-refugio',
   standalone: true,
-  imports: [FormsModule, RouterLink, NgFor, NavbarComponent],
+  imports: [FormsModule, RouterLink, NgFor, NgIf, NavbarComponent],
   templateUrl: './panel-refugio.html',
   styleUrl: './panel-refugio.css',
 })
@@ -21,6 +21,11 @@ export class PanelRefugioComponent implements OnInit {
   editandoId: number | null = null;
   form: AnimalForm = this.formVacio();
 
+  // ── Perfil del refugio ──
+  perfil = { nombre: '', descripcion: '', foto: '', telefono: '' };
+  guardandoPerfil = false;
+  perfilGuardado = false;
+
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
@@ -28,6 +33,45 @@ export class PanelRefugioComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarAnimales();
+    this.cargarPerfil();
+  }
+
+  cargarPerfil(): void {
+    const user = this.authService.getCurrentUser();
+    if (!user) return;
+    this.perfil = {
+      nombre: user.nombre ?? '',
+      descripcion: user.descripcion ?? '',
+      foto: user.foto ?? '',
+      telefono: user.telefono ?? '',
+    };
+  }
+
+  guardarPerfil(): void {
+    const user = this.authService.getCurrentUser();
+    if (!user) return;
+    this.guardandoPerfil = true;
+    this.perfilGuardado = false;
+
+    // El backend valida @Valid, así que enviamos email también (aunque no lo actualice)
+    const payload = {
+      ...this.perfil,
+      email: user.email,
+    };
+
+    this.apiService.editarPerfilRefugio(user.id, payload).subscribe({
+      next: (actualizado) => {
+        // Refresca la sesión local con los datos nuevos
+        const token = this.authService.getBasicToken();
+        if (token) {
+          localStorage.setItem('petconnect_usuario', JSON.stringify(actualizado));
+        }
+        this.guardandoPerfil = false;
+        this.perfilGuardado = true;
+        setTimeout(() => (this.perfilGuardado = false), 3000);
+      },
+      error: () => (this.guardandoPerfil = false),
+    });
   }
 
   cargarAnimales(): void {

@@ -25,6 +25,10 @@ export class ApiService {
     return this.http.get<Usuario[]>(`${this.apiUrl}/usuarios/refugios`);
   }
 
+  getRefugioPublico(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/refugios/${id}`);
+  }
+
   getUsuarioActual(): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/usuarios/me`);
   }
@@ -46,6 +50,10 @@ export class ApiService {
 
   login(email: string, password: string): Observable<Usuario> {
     return this.http.post<Usuario>(`${this.apiUrl}/login`, { email, password });
+  }
+
+  editarPerfilRefugio(id: number, perfil: Partial<Usuario>): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.apiUrl}/usuarios/${id}/perfil`, perfil);
   }
 
   // -------- ANIMALES --------
@@ -124,10 +132,5 @@ export class ApiService {
 
   eliminarFavorito(adoptanteId: number, animalId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/adoptantes/${adoptanteId}/favoritos/${animalId}`);
-  }
-
-  // Detalle-refugio
-  getRefugioPublico(id: number): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/refugios/${id}`);
   }
 }

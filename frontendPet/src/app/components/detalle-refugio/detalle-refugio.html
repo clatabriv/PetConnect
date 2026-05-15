@@ -4,17 +4,23 @@
         <a routerLink="/refugios">← Volver a refugios</a>
     </header>
 
-    <p *ngIf="cargando">Cargando...</p>
+    <p *ngIf="cargando">Cargando información del refugio...</p>
     <p *ngIf="error" class="error">{{ error }}</p>
 
     <article *ngIf="refugio && !cargando" class="refugio-card">
         <div class="refugio-cabecera">
-            <img [src]="refugio.foto || 'https://placehold.co/200x200?text=Refugio'" alt="Foto del refugio"
+            <img [src]="refugio.foto || 'https://placehold.co/280x280?text=Refugio'" [alt]="refugio.nombre"
                 class="refugio-foto" />
             <div class="refugio-info">
                 <h1>{{ refugio.nombre }}</h1>
-                <p *ngIf="refugio.email"><strong>Email:</strong> {{ refugio.email }}</p>
-                <p *ngIf="refugio.telefono"><strong>Teléfono:</strong> {{ refugio.telefono }}</p>
+                <p *ngIf="refugio.email">
+                    <strong>Email:</strong>
+                    <a [href]="'mailto:' + refugio.email">{{ refugio.email }}</a>
+                </p>
+                <p *ngIf="refugio.telefono">
+                    <strong>Teléfono:</strong>
+                    <a [href]="'tel:' + refugio.telefono">{{ refugio.telefono }}</a>
+                </p>
             </div>
         </div>
 
@@ -24,18 +30,23 @@
     </article>
 
     <section *ngIf="refugio && !cargando" class="animales-section">
-        <h2>Animales de este refugio</h2>
-        <p *ngIf="animales.length === 0">Este refugio aún no tiene animales publicados.</p>
+        <h2>Animales disponibles</h2>
+        <p *ngIf="animales.length === 0">
+            Este refugio aún no tiene animales publicados.
+        </p>
 
         <div class="list" *ngIf="animales.length > 0">
             <article *ngFor="let animal of animales">
-                <img [src]="animal.foto || 'https://placehold.co/200x150?text=Animal'" [alt]="animal.nombre" />
-                <h3>{{ animal.nombre }}</h3>
-                <p>{{ animal.especie }}<span *ngIf="animal.raza"> · {{ animal.raza }}</span></p>
-                <p *ngIf="animal.edad !== undefined && animal.edad !== null">
-                    Edad: {{ animal.edad }} años
-                </p>
                 <span class="estado">{{ animal.estadoAdopcion }}</span>
+                <img [src]="animal.foto || 'https://placehold.co/400x300?text=' + animal.nombre"
+                    [alt]="animal.nombre" />
+                <h3>{{ animal.nombre }}</h3>
+                <p>
+                    {{ animal.especie }}<span *ngIf="animal.raza"> · {{ animal.raza }}</span>
+                </p>
+                <p *ngIf="animal.edad !== undefined && animal.edad !== null">
+                    {{ animal.edad }} {{ animal.edad === 1 ? 'año' : 'años' }}
+                </p>
             </article>
         </div>
     </section>

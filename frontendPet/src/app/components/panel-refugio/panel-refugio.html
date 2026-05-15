@@ -5,6 +5,34 @@
     <a routerLink="/home">Inicio</a>
   </header>
 
+  <!-- ── Perfil del refugio ── -->
+  <form class="editor perfil-form" (ngSubmit)="guardarPerfil()">
+    <h2>Mi perfil de refugio</h2>
+
+    <div class="perfil-grid">
+      <div class="perfil-foto-col">
+        <img [src]="perfil.foto || 'https://placehold.co/200x200?text=Refugio'" alt="Foto del refugio"
+          class="perfil-foto-preview" />
+        <input [(ngModel)]="perfil.foto" name="perfilFoto" placeholder="URL de la foto de perfil" />
+      </div>
+
+      <div class="perfil-datos-col">
+        <input [(ngModel)]="perfil.nombre" name="perfilNombre" placeholder="Nombre del refugio" required />
+        <input [(ngModel)]="perfil.telefono" name="perfilTelefono" placeholder="Teléfono de contacto" />
+        <textarea [(ngModel)]="perfil.descripcion" name="perfilDescripcion" rows="6"
+          placeholder="Descripción del refugio: a qué os dedicáis, vuestra historia, el equipo de personas que trabaja aquí, datos interesantes..."></textarea>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit" [disabled]="guardandoPerfil">
+        {{ guardandoPerfil ? 'Guardando...' : 'Guardar perfil' }}
+      </button>
+      <span class="ok-msg" *ngIf="perfilGuardado">✓ Perfil actualizado</span>
+    </div>
+  </form>
+
+  <!-- ── Gestión de animales ── -->
   <form class="editor" (ngSubmit)="guardar()">
     <h2>{{ editandoId ? 'Editar animal' : 'Nuevo animal' }}</h2>
 

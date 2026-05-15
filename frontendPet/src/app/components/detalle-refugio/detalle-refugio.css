@@ -1,50 +1,265 @@
-.perfil-form {
-  margin-bottom: 28px;
+/* ========================================
+   VISTA DE DETALLE DE REFUGIO - PÚBLICA
+   ======================================== */
+
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fffaf4 0%, #f2f6ff 100%);
+  padding: 0;
 }
 
-.perfil-grid {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 20px;
-  margin: 16px 0;
+.page header {
+  padding: 20px 5vw;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e4ebf5;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.perfil-foto-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.perfil-foto-preview {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid #dde5f0;
-}
-
-.perfil-datos-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.ok-msg {
-  color: #1a7a42;
+.page header a {
+  text-decoration: none;
+  color: #1f3147;
   font-weight: 600;
-  font-size: 0.9rem;
-  align-self: center;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
 }
 
-@media (max-width: 640px) {
-  .perfil-grid {
+.page header a:hover {
+  color: #e74c3c;
+}
+
+/* ── Estados de carga ── */
+.page > p {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 18px;
+  color: #465a73;
+}
+
+.error {
+  color: #e74c3c;
+  background: #fff5f5;
+  border: 1px solid #ffd6d6;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 40px auto;
+  max-width: 600px;
+}
+
+/* ── Tarjeta del refugio ── */
+.refugio-card {
+  background: #ffffff;
+  margin: 40px 5vw;
+  padding: 0;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(31, 49, 71, 0.08);
+  overflow: hidden;
+  border: 1px solid #e4ebf5;
+}
+
+.refugio-cabecera {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  padding: 40px;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border-bottom: 1px solid #e4ebf5;
+}
+
+.refugio-foto {
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 3px solid #ffffff;
+}
+
+.refugio-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.refugio-info h1 {
+  margin: 0 0 8px;
+  font-size: clamp(28px, 3.5vw, 42px);
+  color: #1f3147;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.refugio-info p {
+  margin: 0;
+  font-size: 16px;
+  color: #51637a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.refugio-info p strong {
+  color: #1f3147;
+  font-weight: 600;
+  min-width: 80px;
+}
+
+.refugio-descripcion {
+  padding: 32px 40px 40px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #465a73;
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* ── Sección de animales ── */
+.animales-section {
+  margin: 50px 5vw 60px;
+}
+
+.animales-section h2 {
+  font-size: clamp(24px, 3vw, 32px);
+  color: #1f3147;
+  margin: 0 0 24px;
+  font-weight: 700;
+}
+
+.animales-section > p {
+  color: #51637a;
+  font-size: 16px;
+  padding: 40px 20px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e1;
+}
+
+/* ── Grid de animales ── */
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.list article {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(31, 49, 71, 0.08);
+  border: 1px solid #e4ebf5;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.list article:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(31, 49, 71, 0.15);
+  border-color: #d1dce8;
+}
+
+.list article img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.list article h3 {
+  margin: 16px 16px 8px;
+  font-size: 20px;
+  color: #1f3147;
+  font-weight: 700;
+}
+
+.list article p {
+  margin: 0 16px 12px;
+  font-size: 15px;
+  color: #51637a;
+  line-height: 1.5;
+}
+
+.list article p:last-of-type {
+  margin-bottom: 16px;
+}
+
+/* ── Badge de estado ── */
+.estado {
+  display: inline-block;
+  padding: 6px 14px;
+  margin: 0 16px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  background: #e0f2e9;
+  color: #1a7a42;
+}
+
+.list article .estado {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .refugio-cabecera {
     grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px;
+    text-align: center;
   }
-  .perfil-foto-preview,
-  .perfil-foto-col {
+
+  .refugio-foto {
     width: 100%;
+    max-width: 280px;
+    height: 280px;
+    margin: 0 auto;
   }
-  .perfil-foto-preview {
-    height: 240px;
+
+  .refugio-info {
+    align-items: center;
+  }
+
+  .refugio-info p {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .refugio-descripcion {
+    padding: 24px 28px 32px;
+    font-size: 16px;
+  }
+
+  .list {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .refugio-card {
+    margin: 20px 4vw;
+  }
+
+  .animales-section {
+    margin: 30px 4vw 40px;
+  }
+
+  .list {
+    grid-template-columns: 1fr;
   }
 }
