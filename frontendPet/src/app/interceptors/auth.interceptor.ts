@@ -10,7 +10,15 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = authService.getBasicToken();
   const isApiCall = req.url.includes('/api/');
 
-  const isPublicEndpoint = req.url.endsWith('/api/login');
+  // Endpoints públicos según SecurityConfig del backend
+  const isPublicEndpoint =
+    req.url.includes('/api/login') ||
+    req.url.includes('/api/usuarios/refugios') ||
+    req.url.includes('/api/animales/disponibles') ||
+    (req.url.includes('/api/animales') && req.method === 'GET') ||
+    (req.url.includes('/api/refugios/') && req.method === 'GET') ||
+    (req.url.includes('/api/usuarios') && req.method === 'POST');
+
   if (!token || !isApiCall || isPublicEndpoint) {
     return next(req);
   }

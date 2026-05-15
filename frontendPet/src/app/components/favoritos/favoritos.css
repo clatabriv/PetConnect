@@ -31,6 +31,14 @@ article {
   border-radius: 14px;
   border: 1px solid #dde5f0;
   overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+article:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(31, 49, 71, 0.12);
+  border-color: #cbd5e1;
 }
 
 img {
