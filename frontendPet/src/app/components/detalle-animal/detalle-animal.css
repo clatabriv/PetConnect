@@ -6,6 +6,7 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #fffaf4 0%, #f2f6ff 100%);
   padding: 0;
+  overflow-x: hidden; /* Evitar scroll horizontal */
 }
 
 .page header {
@@ -55,19 +56,20 @@
 
 /* ── Contenedor principal ── */
 .animal-detalle {
-  max-width: 1200px;
+  max-width: 900px; /* Reducir de 1200px a 900px */
   margin: 40px auto;
-  padding: 0 5vw;
+  padding: 0 5vw 40px; /* Añadir padding bottom */
 }
 
 /* ── Hero con foto ── */
 .hero-foto {
   position: relative;
   width: 100%;
-  height: 500px;
+  max-width: 900px; /* Igualar al contenedor principal */
+  height: 380px; /* Reducir un poco más la altura */
+  margin: 0 auto 32px; /* Centrar la imagen */
   border-radius: 20px;
   overflow: hidden;
-  margin-bottom: 32px;
   box-shadow: 0 10px 40px rgba(31, 49, 71, 0.15);
 }
 
@@ -108,15 +110,15 @@
 /* ── Información principal ── */
 .info-principal {
   background: #ffffff;
-  padding: 40px;
+  padding: 32px; /* Reducir de 40px a 32px */
   border-radius: 20px;
   box-shadow: 0 4px 16px rgba(31, 49, 71, 0.08);
   border: 1px solid #e4ebf5;
 }
 
 .info-principal h1 {
-  margin: 0 0 20px;
-  font-size: clamp(32px, 4vw, 48px);
+  margin: 0 0 16px; /* Reducir margen inferior */
+  font-size: clamp(28px, 4vw, 42px); /* Reducir tamaño de fuente */
   color: #1f3147;
   font-weight: 700;
   line-height: 1.2;
