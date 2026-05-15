@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { Animal, Usuario } from '../../models/types';
-import { AuthService } from '../../services/auth';
 import { NavbarComponent } from '../navbar/navbar';
 
 @Component({
@@ -17,25 +16,44 @@ export class DetalleRefugioComponent implements OnInit {
   refugio: Usuario | null = null;
   animales: Animal[] = [];
   cargando = true;
+  error = '';
 
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
-    public authService: AuthService,
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.apiService.getUsuario(id).subscribe({
-      next: (r) => (this.refugio = r),
-      error: () => (this.cargando = false),
-    });
-    this.apiService.getAnimalesDeRefugio(id).subscribe({
-      next: (a) => {
-        this.animales = a.filter((x) => x.estadoAdopcion === 'DISPONIBLE');
+    const idParam = this.route.snapshot.paramMap.get('id');
+    const id = idParam ? Number(idParam) : NaN;
+    if (!id || Number.isNaN(id)) {
+      this.error = 'Refugio no válido.';
+      this.cargando = false;
+      return;
+    }
+    this.cargar(id);
+  }
+
+  private cargar(id: number): void {
+    this.cargando = true;
+    this.apiService.getRefugioPublico(id).subscribe({
+      next: (refugio) => {
+        this.refugio = refugio;
+        this.apiService.getAnimalesDeRefugio(id).subscribe({
+          next: (animales) => {
+            this.animales = animales;
+            this.cargando = false;
+          },
+          error: () => {
+            this.animales = [];
+            this.cargando = false;
+          },
+        });
+      },
+      error: () => {
+        this.error = 'No se ha podido cargar el refugio.';
         this.cargando = false;
       },
-      error: () => (this.cargando = false),
     });
   }
 }

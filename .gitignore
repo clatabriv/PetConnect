@@ -79,3 +79,4 @@ surefire-reports/
 tmp/
 temp/
 *.tmp
+*.zip

@@ -33,7 +33,10 @@ export class ApiService {
     return this.http.post<Usuario>(`${this.apiUrl}/usuarios`, usuario);
   }
 
-  editarUsuario(id: number, usuario: Partial<Usuario> & { password?: string }): Observable<Usuario> {
+  editarUsuario(
+    id: number,
+    usuario: Partial<Usuario> & { password?: string },
+  ): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.apiUrl}/usuarios/${id}`, usuario);
   }
 
@@ -113,10 +116,18 @@ export class ApiService {
   }
 
   agregarFavorito(adoptanteId: number, animalId: number): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/adoptantes/${adoptanteId}/favoritos/${animalId}`, {});
+    return this.http.post<void>(
+      `${this.apiUrl}/adoptantes/${adoptanteId}/favoritos/${animalId}`,
+      {},
+    );
   }
 
   eliminarFavorito(adoptanteId: number, animalId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/adoptantes/${adoptanteId}/favoritos/${animalId}`);
+  }
+
+  // Detalle-refugio
+  getRefugioPublico(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/refugios/${id}`);
   }
 }

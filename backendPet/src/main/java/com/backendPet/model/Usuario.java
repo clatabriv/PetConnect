@@ -34,8 +34,10 @@ public class Usuario {
     @Column(nullable = false)
     private Rol rol;
     
+    @Column(length = 2000)
     private String descripcion;  // descripción del refugio
 
+    @Column(length = 1000)
     private String foto;         // URL foto del refugio
 
     private String telefono;

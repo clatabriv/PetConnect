@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api")
@@ -37,6 +38,15 @@ public class UsuarioController {
     public Usuario obtenerUsuario(@PathVariable Long id) {
         return usuarioService.findById(id);
     }
+    
+    @GetMapping("/refugios/{id}")
+    public Usuario obtenerRefugioPublico(@PathVariable Long id) {
+        Usuario u = usuarioService.findById(id);
+        if (u.getRol() != Usuario.Rol.REFUGIO) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Refugio no encontrado");
+        }
+        return u;
+    }
 
     @GetMapping("/usuarios/me")
     public Usuario usuarioActual() {
@@ -55,10 +65,22 @@ public class UsuarioController {
         return usuarioService.create(usuario);
     }
 
+    @PreAuthorize("hasRole('REFUGIO') or hasRole('ADMIN')")
+    @PutMapping("/usuarios/{id}/perfil")
+    public Usuario editarPerfilRefugio(@PathVariable Long id,
+            @Valid @RequestBody Usuario usuario) {
+        Usuario actor = authContextService.currentUser();
+        if (!authContextService.isAdmin(actor) && !actor.getId().equals(id)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                    "Solo puedes editar tu propio perfil");
+        }
+        return usuarioService.updatePerfilRefugio(id, usuario);
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/usuarios/{id}")
-    public Usuario editarUsuario(@PathVariable Long id, 
-                                  @Valid @RequestBody Usuario usuario) {
+    public Usuario editarUsuario(@PathVariable Long id,
+            @Valid @RequestBody Usuario usuario) {
         return usuarioService.update(id, usuario);
     }
 
@@ -76,4 +98,5 @@ public class UsuarioController {
         String password = credenciales.get("password");
         return usuarioService.login(email, password);
     }
+
 }

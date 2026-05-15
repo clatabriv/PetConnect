@@ -1,66 +1,42 @@
 <app-navbar />
-<section class="page" *ngIf="!cargando; else spinner">
-
+<section class="page">
     <header>
-        <a routerLink="/refugios" class="back">← Volver a refugios</a>
+        <a routerLink="/refugios">← Volver a refugios</a>
     </header>
 
-    <div class="hero" *ngIf="refugio">
-        <!-- Foto o avatar inicial -->
-        <div class="hero-media">
-            <img *ngIf="refugio.foto; else avatarTpl" [src]="refugio.foto" [alt]="refugio.nombre" class="hero-foto" />
-            <ng-template #avatarTpl>
-                <div class="avatar">{{ refugio.nombre.charAt(0).toUpperCase() }}</div>
-            </ng-template>
-        </div>
+    <p *ngIf="cargando">Cargando...</p>
+    <p *ngIf="error" class="error">{{ error }}</p>
 
-        <div class="hero-info">
-            <div class="hero-top">
+    <article *ngIf="refugio && !cargando" class="refugio-card">
+        <div class="refugio-cabecera">
+            <img [src]="refugio.foto || 'https://placehold.co/200x200?text=Refugio'" alt="Foto del refugio"
+                class="refugio-foto" />
+            <div class="refugio-info">
                 <h1>{{ refugio.nombre }}</h1>
-                <span class="badge-verificado">✓ Refugio verificado</span>
+                <p *ngIf="refugio.email"><strong>Email:</strong> {{ refugio.email }}</p>
+                <p *ngIf="refugio.telefono"><strong>Teléfono:</strong> {{ refugio.telefono }}</p>
             </div>
-            <p class="email">✉ {{ refugio.email }}</p>
-            <p class="telefono" *ngIf="refugio.telefono">📞 {{ refugio.telefono }}</p>
-            <p class="descripcion" *ngIf="refugio.descripcion">{{ refugio.descripcion }}</p>
-            <p class="descripcion sin-desc" *ngIf="!refugio.descripcion">Este refugio aún no tiene descripción.</p>
         </div>
-    </div>
 
-    <!-- Animales disponibles -->
-    <div class="section-title">
-        <h2>Animales disponibles</h2>
-        <span class="count">{{ animales.length }} en adopción</span>
-    </div>
+        <p *ngIf="refugio.descripcion" class="refugio-descripcion">
+            {{ refugio.descripcion }}
+        </p>
+    </article>
 
-    <div class="grid" *ngIf="animales.length > 0; else sinAnimales">
-        <article class="card" *ngFor="let animal of animales">
-            <img [src]="animal.foto || 'https://placehold.co/600x400?text=' + animal.nombre" [alt]="animal.nombre" />
-            <div class="body">
+    <section *ngIf="refugio && !cargando" class="animales-section">
+        <h2>Animales de este refugio</h2>
+        <p *ngIf="animales.length === 0">Este refugio aún no tiene animales publicados.</p>
+
+        <div class="list" *ngIf="animales.length > 0">
+            <article *ngFor="let animal of animales">
+                <img [src]="animal.foto || 'https://placehold.co/200x150?text=Animal'" [alt]="animal.nombre" />
                 <h3>{{ animal.nombre }}</h3>
-                <p class="sub">{{ animal.especie }}{{ animal.raza ? ' · ' + animal.raza : '' }}{{ animal.genero ? ' · '
-                    + animal.genero : '' }}</p>
-                <p *ngIf="animal.edad != null">🎂 {{ animal.edad }} años</p>
-                <p *ngIf="animal.ubicacion">📍 {{ animal.ubicacion }}</p>
-                <p *ngIf="animal.estadoSalud" class="salud">🏥 {{ animal.estadoSalud }}</p>
-                <p *ngIf="animal.descripcion" class="desc-animal">{{ animal.descripcion }}</p>
-                <span class="estado disponible">En adopción</span>
-            </div>
-            <a *ngIf="authService.hasRole('ADOPTANTE', 'ADMIN')" routerLink="/animales" class="btn-adoptar">Ver en el
-                portal</a>
-        </article>
-    </div>
-
-    <ng-template #sinAnimales>
-        <div class="empty">
-            <p>Este refugio no tiene animales disponibles en este momento.</p>
-            <a routerLink="/animales">Ver todos los animales</a>
+                <p>{{ animal.especie }}<span *ngIf="animal.raza"> · {{ animal.raza }}</span></p>
+                <p *ngIf="animal.edad !== undefined && animal.edad !== null">
+                    Edad: {{ animal.edad }} años
+                </p>
+                <span class="estado">{{ animal.estadoAdopcion }}</span>
+            </article>
         </div>
-    </ng-template>
-
+    </section>
 </section>
-
-<ng-template #spinner>
-    <div class="spinner-wrap">
-        <div class="spinner"></div>
-    </div>
-</ng-template>
