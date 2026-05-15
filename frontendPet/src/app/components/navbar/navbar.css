@@ -13,6 +13,14 @@
 .brand {
   font-weight: 700;
   letter-spacing: 0.4px;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.brand:hover {
+  opacity: 0.8;
 }
 
 .user-badge {
