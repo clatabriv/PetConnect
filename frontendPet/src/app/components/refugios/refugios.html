@@ -4,6 +4,23 @@
     <h1>Refugios disponibles</h1>
   </header>
 
+  <div class="grid">
+    <article *ngFor="let refugio of refugios" (click)="verDetalle(refugio.id)">
+      <img [src]="refugio.foto || 'https://placehold.co/120x120?text=Sin+foto'" [alt]="refugio.nombre" />
+      <div class="info">
+        <h3>{{ refugio.nombre }}</h3>
+        <p class="email">{{ refugio.email }}</p>
+        <span class="badge">Refugio verificado</span>
+      </div>
+    </article>
+  </div>
+</section>
+<!-- <app-navbar />
+<section class="page">
+  <header>
+    <h1>Refugios disponibles</h1>
+  </header>
+
   <div class="list">
     <article *ngFor="let refugio of refugios">
       <h3>{{ refugio.nombre }}</h3>
@@ -13,4 +30,4 @@
       <a [routerLink]="['/refugios', refugio.id]" class="btn-ver"> Ver más información </a>
     </article>
   </div>
-</section>
+</section> -->
