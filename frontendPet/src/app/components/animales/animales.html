@@ -28,7 +28,7 @@
   <p>Cargando animales...</p>
   } @else {
   <div class="grid">
-    <article class="card" *ngFor="let animal of animalesFiltrados">
+    <article class="card" *ngFor="let animal of animalesFiltrados" (click)="verDetalle(animal.id)">
       <img [src]="animal.foto || 'https://placehold.co/600x400?text=Animal+sin+foto'" [alt]="animal.nombre" />
       <div class="body">
         <h3>{{ animal.nombre }}</h3>
@@ -37,7 +37,7 @@
         <span class="status">{{ animal.estadoAdopcion }}</span>
       </div>
       @if (authService.hasRole('ADOPTANTE', 'ADMIN')) {
-      <button class="fav" (click)="alternarFavorito(animal.id)">
+      <button class="fav" (click)="alternarFavorito(animal.id); $event.stopPropagation()">
         {{ esFavorito(animal.id) ? 'Quitar de favoritos' : 'Guardar en favoritos' }}
       </button>
       }

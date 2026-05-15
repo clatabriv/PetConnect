@@ -90,4 +90,9 @@ public class Animal {
     public void setEstadoAdopcion(EstadoAdopcion estadoAdopcion) { this.estadoAdopcion = estadoAdopcion; }
     public Usuario getRefugio() { return refugio; }
     public void setRefugio(Usuario refugio) { this.refugio = refugio; }
+    
+    // Método auxiliar para serializar el ID del refugio en JSON
+    public Long getRefugioId() {
+        return refugio != null ? refugio.getId() : null;
+    }
 }

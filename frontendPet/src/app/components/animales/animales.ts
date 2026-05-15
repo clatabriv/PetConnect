@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
@@ -26,6 +26,7 @@ export class AnimalesComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     public authService: AuthService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +81,10 @@ export class AnimalesComponent implements OnInit {
     this.apiService
       .agregarFavorito(user.id, animalId)
       .subscribe(() => this.favoritosIds.add(animalId));
+  }
+
+  verDetalle(animalId: number): void {
+    this.router.navigate(['/animales', animalId]);
   }
 
   private cargarFavoritosSiAplica(): void {

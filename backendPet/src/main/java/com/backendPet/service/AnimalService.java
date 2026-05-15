@@ -36,7 +36,7 @@ public class AnimalService {
 
     // Listar animales de un refugio concreto
     public List<Animal> findByRefugio(Long refugioId) {
-        return animalRepository.findByRefugioId(refugioId);
+        return animalRepository.findByRefugio_Id(refugioId);
     }
 
     // Listar animales disponibles

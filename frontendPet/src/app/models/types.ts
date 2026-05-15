@@ -24,6 +24,7 @@ export interface Animal {
   ubicacion?: string;
   foto?: string;
   estadoAdopcion: EstadoAdopcion;
+  refugioId?: number; // ID del refugio al que pertenece
 }
 
 export interface SolicitudAdopcion {

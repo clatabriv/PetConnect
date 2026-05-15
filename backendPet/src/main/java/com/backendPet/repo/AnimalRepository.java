@@ -9,7 +9,8 @@ import java.util.List;
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
     // Buscar animales de un refugio concreto
-    List<Animal> findByRefugioId(Long refugioId);
+    // Nota: refugio_Id navega la relación refugio y accede a su campo id
+    List<Animal> findByRefugio_Id(Long refugioId);
 
     // Buscar animales por especie
     List<Animal> findByEspecie(String especie);

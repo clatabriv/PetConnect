@@ -91,7 +91,7 @@ public class UsuarioService {
 
         } else if (usuario.getRol() == Usuario.Rol.REFUGIO) {
             // Para cada animal del refugio, borrar sus favoritos y solicitudes primero
-            List<Long> animalIds = animalRepository.findByRefugioId(id)
+            List<Long> animalIds = animalRepository.findByRefugio_Id(id)
                     .stream().map(a -> a.getId()).toList();
 
             for (Long animalId : animalIds) {

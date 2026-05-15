@@ -1,0 +1,105 @@
+<app-navbar />
+<section class="page">
+    <header>
+        <a routerLink="/animales">← Volver a animales</a>
+    </header>
+
+    <p *ngIf="cargando" class="loading">Cargando información del animal...</p>
+    <p *ngIf="error" class="error">{{ error }}</p>
+
+    <article *ngIf="animal && !cargando" class="animal-detalle">
+        <!-- Hero con foto grande -->
+        <div class="hero-foto">
+            <img [src]="animal.foto || 'https://placehold.co/800x600?text=' + animal.nombre" [alt]="animal.nombre"
+                class="foto-principal" />
+            <span class="badge-estado" [class.disponible]="animal.estadoAdopcion === 'DISPONIBLE'">
+                {{ animal.estadoAdopcion }}
+            </span>
+        </div>
+
+        <!-- Información principal -->
+        <div class="info-container">
+            <div class="info-principal">
+                <h1>{{ animal.nombre }}</h1>
+
+                <div class="tags">
+                    <span class="tag">{{ animal.especie }}</span>
+                    <span class="tag" *ngIf="animal.raza">{{ animal.raza }}</span>
+                    <span class="tag" *ngIf="animal.edad !== undefined && animal.edad !== null">
+                        {{ animal.edad }} {{ animal.edad === 1 ? 'año' : 'años' }}
+                    </span>
+                    <span class="tag" *ngIf="animal.genero">{{ animal.genero }}</span>
+                </div>
+
+                <div class="detalles-grid">
+                    <div class="detalle-item" *ngIf="animal.ubicacion">
+                        <strong>📍 Ubicación:</strong>
+                        <span>{{ animal.ubicacion }}</span>
+                    </div>
+                    <div class="detalle-item" *ngIf="animal.estadoSalud">
+                        <strong>💊 Estado de salud:</strong>
+                        <span>{{ animal.estadoSalud }}</span>
+                    </div>
+                </div>
+
+                <p *ngIf="animal.descripcion" class="descripcion">
+                    {{ animal.descripcion }}
+                </p>
+                <p *ngIf="!animal.descripcion" class="descripcion sin-descripcion">
+                    Este animal aún no tiene descripción.
+                </p>
+            </div>
+
+            <!-- Sidebar con acciones -->
+            <aside class="acciones-sidebar">
+                <div class="card-refugio" *ngIf="refugio">
+                    <h3>Refugio</h3>
+                    <div class="refugio-info">
+                        <img [src]="refugio.foto || 'https://placehold.co/80x80?text=Refugio'" [alt]="refugio.nombre"
+                            class="refugio-avatar" />
+                        <div>
+                            <p class="refugio-nombre">{{ refugio.nombre }}</p>
+                            <a [routerLink]="['/refugios', refugio.id]" class="ver-refugio">
+                                Ver perfil del refugio →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acciones para adoptantes -->
+                <div class="acciones" *ngIf="authService.hasRole('ADOPTANTE', 'ADMIN')">
+                    <button class="btn-primary" (click)="abrirFormSolicitud()"
+                        [disabled]="animal.estadoAdopcion !== 'DISPONIBLE'">
+                        {{ animal.estadoAdopcion === 'DISPONIBLE' ? 'Solicitar adopción' : 'No disponible' }}
+                    </button>
+
+                    <button class="btn-secondary" (click)="toggleFavorito()" [disabled]="cargandoFavorito">
+                        {{ esFavorito ? '❤️ En favoritos' : '🤍 Guardar en favoritos' }}
+                    </button>
+
+                    <p *ngIf="solicitudEnviada" class="mensaje-exito">
+                        ✓ Solicitud enviada correctamente
+                    </p>
+                </div>
+            </aside>
+        </div>
+    </article>
+
+    <!-- Modal de solicitud -->
+    <div class="modal-overlay" *ngIf="mostrarFormSolicitud" (click)="cerrarFormSolicitud()">
+        <div class="modal-contenido" (click)="$event.stopPropagation()">
+            <h2>Solicitar adopción de {{ animal?.nombre }}</h2>
+            <p>Envía un mensaje al refugio explicando por qué quieres adoptar a este animal.</p>
+
+            <textarea [(ngModel)]="mensajeSolicitud"
+                placeholder="Cuéntanos sobre ti, tu experiencia con animales, tu hogar..." rows="6"></textarea>
+
+            <div class="modal-acciones">
+                <button class="btn-primary" (click)="enviarSolicitud()" [disabled]="enviandoSolicitud">
+                    {{ enviandoSolicitud ? 'Enviando...' : 'Enviar solicitud' }}
+                </button>
+                <button class="btn-secondary" (click)="cerrarFormSolicitud()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</section>
