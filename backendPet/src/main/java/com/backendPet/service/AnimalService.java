@@ -4,8 +4,11 @@ import com.backendPet.model.Animal;
 import com.backendPet.model.Usuario;
 import com.backendPet.repo.AnimalRepository;
 import com.backendPet.repo.UsuarioRepository;
+import com.backendPet.repo.FavoritoRepository;
+import com.backendPet.repo.SolicitudAdopcionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
@@ -15,13 +18,19 @@ public class AnimalService {
     private final AnimalRepository animalRepository;
     private final UsuarioRepository usuarioRepository;
     private final AuthContextService authContextService;
+    private final FavoritoRepository favoritoRepository;
+    private final SolicitudAdopcionRepository solicitudRepository;
 
     public AnimalService(AnimalRepository animalRepository,
                          UsuarioRepository usuarioRepository,
-                         AuthContextService authContextService) {
+                         AuthContextService authContextService,
+                         FavoritoRepository favoritoRepository,
+                         SolicitudAdopcionRepository solicitudRepository) {
         this.animalRepository = animalRepository;
         this.usuarioRepository = usuarioRepository;
         this.authContextService = authContextService;
+        this.favoritoRepository = favoritoRepository;
+        this.solicitudRepository = solicitudRepository;
     }
 
     public List<Animal> findAll() {
@@ -88,6 +97,7 @@ public class AnimalService {
         return animalRepository.save(existing);
     }
 
+    @Transactional
     public void delete(Long id) {
         Animal existing = findById(id);
         Usuario actor = authContextService.currentUser();
@@ -95,6 +105,12 @@ public class AnimalService {
         if (!authContextService.isAdmin(actor) && !actor.getId().equals(ownerRefugioId)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "No puedes eliminar animales de otro refugio");
         }
+        
+        // Primero borrar favoritos y solicitudes asociadas al animal
+        favoritoRepository.deleteByAnimalId(id);
+        solicitudRepository.deleteByAnimalId(id);
+        
+        // Ahora sí borrar el animal
         animalRepository.delete(existing);
     }
 }
