@@ -2,18 +2,50 @@
 <section class="page">
   <header>
     <h1>Mis favoritos</h1>
-    <a routerLink="/animales">Ver mas animales</a>
+    <a routerLink="/animales" class="btn-secondary">Ver más animales</a>
   </header>
 
-  <div class="grid">
-    <article *ngFor="let animal of favoritos" (click)="verAnimal(animal.id)">
-      <img [src]="animal.foto || 'https://placehold.co/500x320?text=Sin+foto'" [alt]="animal.nombre" />
-      <div>
-        <h3>{{ animal.nombre }}</h3>
-        <p>{{ animal.especie }} · {{ animal.ubicacion || 'Sin ubicacion' }}</p>
-        <button (click)="quitarFavorito(animal.id); $event.stopPropagation()">Quitar de favoritos</button>
-      </div>
-    </article>
+  <div class="table-container" *ngIf="favoritos.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Animal</th>
+          <th>Especie</th>
+          <th>Raza</th>
+          <th>Ubicación</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let animal of favoritos" (click)="verAnimal(animal.id)" class="clickable-row">
+          <td class="animal-cell">
+            <img [src]="animal.foto || 'https://placehold.co/60x60?text=Sin+foto'" [alt]="animal.nombre" />
+            <span class="nombre">{{ animal.nombre }}</span>
+          </td>
+          <td>{{ animal.especie }}</td>
+          <td>{{ animal.raza || 'No especificada' }}</td>
+          <td>{{ animal.ubicacion || 'Sin ubicación' }}</td>
+          <td>
+            <span class="badge" [class.disponible]="animal.estadoAdopcion === 'DISPONIBLE'"
+              [class.en-proceso]="animal.estadoAdopcion === 'EN_PROCESO'"
+              [class.adoptado]="animal.estadoAdopcion === 'ADOPTADO'">
+              {{ animal.estadoAdopcion === 'EN_PROCESO' ? 'EN PROCESO' : animal.estadoAdopcion }}
+            </span>
+          </td>
+          <td class="actions-cell">
+            <button (click)="quitarFavorito(animal.id); $event.stopPropagation()" class="btn-remove">
+              Quitar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" *ngIf="favoritos.length === 0">
+    <p>No tienes animales en favoritos</p>
+    <a routerLink="/animales" class="btn-primary">Explorar animales</a>
   </div>
 </section>
 <!-- <app-navbar />
@@ -24,12 +56,12 @@
   </header>
 
   <div class="grid">
-    <article *ngFor="let animal of favoritos">
+    <article *ngFor="let animal of favoritos" (click)="verAnimal(animal.id)">
       <img [src]="animal.foto || 'https://placehold.co/500x320?text=Sin+foto'" [alt]="animal.nombre" />
       <div>
         <h3>{{ animal.nombre }}</h3>
         <p>{{ animal.especie }} · {{ animal.ubicacion || 'Sin ubicacion' }}</p>
-        <button (click)="quitarFavorito(animal.id)">Quitar de favoritos</button>
+        <button (click)="quitarFavorito(animal.id); $event.stopPropagation()">Quitar de favoritos</button>
       </div>
     </article>
   </div>
