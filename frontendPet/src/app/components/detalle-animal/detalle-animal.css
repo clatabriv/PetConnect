@@ -27,6 +27,7 @@
   align-items: center;
   gap: 6px;
   transition: color 0.2s ease;
+  cursor: pointer;
 }
 
 .page header a:hover {

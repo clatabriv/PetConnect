@@ -2,15 +2,7 @@
 <section class="page">
 
   <header class="topbar">
-
     <h1>Animales del portal</h1>
-    <div class="links">
-      <a routerLink="/home">Inicio</a>
-      <a routerLink="/refugios">Refugios</a>
-      @if (authService.hasRole('ADOPTANTE', 'ADMIN')) {
-      <a routerLink="/favoritos">Favoritos</a>
-      }
-    </div>
   </header>
 
   <div class="filters">
