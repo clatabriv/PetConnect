@@ -3,6 +3,7 @@ package com.backendPet.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "animales")
@@ -17,8 +18,10 @@ public class Animal {
     private String nombre;
 
     @NotBlank(message = "La especie es obligatoria")
+    @Pattern(regexp = "Perro|Gato|Conejo|Cobaya|Hamster|Rata|Tortuga|Gallina|Pájaro", 
+             message = "La especie debe ser: Perro, Gato, Conejo, Cobaya, Hamster, Rata, Tortuga, Gallina o Pájaro")
     @Column(nullable = false)
-    private String especie; // Perro, Gato, etc.
+    private String especie;
 
     private String raza;
 
@@ -33,11 +36,13 @@ public class Animal {
     
     private String descripcion;  // texto largo para la ficha detalle
 
+    @Pattern(regexp = "Macho|Hembra", 
+             message = "El género debe ser: Macho o Hembra")
     private String genero;       // Macho / Hembra
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private EstadoAdopcion estadoAdopcion = EstadoAdopcion.DISPONIBLE;;
+    private EstadoAdopcion estadoAdopcion = EstadoAdopcion.DISPONIBLE;
 
     public enum EstadoAdopcion {
         DISPONIBLE, EN_PROCESO, ADOPTADO

@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-animales',
   standalone: true,
-  imports: [RouterLink, NgFor, NavbarComponent, FormsModule],
+  imports: [NgFor, NavbarComponent, FormsModule],
   templateUrl: './animales.html',
   styleUrl: './animales.css',
 })
@@ -19,9 +19,26 @@ export class AnimalesComponent implements OnInit {
   animalesFiltrados: Animal[] = [];
   favoritosIds = new Set<number>();
   especieFiltro = '';
+  generoFiltro = '';
   ubicacionFiltro = '';
   estadoFiltro = '';
   loading = false;
+
+  // Lista de especies domésticas permitidas
+  especiesDisponibles = [
+    'Perro',
+    'Gato',
+    'Conejo',
+    'Cobaya',
+    'Hamster',
+    'Rata',
+    'Tortuga',
+    'Gallina',
+    'Pájaro',
+  ];
+
+  // Lista de géneros
+  generosDisponibles = ['Macho', 'Hembra'];
 
   constructor(
     private apiService: ApiService,
@@ -50,14 +67,13 @@ export class AnimalesComponent implements OnInit {
 
   filtrar(): void {
     this.animalesFiltrados = this.animales.filter((a) => {
-      const coincideEspecie = this.especieFiltro
-        ? a.especie.toLowerCase().includes(this.especieFiltro.toLowerCase())
-        : true;
+      const coincideEspecie = this.especieFiltro ? a.especie === this.especieFiltro : true;
+      const coincideGenero = this.generoFiltro ? a.genero === this.generoFiltro : true;
       const coincideUbicacion = this.ubicacionFiltro
         ? (a.ubicacion || '').toLowerCase().includes(this.ubicacionFiltro.toLowerCase())
         : true;
       const coincideEstado = this.estadoFiltro ? a.estadoAdopcion === this.estadoFiltro : true;
-      return coincideEspecie && coincideUbicacion && coincideEstado;
+      return coincideEspecie && coincideGenero && coincideUbicacion && coincideEstado;
     });
   }
 

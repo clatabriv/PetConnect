@@ -6,8 +6,22 @@
   </header>
 
   <div class="filters">
-    <input [(ngModel)]="especieFiltro" (input)="filtrar()" placeholder="Filtrar por especie" />
-    <input [(ngModel)]="ubicacionFiltro" (input)="filtrar()" placeholder="Filtrar por ubicacion" />
+    <select [(ngModel)]="especieFiltro" (change)="filtrar()">
+      <option value="">Todas las especies</option>
+      <option *ngFor="let especie of especiesDisponibles" [value]="especie">
+        {{ especie }}
+      </option>
+    </select>
+
+    <select [(ngModel)]="generoFiltro" (change)="filtrar()">
+      <option value="">Todos los géneros</option>
+      <option *ngFor="let genero of generosDisponibles" [value]="genero">
+        {{ genero }}
+      </option>
+    </select>
+
+    <input [(ngModel)]="ubicacionFiltro" (input)="filtrar()" placeholder="Filtrar por ubicación" />
+
     <select [(ngModel)]="estadoFiltro" (change)="filtrar()">
       <option value="">Todos los estados</option>
       <option value="DISPONIBLE">Disponible</option>
@@ -25,7 +39,7 @@
       <div class="body">
         <h3>{{ animal.nombre }}</h3>
         <p>{{ animal.especie }} · {{ animal.raza || 'Raza no indicada' }}</p>
-        <p>{{ animal.ubicacion || 'Ubicacion no indicada' }}</p>
+        <p>{{ animal.genero ? animal.genero + ' · ' : '' }}{{ animal.ubicacion || 'Ubicación no indicada' }}</p>
         <span class="status">{{ animal.estadoAdopcion }}</span>
       </div>
       @if (authService.hasRole('ADOPTANTE', 'ADMIN')) {
