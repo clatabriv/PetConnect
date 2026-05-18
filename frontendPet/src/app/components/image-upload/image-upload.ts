@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { CloudinaryService } from '../../services/cloudinary';
 
@@ -9,10 +9,8 @@ import { CloudinaryService } from '../../services/cloudinary';
   templateUrl: './image-upload.html',
   styleUrl: './image-upload.css',
 })
-export class ImageUploadComponent {
-  // URL actual de la imagen (para previsualizar la ya guardada)
+export class ImageUploadComponent implements OnChanges {
   @Input() urlActual = '';
-  // Emite la nueva URL cuando se sube con éxito
   @Output() imagenSubida = new EventEmitter<string>();
 
   subiendo = false;
@@ -21,19 +19,25 @@ export class ImageUploadComponent {
 
   constructor(private cloudinary: CloudinaryService) {}
 
+  // Cada vez que cambia urlActual desde el padre, reseteamos la previsualización
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['urlActual']) {
+      this.previsualizacion = '';
+      this.error = '';
+    }
+  }
+
   onArchivoSeleccionado(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
 
     const archivo = input.files[0];
 
-    // Validar tipo
     if (!archivo.type.startsWith('image/')) {
       this.error = 'Solo se permiten imágenes (JPG, PNG, WEBP...)';
       return;
     }
 
-    // Validar tamaño (máx 5MB)
     if (archivo.size > 5 * 1024 * 1024) {
       this.error = 'La imagen no puede superar 5MB';
       return;
@@ -41,12 +45,10 @@ export class ImageUploadComponent {
 
     this.error = '';
 
-    // Previsualizar antes de subir
     const reader = new FileReader();
     reader.onload = () => (this.previsualizacion = reader.result as string);
     reader.readAsDataURL(archivo);
 
-    // Subir a Cloudinary
     this.subiendo = true;
     this.cloudinary.subirImagen(archivo).subscribe({
       next: (url) => {
