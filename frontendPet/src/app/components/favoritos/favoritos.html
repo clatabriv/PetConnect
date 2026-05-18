@@ -2,7 +2,7 @@
 <section class="page">
   <header>
     <h1>Mis favoritos</h1>
-    <a routerLink="/animales" class="btn-secondary">Ver más animales</a>
+    <a *ngIf="favoritos.length > 0" routerLink="/animales" class="btn-secondary">Explorar animales</a>
   </header>
 
   <div class="table-container" *ngIf="favoritos.length > 0">

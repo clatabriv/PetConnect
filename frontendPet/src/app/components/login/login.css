@@ -85,6 +85,23 @@ button {
   font-weight: 500;
 }
 
+.rol-descripcion {
+  background-color: #edf2ff;
+  border: 1px solid #c5d4f5;
+  color: #1f3d7a;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.rol-descripcion.refugio {
+  background-color: #f0faf0;
+  border-color: #a3d9a5;
+  color: #1a4a2a;
+}
+
 a {
   display: inline-block;
   margin-top: 14px;

@@ -177,16 +177,16 @@ td {
 .btn-primary {
   display: inline-block;
   text-decoration: none;
-  background-color: #3b82f6;
+  background-color: #1f3147;
   color: #fff;
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: 40px;
   font-weight: 500;
   transition: all 0.2s;
 }
 
 .btn-primary:hover {
-  background-color: #2563eb;
+  background-color: #28405d;
 }
 
 /* Responsive */

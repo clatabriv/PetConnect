@@ -27,11 +27,17 @@
     <label>
       Tipo de cuenta
       <select [(ngModel)]="rolRegistro">
-        <option value="ADOPTANTE">Usuario</option>
-        <option value="REFUGIO">Refugio</option>
-        <option value="ADMIN">Admin</option>
+        <option value="ADOPTANTE">Usuario adoptante</option>
+        <option value="REFUGIO">Refugio de animales</option>
       </select>
     </label>
+    <div class="rol-descripcion" [class.refugio]="rolRegistro === 'REFUGIO'">
+      @if (rolRegistro === 'ADOPTANTE') {
+      🐾 Podrás explorar animales disponibles, guardar favoritos y solicitar su adopción.
+      } @else {
+      🏠 Podrás registrar animales y ponerlos en adopción para que encuentren un hogar.
+      }
+    </div>
     }
 
     @if (exito) {
