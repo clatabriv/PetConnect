@@ -22,6 +22,7 @@ export class LoginComponent {
   modoRegistro = false;
   cargando = false;
   error = '';
+  exito = '';
 
   constructor(
     private apiService: ApiService,
@@ -34,6 +35,7 @@ export class LoginComponent {
    */
   login() {
     this.error = '';
+    this.exito = '';
     this.cargando = true;
     const email = this.email.trim();
     const password = this.password.trim();
@@ -67,7 +69,8 @@ export class LoginComponent {
       .subscribe({
         next: () => {
           this.modoRegistro = false;
-          this.error = 'Usuario creado. Ya puedes iniciar sesion.';
+          this.exito = '✓ Usuario creado. Ya puedes iniciar sesión.';
+          this.error = '';
         },
         error: () => {
           this.error = 'No se pudo crear el usuario. Revisa email y campos obligatorios.';
@@ -78,6 +81,7 @@ export class LoginComponent {
   toggleModo() {
     this.modoRegistro = !this.modoRegistro;
     this.error = '';
+    this.exito = '';
   }
 
   private redirigirPorRol(usuario: Usuario) {

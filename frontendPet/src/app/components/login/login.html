@@ -34,9 +34,13 @@
     </label>
     }
 
+    @if (exito) {
+    <div class="exito">{{ exito }}</div>
+    }
     @if (error) {
     <div class="error">{{ error }}</div>
     }
+
 
     @if (!modoRegistro) {
     <button class="primary" [disabled]="cargando" (click)="login()">Entrar</button>
