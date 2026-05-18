@@ -21,6 +21,24 @@ export class PanelRefugioComponent implements OnInit {
   editandoId: number | null = null;
   form: AnimalForm = this.formVacio();
 
+  // ── Opciones para los desplegables ──────────────────────────
+  especiesDisponibles = [
+    'Perro',
+    'Gato',
+    'Conejo',
+    'Cobaya',
+    'Rata',
+    'Tortuga',
+    'Gallina',
+    'Pájaro',
+    'Hámster',
+  ];
+  generosDisponibles = ['Macho', 'Hembra'];
+  estadosSaludDisponibles = ['Bueno', 'Regular', 'Malo'];
+
+  // ── Validaciones ──────────────────────────────────────────
+  errorAnimal = { nombre: '', especie: '', genero: '' };
+
   // ── Perfil del refugio ──
   perfil = { nombre: '', descripcion: '', foto: '', telefono: '' };
   guardandoPerfil = false;
@@ -96,9 +114,30 @@ export class PanelRefugioComponent implements OnInit {
       foto: animal.foto,
       estadoAdopcion: animal.estadoAdopcion,
     };
+    // Resetear errores al editar
+    this.errorAnimal = { nombre: '', especie: '', genero: '' };
   }
 
   guardar(): void {
+    // Resetear errores
+    this.errorAnimal = { nombre: '', especie: '', genero: '' };
+
+    // Validaciones
+    if (!this.form.nombre || !this.form.nombre.trim()) {
+      this.errorAnimal.nombre = 'El nombre del animal es obligatorio';
+      return;
+    }
+
+    if (!this.form.especie) {
+      this.errorAnimal.especie = 'Debe seleccionar una especie';
+      return;
+    }
+
+    if (!this.form.genero) {
+      this.errorAnimal.genero = 'Debe seleccionar el género';
+      return;
+    }
+
     const user = this.authService.getCurrentUser();
     if (!user) return;
 
@@ -124,6 +163,7 @@ export class PanelRefugioComponent implements OnInit {
   cancelarEdicion(): void {
     this.editandoId = null;
     this.form = this.formVacio();
+    this.errorAnimal = { nombre: '', especie: '', genero: '' };
   }
 
   private formVacio(): AnimalForm {

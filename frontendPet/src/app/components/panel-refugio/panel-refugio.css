@@ -102,11 +102,25 @@ header a {
 
 input,
 select,
-textarea,
+textarea {
+  padding: 9px 10px;
+  border-radius: 10px;
+  border: 1px solid #cfd8e6;
+  height: 40px;
+  box-sizing: border-box;
+}
+
 button {
   padding: 9px 10px;
   border-radius: 10px;
   border: 1px solid #cfd8e6;
+  height: auto;
+  box-sizing: border-box;
+}
+
+textarea {
+  height: auto;
+  min-height: 80px;
 }
 
 .editor h2 {
@@ -114,6 +128,40 @@ button {
   margin: 0 0 8px;
   color: #1f3147;
   font-size: 18px;
+}
+
+.grid-form {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+/* ── Grupo de campo con mensaje de error ── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Mensaje de error ── */
+.error-message {
+  color: #c92a2a;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0 4px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .editor textarea {
@@ -132,6 +180,7 @@ button {
   background-color: #1f3147;
   color: #fff;
   border-color: #1f3147;
+  cursor: pointer;
 }
 
 .actions .secondary {

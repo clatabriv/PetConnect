@@ -105,8 +105,7 @@
         </div>
 
         <input [(ngModel)]="nuevoAnimal.raza" placeholder="Raza (opcional)" />
-        <input [(ngModel)]="nuevoAnimal.edad" type="number" placeholder="Edad en años (ej: 2)" min="0"
-          [value]="nuevoAnimal.edad ?? ''" />
+        <input [(ngModel)]="nuevoAnimal.edad" name="edad" type="number" placeholder="Edad en años (ej: 2)" min="0" />
 
         <div class="field-group">
           <select [(ngModel)]="nuevoAnimal.genero">

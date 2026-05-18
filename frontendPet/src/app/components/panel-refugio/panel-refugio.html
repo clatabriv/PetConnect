@@ -36,14 +36,44 @@
     <h2>{{ editandoId ? 'Editar animal' : 'Nuevo animal' }}</h2>
 
     <div class="grid-form">
-      <input [(ngModel)]="form.nombre" name="nombre" placeholder="Nombre *" required />
-      <input [(ngModel)]="form.especie" name="especie" placeholder="Especie *" required />
+      <div class="field-group">
+        <input [(ngModel)]="form.nombre" name="nombre" placeholder="Nombre del animal *" />
+        <span class="error-message" *ngIf="errorAnimal.nombre">{{ errorAnimal.nombre }}</span>
+      </div>
+
+      <div class="field-group">
+        <select [(ngModel)]="form.especie" name="especie">
+          <option value="" disabled>Especie *</option>
+          <option *ngFor="let especie of especiesDisponibles" [value]="especie">
+            {{ especie }}
+          </option>
+        </select>
+        <span class="error-message" *ngIf="errorAnimal.especie">{{ errorAnimal.especie }}</span>
+      </div>
+
       <input [(ngModel)]="form.raza" name="raza" placeholder="Raza" />
-      <input [(ngModel)]="form.edad" name="edad" type="number" placeholder="Edad (años)" />
-      <input [(ngModel)]="form.genero" name="genero" placeholder="Género (Macho / Hembra)" />
-      <input [(ngModel)]="form.estadoSalud" name="estadoSalud" placeholder="Estado de salud" />
-      <input [(ngModel)]="form.ubicacion" name="ubicacion" placeholder="Ubicación" />
+      <input [(ngModel)]="form.edad" name="edad" type="number" placeholder="Edad en años (ej: 2)" min="0" />
+
+      <div class="field-group">
+        <select [(ngModel)]="form.genero" name="genero">
+          <option value="" disabled>Género *</option>
+          <option *ngFor="let genero of generosDisponibles" [value]="genero">
+            {{ genero }}
+          </option>
+        </select>
+        <span class="error-message" *ngIf="errorAnimal.genero">{{ errorAnimal.genero }}</span>
+      </div>
+
+      <select [(ngModel)]="form.estadoSalud" name="estadoSalud">
+        <option value="">Estado de salud</option>
+        <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
+          {{ estado }}
+        </option>
+      </select>
+
+      <input [(ngModel)]="form.ubicacion" name="ubicacion" placeholder="Ubicación (ej: Madrid)" />
       <input [(ngModel)]="form.foto" name="foto" placeholder="URL de foto" />
+
       <select [(ngModel)]="form.estadoAdopcion" name="estadoAdopcion">
         <option value="DISPONIBLE">Disponible</option>
         <option value="EN_PROCESO">En proceso</option>
