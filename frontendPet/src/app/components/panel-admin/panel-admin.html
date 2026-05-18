@@ -104,8 +104,8 @@
           <span class="error-message" *ngIf="errorAnimal.especie">{{ errorAnimal.especie }}</span>
         </div>
 
-        <input [(ngModel)]="nuevoAnimal.raza" placeholder="Raza (opcional)" />
-        <input [(ngModel)]="nuevoAnimal.edad" name="edad" type="number" placeholder="Edad en años (ej: 2)" min="0" />
+        <input [(ngModel)]="nuevoAnimal.raza" placeholder="Raza" />
+        <input [(ngModel)]="nuevoAnimal.edad" type="number" placeholder="Edad en años (ej: 2)" min="0" />
 
         <div class="field-group">
           <select [(ngModel)]="nuevoAnimal.genero">
@@ -125,8 +125,8 @@
         </select>
 
         <input [(ngModel)]="nuevoAnimal.ubicacion" placeholder="Ubicación (ej: Madrid)" />
-        <input [(ngModel)]="nuevoAnimal.foto" placeholder="URL de foto (opcional)" />
-        <textarea [(ngModel)]="nuevoAnimal.descripcion" placeholder="Descripción del animal (opcional)"></textarea>
+        <input [(ngModel)]="nuevoAnimal.foto" placeholder="URL de foto" />
+        <textarea [(ngModel)]="nuevoAnimal.descripcion" placeholder="Descripción del animal"></textarea>
       </div>
       <button class="btn-primary btn-create" (click)="crearAnimal()">Crear animal</button>
     </div>
