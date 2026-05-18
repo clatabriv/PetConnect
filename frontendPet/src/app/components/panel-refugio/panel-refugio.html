@@ -10,9 +10,7 @@
 
     <div class="perfil-grid">
       <div class="perfil-foto-col">
-        <img [src]="perfil.foto || 'https://placehold.co/200x200?text=Refugio'" alt="Foto del refugio"
-          class="perfil-foto-preview" />
-        <input [(ngModel)]="perfil.foto" name="perfilFoto" placeholder="URL de la foto de perfil" />
+        <app-image-upload [urlActual]="perfil.foto || ''" (imagenSubida)="perfil.foto = $event" />
       </div>
 
       <div class="perfil-datos-col">
@@ -51,7 +49,7 @@
         <span class="error-message" *ngIf="errorAnimal.especie">{{ errorAnimal.especie }}</span>
       </div>
 
-      <input [(ngModel)]="form.raza" name="raza" placeholder="Raza" />
+      <input [(ngModel)]="form.raza" name="raza" placeholder="Raza (opcional)" />
       <input [(ngModel)]="form.edad" name="edad" type="number" placeholder="Edad en años (ej: 2)" min="0" />
 
       <div class="field-group">
@@ -65,14 +63,14 @@
       </div>
 
       <select [(ngModel)]="form.estadoSalud" name="estadoSalud">
-        <option value="">Estado de salud</option>
+        <option value="">Estado de salud (opcional)</option>
         <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
           {{ estado }}
         </option>
       </select>
 
       <input [(ngModel)]="form.ubicacion" name="ubicacion" placeholder="Ubicación (ej: Madrid)" />
-      <input [(ngModel)]="form.foto" name="foto" placeholder="URL de foto" />
+      <app-image-upload [urlActual]="form.foto || ''" (imagenSubida)="form.foto = $event" />
 
       <select [(ngModel)]="form.estadoAdopcion" name="estadoAdopcion">
         <option value="DISPONIBLE">Disponible</option>

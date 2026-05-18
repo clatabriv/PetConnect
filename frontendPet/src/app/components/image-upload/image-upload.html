@@ -1,0 +1,23 @@
+<div class="upload-container">
+    <!-- Previsualización -->
+    <div class="preview-wrap" *ngIf="previsualizacion || urlActual">
+        <img [src]="previsualizacion || urlActual" alt="Vista previa" class="preview-img" />
+        <div class="uploading-overlay" *ngIf="subiendo">
+            <span class="spinner"></span>
+            <p>Subiendo...</p>
+        </div>
+    </div>
+
+    <!-- Zona de drop / botón -->
+    <label class="upload-label" [class.uploading]="subiendo">
+        <input type="file" accept="image/*" (change)="onArchivoSeleccionado($event)" [disabled]="subiendo"
+            class="file-input" />
+        <span class="upload-icon">📷</span>
+        <span class="upload-text">
+            {{ subiendo ? 'Subiendo imagen...' : (urlActual ? 'Cambiar imagen' : 'Subir imagen') }}
+        </span>
+    </label>
+
+    <!-- Error -->
+    <p class="upload-error" *ngIf="error">{{ error }}</p>
+</div>

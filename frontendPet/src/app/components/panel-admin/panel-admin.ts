@@ -5,11 +5,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { Animal, EstadoAdopcion, Rol, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
+import { ImageUploadComponent } from '../image-upload/image-upload';
 
 @Component({
   selector: 'app-panel-admin',
   standalone: true,
-  imports: [FormsModule, RouterLink, NgFor, NgIf, NavbarComponent],
+  imports: [FormsModule, RouterLink, NgFor, NgIf, NavbarComponent, ImageUploadComponent],
   templateUrl: './panel-admin.html',
   styleUrl: './panel-admin.css',
 })
@@ -39,7 +40,7 @@ export class PanelAdminComponent implements OnInit {
 
   // ── Editar usuario ─────────────────────────────────────────
   usuarioEditando: Usuario | null = null;
-  usuarioEdit = { nombre: '', email: '', rol: 'ADOPTANTE' as Rol, password: '' };
+  usuarioEdit = { nombre: '', email: '', rol: 'ADOPTANTE' as Rol, password: '', foto: '' };
 
   // ── Editar animal ──────────────────────────────────────────
   animalEditando: Animal | null = null;
@@ -178,7 +179,13 @@ export class PanelAdminComponent implements OnInit {
 
   abrirEditarUsuario(u: Usuario): void {
     this.usuarioEditando = u;
-    this.usuarioEdit = { nombre: u.nombre, email: u.email, rol: u.rol, password: '' };
+    this.usuarioEdit = {
+      nombre: u.nombre,
+      email: u.email,
+      rol: u.rol,
+      password: '',
+      foto: u.foto ?? '',
+    };
   }
 
   guardarUsuario(): void {
@@ -187,6 +194,7 @@ export class PanelAdminComponent implements OnInit {
       nombre: this.usuarioEdit.nombre,
       email: this.usuarioEdit.email,
       rol: this.usuarioEdit.rol,
+      foto: this.usuarioEdit.foto,
     };
     if (this.usuarioEdit.password) payload['password'] = this.usuarioEdit.password;
 

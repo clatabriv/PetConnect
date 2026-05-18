@@ -6,13 +6,14 @@ import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
 import { Animal, EstadoAdopcion, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
+import { ImageUploadComponent } from '../image-upload/image-upload';
 
 type AnimalForm = Omit<Animal, 'id'>;
 
 @Component({
   selector: 'app-panel-refugio',
   standalone: true,
-  imports: [FormsModule, RouterLink, NgFor, NgIf, NavbarComponent],
+  imports: [FormsModule, RouterLink, NgFor, NgIf, NavbarComponent, ImageUploadComponent],
   templateUrl: './panel-refugio.html',
   styleUrl: './panel-refugio.css',
 })

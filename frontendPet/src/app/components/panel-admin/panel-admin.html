@@ -104,7 +104,7 @@
           <span class="error-message" *ngIf="errorAnimal.especie">{{ errorAnimal.especie }}</span>
         </div>
 
-        <input [(ngModel)]="nuevoAnimal.raza" placeholder="Raza" />
+        <input [(ngModel)]="nuevoAnimal.raza" placeholder="Raza (opcional)" />
         <input [(ngModel)]="nuevoAnimal.edad" type="number" placeholder="Edad en años (ej: 2)" min="0" />
 
         <div class="field-group">
@@ -118,15 +118,15 @@
         </div>
 
         <select [(ngModel)]="nuevoAnimal.estadoSalud">
-          <option value="">Estado de salud</option>
+          <option value="">Estado de salud (opcional)</option>
           <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
             {{ estado }}
           </option>
         </select>
 
         <input [(ngModel)]="nuevoAnimal.ubicacion" placeholder="Ubicación (ej: Madrid)" />
-        <input [(ngModel)]="nuevoAnimal.foto" placeholder="URL de foto" />
-        <textarea [(ngModel)]="nuevoAnimal.descripcion" placeholder="Descripción del animal"></textarea>
+        <app-image-upload [urlActual]="nuevoAnimal.foto || ''" (imagenSubida)="nuevoAnimal.foto = $event" />
+        <textarea [(ngModel)]="nuevoAnimal.descripcion" placeholder="Descripción del animal (opcional)"></textarea>
       </div>
       <button class="btn-primary btn-create" (click)="crearAnimal()">Crear animal</button>
     </div>
@@ -193,6 +193,9 @@
         <option value="REFUGIO">REFUGIO</option>
         <option value="ADMIN">ADMIN</option>
       </select>
+    </label>
+    <label>Foto de perfil
+      <app-image-upload [urlActual]="usuarioEdit.foto || ''" (imagenSubida)="usuarioEdit.foto = $event" />
     </label>
     <label>Nueva contraseña <span class="hint">(dejar vacío para no cambiarla)</span>
       <input [(ngModel)]="usuarioEdit.password" type="password" placeholder="••••••••" />
@@ -266,8 +269,8 @@
       </select>
     </label>
 
-    <label>URL de foto
-      <input [(ngModel)]="animalEdit.foto" placeholder="https://..." />
+    <label>Foto
+      <app-image-upload [urlActual]="animalEdit.foto || ''" (imagenSubida)="animalEdit.foto = $event" />
     </label>
 
     <div class="modal-actions">
