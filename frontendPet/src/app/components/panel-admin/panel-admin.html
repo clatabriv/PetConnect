@@ -6,23 +6,42 @@
 
   <!-- ── Crear usuario ── -->
   <section class="card">
-    <h2>Crear usuario</h2>
-    <div class="fields">
-      <input [(ngModel)]="nuevoUsuario.nombre" placeholder="Nombre" />
-      <input [(ngModel)]="nuevoUsuario.email" placeholder="Email" type="email" />
-      <input [(ngModel)]="nuevoUsuario.password" placeholder="Contraseña" type="password" />
-      <select [(ngModel)]="nuevoUsuario.rol">
-        <option value="ADOPTANTE">ADOPTANTE</option>
-        <option value="REFUGIO">REFUGIO</option>
-        <option value="ADMIN">ADMIN</option>
-      </select>
-      <button class="btn-primary" (click)="crearUsuario()">Crear</button>
+    <div class="card-header">
+      <h2>Usuarios</h2>
+      <button class="btn-primary" (click)="mostrarFormUsuario = !mostrarFormUsuario">
+        {{ mostrarFormUsuario ? 'Cancelar' : '+ Nuevo usuario' }}
+      </button>
+    </div>
+
+    <div *ngIf="mostrarFormUsuario">
+      <div class="fields">
+        <div class="field-group">
+          <input [(ngModel)]="nuevoUsuario.nombre" placeholder="Nombre completo *" />
+          <span class="error-message" *ngIf="errorUsuario.nombre">{{ errorUsuario.nombre }}</span>
+        </div>
+
+        <div class="field-group">
+          <input [(ngModel)]="nuevoUsuario.email" placeholder="Correo electrónico *" type="email" />
+          <span class="error-message" *ngIf="errorUsuario.email">{{ errorUsuario.email }}</span>
+        </div>
+
+        <div class="field-group">
+          <input [(ngModel)]="nuevoUsuario.password" placeholder="Contraseña (mín. 4 caracteres) *" type="password" />
+          <span class="error-message" *ngIf="errorUsuario.password">{{ errorUsuario.password }}</span>
+        </div>
+
+        <select [(ngModel)]="nuevoUsuario.rol">
+          <option value="ADOPTANTE">ADOPTANTE</option>
+          <option value="REFUGIO">REFUGIO</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
+      </div>
+      <button class="btn-primary btn-create" (click)="crearUsuario()">Crear</button>
     </div>
   </section>
 
   <!-- ── Tabla usuarios ── -->
   <section class="card">
-    <h2>Usuarios</h2>
     <div class="table-wrap">
       <table>
         <thead>
@@ -60,21 +79,57 @@
       </button>
     </div>
 
-    <div class="fields" *ngIf="mostrarFormAnimal">
-      <select [(ngModel)]="nuevoAnimalRefugioId">
-        <option [ngValue]="null" disabled>Selecciona refugio *</option>
-        <option *ngFor="let r of refugios" [ngValue]="r.id">{{ r.nombre }}</option>
-      </select>
-      <input [(ngModel)]="nuevoAnimal.nombre" placeholder="Nombre *" />
-      <input [(ngModel)]="nuevoAnimal.especie" placeholder="Especie *" />
-      <input [(ngModel)]="nuevoAnimal.raza" placeholder="Raza" />
-      <input [(ngModel)]="nuevoAnimal.edad" type="number" placeholder="Edad" />
-      <input [(ngModel)]="nuevoAnimal.genero" placeholder="Género" />
-      <input [(ngModel)]="nuevoAnimal.estadoSalud" placeholder="Estado de salud" />
-      <input [(ngModel)]="nuevoAnimal.ubicacion" placeholder="Ubicación" />
-      <input [(ngModel)]="nuevoAnimal.foto" placeholder="URL de foto" />
-      <textarea [(ngModel)]="nuevoAnimal.descripcion" placeholder="Descripción"></textarea>
-      <button class="btn-primary" (click)="crearAnimal()">Crear animal</button>
+    <div *ngIf="mostrarFormAnimal">
+      <div class="fields fields-spaced">
+        <div class="field-group">
+          <select [(ngModel)]="nuevoAnimalRefugioId">
+            <option [ngValue]="null" disabled>Selecciona refugio *</option>
+            <option *ngFor="let r of refugios" [ngValue]="r.id">{{ r.nombre }}</option>
+          </select>
+          <span class="error-message" *ngIf="errorAnimal.refugio">{{ errorAnimal.refugio }}</span>
+        </div>
+
+        <div class="field-group">
+          <input [(ngModel)]="nuevoAnimal.nombre" placeholder="Nombre del animal *" />
+          <span class="error-message" *ngIf="errorAnimal.nombre">{{ errorAnimal.nombre }}</span>
+        </div>
+
+        <div class="field-group">
+          <select [(ngModel)]="nuevoAnimal.especie">
+            <option value="" disabled>Especie *</option>
+            <option *ngFor="let especie of especiesDisponibles" [value]="especie">
+              {{ especie }}
+            </option>
+          </select>
+          <span class="error-message" *ngIf="errorAnimal.especie">{{ errorAnimal.especie }}</span>
+        </div>
+
+        <input [(ngModel)]="nuevoAnimal.raza" placeholder="Raza (opcional)" />
+        <input [(ngModel)]="nuevoAnimal.edad" type="number" placeholder="Edad en años (ej: 2)" min="0"
+          [value]="nuevoAnimal.edad ?? ''" />
+
+        <div class="field-group">
+          <select [(ngModel)]="nuevoAnimal.genero">
+            <option value="" disabled>Género *</option>
+            <option *ngFor="let genero of generosDisponibles" [value]="genero">
+              {{ genero }}
+            </option>
+          </select>
+          <span class="error-message" *ngIf="errorAnimal.genero">{{ errorAnimal.genero }}</span>
+        </div>
+
+        <select [(ngModel)]="nuevoAnimal.estadoSalud">
+          <option value="">Estado de salud</option>
+          <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
+            {{ estado }}
+          </option>
+        </select>
+
+        <input [(ngModel)]="nuevoAnimal.ubicacion" placeholder="Ubicación (ej: Madrid)" />
+        <input [(ngModel)]="nuevoAnimal.foto" placeholder="URL de foto (opcional)" />
+        <textarea [(ngModel)]="nuevoAnimal.descripcion" placeholder="Descripción del animal (opcional)"></textarea>
+      </div>
+      <button class="btn-primary btn-create" (click)="crearAnimal()">Crear animal</button>
     </div>
   </section>
 
@@ -88,6 +143,8 @@
             <th>Especie</th>
             <th>Raza</th>
             <th>Edad</th>
+            <th>Género</th>
+            <th>Salud</th>
             <th>Ubicación</th>
             <th>Estado</th>
             <th>Acciones</th>
@@ -99,6 +156,8 @@
             <td>{{ a.especie }}</td>
             <td>{{ a.raza || '—' }}</td>
             <td>{{ a.edad != null ? a.edad + ' años' : '—' }}</td>
+            <td>{{ a.genero || '—' }}</td>
+            <td>{{ a.estadoSalud || '—' }}</td>
             <td>{{ a.ubicacion || '—' }}</td>
             <td><span class="badge" [class]="'badge-' + a.estadoAdopcion.toLowerCase()">{{ a.estadoAdopcion }}</span>
             </td>
@@ -108,7 +167,7 @@
             </td>
           </tr>
           <tr *ngIf="animales.length === 0">
-            <td colspan="7" class="empty">No hay animales</td>
+            <td colspan="9" class="empty">No hay animales</td>
           </tr>
         </tbody>
       </table>
@@ -157,18 +216,49 @@
     <label>Nombre
       <input [(ngModel)]="animalEdit.nombre" />
     </label>
+
     <label>Especie
-      <input [(ngModel)]="animalEdit.especie" />
+      <select [(ngModel)]="animalEdit.especie">
+        <option *ngFor="let especie of especiesDisponibles" [value]="especie">
+          {{ especie }}
+        </option>
+      </select>
     </label>
+
     <label>Raza
       <input [(ngModel)]="animalEdit.raza" />
     </label>
+
     <label>Edad (años)
       <input [(ngModel)]="animalEdit.edad" type="number" min="0" />
     </label>
+
+    <label>Género
+      <select [(ngModel)]="animalEdit.genero">
+        <option value="">Sin especificar</option>
+        <option *ngFor="let genero of generosDisponibles" [value]="genero">
+          {{ genero }}
+        </option>
+      </select>
+    </label>
+
+    <label>Estado de salud
+      <select [(ngModel)]="animalEdit.estadoSalud">
+        <option value="">Sin especificar</option>
+        <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
+          {{ estado }}
+        </option>
+      </select>
+    </label>
+
     <label>Ubicación
       <input [(ngModel)]="animalEdit.ubicacion" />
     </label>
+
+    <label>Descripción
+      <textarea [(ngModel)]="animalEdit.descripcion" placeholder="Descripción del animal"></textarea>
+    </label>
+
     <label>Estado de adopción
       <select [(ngModel)]="animalEdit.estadoAdopcion">
         <option value="DISPONIBLE">DISPONIBLE</option>
@@ -176,6 +266,7 @@
         <option value="ADOPTADO">ADOPTADO</option>
       </select>
     </label>
+
     <label>URL de foto
       <input [(ngModel)]="animalEdit.foto" placeholder="https://..." />
     </label>

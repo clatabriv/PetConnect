@@ -17,8 +17,25 @@ export class PanelAdminComponent implements OnInit {
   usuarios: Usuario[] = [];
   animales: Animal[] = [];
 
+  // ── Opciones para los desplegables ──────────────────────────
+  especiesDisponibles = [
+    'Perro',
+    'Gato',
+    'Conejo',
+    'Cobaya',
+    'Rata',
+    'Tortuga',
+    'Gallina',
+    'Pájaro',
+    'Hámster',
+  ];
+  generosDisponibles = ['Macho', 'Hembra'];
+  estadosSaludDisponibles = ['Bueno', 'Regular', 'Malo'];
+
   // ── Crear usuario ──────────────────────────────────────────
+  mostrarFormUsuario = false;
   nuevoUsuario = { nombre: '', email: '', password: '', rol: 'ADOPTANTE' as Rol };
+  errorUsuario = { nombre: '', email: '', password: '' };
 
   // ── Editar usuario ─────────────────────────────────────────
   usuarioEditando: Usuario | null = null;
@@ -41,6 +58,7 @@ export class PanelAdminComponent implements OnInit {
     foto: '',
     estadoAdopcion: 'DISPONIBLE' as EstadoAdopcion,
   };
+  errorAnimal = { refugio: '', nombre: '', especie: '', genero: '' };
 
   animalEdit = {
     nombre: '',
@@ -63,7 +81,30 @@ export class PanelAdminComponent implements OnInit {
   }
 
   crearAnimal(): void {
-    if (!this.nuevoAnimalRefugioId || !this.nuevoAnimal.nombre || !this.nuevoAnimal.especie) return;
+    // Resetear errores
+    this.errorAnimal = { refugio: '', nombre: '', especie: '', genero: '' };
+
+    // Validaciones
+    if (!this.nuevoAnimalRefugioId) {
+      this.errorAnimal.refugio = 'Debe seleccionar un refugio';
+      return;
+    }
+
+    if (!this.nuevoAnimal.nombre.trim()) {
+      this.errorAnimal.nombre = 'El nombre del animal es obligatorio';
+      return;
+    }
+
+    if (!this.nuevoAnimal.especie) {
+      this.errorAnimal.especie = 'Debe seleccionar una especie';
+      return;
+    }
+
+    if (!this.nuevoAnimal.genero) {
+      this.errorAnimal.genero = 'Debe seleccionar el género';
+      return;
+    }
+
     this.apiService.crearAnimal(this.nuevoAnimalRefugioId, this.nuevoAnimal).subscribe(() => {
       this.mostrarFormAnimal = false;
       this.nuevoAnimal = {
@@ -79,6 +120,7 @@ export class PanelAdminComponent implements OnInit {
         estadoAdopcion: 'DISPONIBLE',
       };
       this.nuevoAnimalRefugioId = null;
+      this.errorAnimal = { refugio: '', nombre: '', especie: '', genero: '' };
       this.recargar();
     });
   }
@@ -96,10 +138,40 @@ export class PanelAdminComponent implements OnInit {
 
   // ── CRUD usuarios ──────────────────────────────────────────
   crearUsuario(): void {
-    if (!this.nuevoUsuario.nombre || !this.nuevoUsuario.email || !this.nuevoUsuario.password)
+    // Resetear errores
+    this.errorUsuario = { nombre: '', email: '', password: '' };
+
+    // Validaciones
+    if (!this.nuevoUsuario.nombre.trim()) {
+      this.errorUsuario.nombre = 'El nombre es obligatorio';
       return;
+    }
+
+    if (!this.nuevoUsuario.email.trim()) {
+      this.errorUsuario.email = 'El email es obligatorio';
+      return;
+    }
+
+    if (!this.nuevoUsuario.email.includes('@')) {
+      this.errorUsuario.email = 'Debe introducir un @ en el email';
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.nuevoUsuario.email)) {
+      this.errorUsuario.email = 'El formato del email no es válido';
+      return;
+    }
+
+    if (!this.nuevoUsuario.password || this.nuevoUsuario.password.length < 4) {
+      this.errorUsuario.password = 'La contraseña debe tener al menos 4 caracteres';
+      return;
+    }
+
     this.apiService.crearUsuario(this.nuevoUsuario).subscribe(() => {
+      this.mostrarFormUsuario = false;
       this.nuevoUsuario = { nombre: '', email: '', password: '', rol: 'ADOPTANTE' };
+      this.errorUsuario = { nombre: '', email: '', password: '' };
       this.recargar();
     });
   }
@@ -145,7 +217,7 @@ export class PanelAdminComponent implements OnInit {
       estadoSalud: a.estadoSalud ?? '',
       descripcion: a.descripcion ?? '',
       ubicacion: a.ubicacion ?? '',
-      foto: a.foto ?? '', // ← ¡esto faltaba!
+      foto: a.foto ?? '',
       estadoAdopcion: a.estadoAdopcion,
     };
   }

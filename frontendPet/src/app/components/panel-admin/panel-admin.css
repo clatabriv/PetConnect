@@ -37,15 +37,69 @@ header a {
   color: #1f3147;
 }
 
+/* ── Header de card con botón ── */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 6px 0;
+}
+
+.card-header h2 {
+  margin: 0;
+}
+
 /* ── Formulario crear ── */
 .fields {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 10px;
+  margin-bottom: 12px;
+}
+
+/* ── Grupo de campo con mensaje de error ── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Mensaje de error ── */
+.error-message {
+  color: #c92a2a;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0 4px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Clase especial para más espaciado en animales ── */
+.fields-spaced {
+  margin-top: 24px;
+}
+
+/* ── Botón de crear fuera del grid ── */
+.btn-create {
+  margin-top: 12px;
+  width: auto;
+  min-width: 140px;
 }
 
 input,
-select {
+select,
+textarea {
   border: 1px solid #cfdaea;
   border-radius: 10px;
   padding: 9px 10px;
@@ -53,10 +107,20 @@ select {
   width: 100%;
   box-sizing: border-box;
   background: #fff;
+  font-family: inherit;
+  height: 40px;
+}
+
+textarea {
+  min-height: 80px;
+  height: auto;
+  resize: vertical;
+  padding-top: 9px;
 }
 
 input:focus,
-select:focus {
+select:focus,
+textarea:focus {
   outline: none;
   border-color: #1f3147;
 }
