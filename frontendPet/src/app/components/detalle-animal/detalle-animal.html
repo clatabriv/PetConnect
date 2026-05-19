@@ -10,8 +10,8 @@
     <article *ngIf="animal && !cargando" class="animal-detalle">
         <!-- Hero con foto grande -->
         <div class="hero-foto">
-            <img [src]="animal.foto || 'https://placehold.co/800x600?text=' + animal.nombre" [alt]="animal.nombre"
-                class="foto-principal" />
+            <img [src]="cloudinary.resize(animal.foto, 800, 600) || 'https://placehold.co/800x600?text=' + animal.nombre"
+                [alt]="animal.nombre" class="foto-principal" />
             <span class="badge-estado" [class.disponible]="animal.estadoAdopcion === 'DISPONIBLE'">
                 {{ animal.estadoAdopcion }}
             </span>
@@ -55,8 +55,8 @@
                 <div class="card-refugio" *ngIf="refugio">
                     <h3>Refugio</h3>
                     <div class="refugio-info">
-                        <img [src]="refugio.foto || 'https://placehold.co/80x80?text=Refugio'" [alt]="refugio.nombre"
-                            class="refugio-avatar" />
+                        <img [src]="cloudinary.resize(refugio.foto, 80, 80) || 'https://placehold.co/80x80?text=Refugio'"
+                            [alt]="refugio.nombre" class="refugio-avatar" />
                         <div>
                             <p class="refugio-nombre">{{ refugio.nombre }}</p>
                             <a [routerLink]="['/refugios', refugio.id]" class="ver-refugio">

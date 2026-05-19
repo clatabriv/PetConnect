@@ -8,16 +8,12 @@
   <div class="filters">
     <select [(ngModel)]="especieFiltro" (change)="filtrar()">
       <option value="">Todas las especies</option>
-      <option *ngFor="let especie of especiesDisponibles" [value]="especie">
-        {{ especie }}
-      </option>
+      <option *ngFor="let especie of especiesDisponibles" [value]="especie">{{ especie }}</option>
     </select>
 
     <select [(ngModel)]="generoFiltro" (change)="filtrar()">
       <option value="">Todos los géneros</option>
-      <option *ngFor="let genero of generosDisponibles" [value]="genero">
-        {{ genero }}
-      </option>
+      <option *ngFor="let genero of generosDisponibles" [value]="genero">{{ genero }}</option>
     </select>
 
     <input [(ngModel)]="ubicacionFiltro" (input)="filtrar()" placeholder="Filtrar por ubicación" />
@@ -31,15 +27,27 @@
   </div>
 
   @if (loading) {
-  <p>Cargando animales...</p>
+  <div class="spinner-wrap"><span class="spinner"></span></div>
   } @else {
+
+  <p class="contador" *ngIf="animalesFiltrados.length > 0">
+    Mostrando {{ animalesVisibles.length }} de {{ animalesFiltrados.length }} animales
+  </p>
+
+  <p class="vacio" *ngIf="animalesFiltrados.length === 0">
+    No se encontraron animales con esos filtros.
+  </p>
+
   <div class="grid">
-    <article class="card" *ngFor="let animal of animalesFiltrados" (click)="verDetalle(animal.id)">
-      <img [src]="animal.foto || 'https://placehold.co/600x400?text=Animal+sin+foto'" [alt]="animal.nombre" />
+    <article class="card" *ngFor="let animal of animalesVisibles; trackBy: trackById; let i = index"
+      (click)="verDetalle(animal.id)">
+      <img [src]="cloudinary.resize(animal.foto, 400, 280) || 'https://placehold.co/400x280?text=Sin+foto'"
+        [alt]="animal.nombre" [loading]="i < 5 ? 'eager' : 'lazy'" decoding="async" width="400" height="280" />
       <div class="body">
         <h3>{{ animal.nombre }}</h3>
-        <p>{{ animal.especie }} · {{ animal.raza || 'Raza no indicada' }}</p>
+        <p>{{ animal.especie }}{{ animal.raza ? ' · ' + animal.raza : '' }}</p>
         <p>{{ animal.genero ? animal.genero + ' · ' : '' }}{{ animal.ubicacion || 'Ubicación no indicada' }}</p>
+        <p *ngIf="animal.edad != null">{{ animal.edad }} {{ animal.edad === 1 ? 'año' : 'años' }}</p>
         <span class="status">{{ animal.estadoAdopcion }}</span>
       </div>
       @if (authService.hasRole('ADOPTANTE', 'ADMIN')) {
@@ -49,5 +57,16 @@
       }
     </article>
   </div>
+
+  <!-- Spinner de carga al hacer scroll -->
+  <div class="cargando-mas" *ngIf="cargandoMas">
+    <span class="spinner"></span>
+  </div>
+
+  <!-- Indicador de que no hay más -->
+  <p class="fin-lista" *ngIf="!hayMas && animalesVisibles.length > 0">
+    Has visto todos los animales disponibles
+  </p>
   }
+
 </section>

@@ -19,4 +19,9 @@ export class CloudinaryService {
       .post<{ secure_url: string }>(this.URL, formData)
       .pipe(map((res) => res.secure_url));
   }
+
+  resize(url: string | undefined | null, width: number, height: number): string {
+    if (!url?.includes('res.cloudinary.com')) return url ?? '';
+    return url.replace('/upload/', `/upload/w_${width},h_${height},c_fill,q_auto,f_auto/`);
+  }
 }

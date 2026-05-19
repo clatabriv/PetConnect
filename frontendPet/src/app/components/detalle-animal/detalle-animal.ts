@@ -5,6 +5,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
+import { CloudinaryService } from '../../services/cloudinary';
 import { Animal, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
 
@@ -37,6 +38,7 @@ export class DetalleAnimalComponent implements OnInit {
     private route: ActivatedRoute,
     private apiService: ApiService,
     public authService: AuthService,
+    public cloudinary: CloudinaryService,
     private location: Location,
   ) {}
 

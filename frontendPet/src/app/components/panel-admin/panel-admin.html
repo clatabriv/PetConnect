@@ -215,63 +215,71 @@
   <div class="modal" (click)="$event.stopPropagation()">
     <h3>Editar animal</h3>
 
-    <label>Nombre
-      <input [(ngModel)]="animalEdit.nombre" />
-    </label>
+    <div class="modal-grid">
+      <!-- Campos a la izquierda -->
+      <div class="modal-grid-fields">
+        <label>Nombre
+          <input [(ngModel)]="animalEdit.nombre" />
+        </label>
 
-    <label>Especie
-      <select [(ngModel)]="animalEdit.especie">
-        <option *ngFor="let especie of especiesDisponibles" [value]="especie">
-          {{ especie }}
-        </option>
-      </select>
-    </label>
+        <label>Especie
+          <select [(ngModel)]="animalEdit.especie">
+            <option *ngFor="let especie of especiesDisponibles" [value]="especie">
+              {{ especie }}
+            </option>
+          </select>
+        </label>
 
-    <label>Raza
-      <input [(ngModel)]="animalEdit.raza" />
-    </label>
+        <label>Raza
+          <input [(ngModel)]="animalEdit.raza" />
+        </label>
 
-    <label>Edad (años)
-      <input [(ngModel)]="animalEdit.edad" type="number" min="0" />
-    </label>
+        <label>Edad (años)
+          <input [(ngModel)]="animalEdit.edad" type="number" min="0" />
+        </label>
 
-    <label>Género
-      <select [(ngModel)]="animalEdit.genero">
-        <option value="">Sin especificar</option>
-        <option *ngFor="let genero of generosDisponibles" [value]="genero">
-          {{ genero }}
-        </option>
-      </select>
-    </label>
+        <label>Género
+          <select [(ngModel)]="animalEdit.genero">
+            <option value="">Sin especificar</option>
+            <option *ngFor="let genero of generosDisponibles" [value]="genero">
+              {{ genero }}
+            </option>
+          </select>
+        </label>
 
-    <label>Estado de salud
-      <select [(ngModel)]="animalEdit.estadoSalud">
-        <option value="">Sin especificar</option>
-        <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
-          {{ estado }}
-        </option>
-      </select>
-    </label>
+        <label>Estado de salud
+          <select [(ngModel)]="animalEdit.estadoSalud">
+            <option value="">Sin especificar</option>
+            <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
+              {{ estado }}
+            </option>
+          </select>
+        </label>
 
-    <label>Ubicación
-      <input [(ngModel)]="animalEdit.ubicacion" />
-    </label>
+        <label>Ubicación
+          <input [(ngModel)]="animalEdit.ubicacion" />
+        </label>
 
-    <label>Descripción
-      <textarea [(ngModel)]="animalEdit.descripcion" placeholder="Descripción del animal"></textarea>
-    </label>
+        <label>Estado de adopción
+          <select [(ngModel)]="animalEdit.estadoAdopcion">
+            <option value="DISPONIBLE">DISPONIBLE</option>
+            <option value="EN_PROCESO">EN PROCESO</option>
+            <option value="ADOPTADO">ADOPTADO</option>
+          </select>
+        </label>
 
-    <label>Estado de adopción
-      <select [(ngModel)]="animalEdit.estadoAdopcion">
-        <option value="DISPONIBLE">DISPONIBLE</option>
-        <option value="EN_PROCESO">EN PROCESO</option>
-        <option value="ADOPTADO">ADOPTADO</option>
-      </select>
-    </label>
+        <label class="full-width">Descripción
+          <textarea [(ngModel)]="animalEdit.descripcion" placeholder="Descripción del animal" rows="4"></textarea>
+        </label>
+      </div>
 
-    <label>Foto
-      <app-image-upload [urlActual]="animalEdit.foto || ''" (imagenSubida)="animalEdit.foto = $event" />
-    </label>
+      <!-- Foto sidebar derecho -->
+      <div class="modal-grid-photo">
+        <label>Foto
+          <app-image-upload [urlActual]="animalEdit.foto || ''" (imagenSubida)="animalEdit.foto = $event" />
+        </label>
+      </div>
+    </div>
 
     <div class="modal-actions">
       <button class="btn-secondary" (click)="cancelarAnimal()">Cancelar</button>
