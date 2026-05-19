@@ -8,11 +8,12 @@ import { AuthService } from '../../services/auth';
 import { CloudinaryService } from '../../services/cloudinary';
 import { Animal, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-detalle-animal',
   standalone: true,
-  imports: [RouterLink, NgFor, NgIf, FormsModule, NavbarComponent],
+  imports: [RouterLink, NgFor, NgIf, FormsModule, NavbarComponent, FooterComponent],
   templateUrl: './detalle-animal.html',
   styleUrl: './detalle-animal.css',
 })

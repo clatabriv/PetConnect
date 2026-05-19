@@ -6,11 +6,12 @@ import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
 import { Rol, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink, NavbarComponent],
+  imports: [FormsModule, RouterLink, NavbarComponent, FooterComponent],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

@@ -7,13 +7,22 @@ import { AuthService } from '../../services/auth';
 import { Animal, EstadoAdopcion, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
 import { ImageUploadComponent } from '../image-upload/image-upload';
+import { FooterComponent } from '../footer/footer';
 
 type AnimalForm = Omit<Animal, 'id'>;
 
 @Component({
   selector: 'app-panel-refugio',
   standalone: true,
-  imports: [FormsModule, RouterLink, NgFor, NgIf, NavbarComponent, ImageUploadComponent],
+  imports: [
+    FormsModule,
+    RouterLink,
+    NgFor,
+    NgIf,
+    NavbarComponent,
+    ImageUploadComponent,
+    FooterComponent,
+  ],
   templateUrl: './panel-refugio.html',
   styleUrl: './panel-refugio.css',
 })

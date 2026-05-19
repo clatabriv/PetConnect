@@ -3,11 +3,11 @@ import { RouterLink } from '@angular/router';
 import { NgFor, NgClass } from '@angular/common';
 import { AuthService } from '../../services/auth';
 import { NavbarComponent } from '../navbar/navbar';
-
+import { FooterComponent } from '../footer/footer';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, NgFor, NgClass, NavbarComponent], // ← añade NavbarComponent
+  imports: [RouterLink, NgFor, NgClass, NavbarComponent, FooterComponent], // ← añade NavbarComponent
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

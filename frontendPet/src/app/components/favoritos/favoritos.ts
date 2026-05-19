@@ -5,11 +5,12 @@ import { ApiService } from '../../services/api';
 import { Animal } from '../../models/types';
 import { AuthService } from '../../services/auth';
 import { NavbarComponent } from '../navbar/navbar';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-favoritos',
   standalone: true,
-  imports: [RouterLink, NgFor, NgIf, NavbarComponent],
+  imports: [RouterLink, NgFor, NgIf, NavbarComponent, FooterComponent],
   templateUrl: './favoritos.html',
   styleUrl: './favoritos.css',
 })

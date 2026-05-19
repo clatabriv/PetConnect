@@ -4,11 +4,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { Animal, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-detalle-refugio',
   standalone: true,
-  imports: [RouterLink, NgFor, NgIf, NavbarComponent],
+  imports: [RouterLink, NgFor, NgIf, NavbarComponent, FooterComponent],
   templateUrl: './detalle-refugio.html',
   styleUrl: './detalle-refugio.css',
 })

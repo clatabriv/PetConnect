@@ -4,11 +4,12 @@ import { NgFor } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-refugios',
   standalone: true,
-  imports: [RouterLink, NgFor, NavbarComponent],
+  imports: [RouterLink, NgFor, NavbarComponent, FooterComponent],
   templateUrl: './refugios.html',
   styleUrl: './refugios.css',
 })

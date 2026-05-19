@@ -6,11 +6,20 @@ import { ApiService } from '../../services/api';
 import { Animal, EstadoAdopcion, Rol, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
 import { ImageUploadComponent } from '../image-upload/image-upload';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   selector: 'app-panel-admin',
   standalone: true,
-  imports: [FormsModule, RouterLink, NgFor, NgIf, NavbarComponent, ImageUploadComponent],
+  imports: [
+    FormsModule,
+    RouterLink,
+    NgFor,
+    NgIf,
+    NavbarComponent,
+    ImageUploadComponent,
+    FooterComponent,
+  ],
   templateUrl: './panel-admin.html',
   styleUrl: './panel-admin.css',
 })

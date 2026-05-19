@@ -7,13 +7,14 @@ import { CloudinaryService } from '../../services/cloudinary';
 import { Animal } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from '../footer/footer';
 
 const PAGE_SIZE = 12;
 
 @Component({
   selector: 'app-animales',
   standalone: true,
-  imports: [RouterLink, NgFor, NgIf, NavbarComponent, FormsModule],
+  imports: [RouterLink, NgFor, NgIf, NavbarComponent, FormsModule, FooterComponent],
   templateUrl: './animales.html',
   styleUrl: './animales.css',
 })
