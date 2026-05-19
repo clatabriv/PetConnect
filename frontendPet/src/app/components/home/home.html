@@ -15,9 +15,7 @@
     </div>
 
     <div class="carrusel">
-      <button class="carrusel-btn" (click)="anterior()">&#10094;</button>
       <img [src]="imagenes[indiceActual]" alt="Animal en adopcion" />
-      <button class="carrusel-btn" (click)="siguiente()">&#10095;</button>
       <div class="indicadores">
         <span *ngFor="let img of imagenes; let i = index" [ngClass]="{ activo: i === indiceActual }"
           (click)="irA(i)">●</span>
@@ -25,19 +23,99 @@
     </div>
   </div>
 
+  <!-- Cards clicables con scroll suave -->
   <section class="cards">
-    <article>
+    <article (click)="scrollTo('adopcion-segura')" class="card-clickable">
       <h3>Adopcion segura</h3>
       <p>Gestiona solicitudes y estado de adopcion desde un flujo claro para todos los perfiles.</p>
     </article>
-    <article>
+    <article (click)="scrollTo('refugios-activos')" class="card-clickable">
       <h3>Refugios activos</h3>
       <p>Cada refugio publica y mantiene sus animales con informacion actualizada.</p>
     </article>
-    <article>
+    <article (click)="scrollTo('favoritos-personales')" class="card-clickable">
       <h3>Favoritos personales</h3>
       <p>Guarda los animales que te interesan y revisalos rapidamente en tu panel.</p>
     </article>
+  </section>
+
+  <!-- Secciones expandidas con imágenes -->
+  <section class="info-detallada">
+
+    <article id="adopcion-segura" class="info-section">
+      <div class="info-text">
+        <h2>Adopción segura y transparente</h2>
+        <p>
+          Nuestro sistema de adopción garantiza un proceso seguro tanto para los adoptantes como para los refugios.
+          Gestiona solicitudes de adopción con un flujo claro que permite hacer seguimiento de cada etapa del proceso.
+        </p>
+        <p>
+          Los refugios pueden revisar las solicitudes, aprobarlas o rechazarlas según su criterio, mientras que los
+          adoptantes reciben notificaciones del estado de su solicitud en tiempo real. Todo queda registrado para
+          asegurar transparencia y responsabilidad.
+        </p>
+        <ul>
+          <li>Sistema de solicitudes con estados: Pendiente, Aprobada, Rechazada</li>
+          <li>Historial completo de todas las adopciones</li>
+          <li>Comunicación directa entre refugios y adoptantes</li>
+          <li>Validación de perfiles para garantizar adopciones responsables</li>
+        </ul>
+      </div>
+      <div class="info-imagen">
+        <img src="https://images.pexels.com/photos/16652418/pexels-photo-16652418.jpeg" alt="Adopción responsable" />
+      </div>
+    </article>
+
+    <article id="refugios-activos" class="info-section reverse">
+      <div class="info-imagen">
+        <img src="https://images.pexels.com/photos/20595085/pexels-photo-20595085.jpeg" alt="Refugios de animales" />
+      </div>
+      <div class="info-text">
+        <h2>Red de refugios comprometidos</h2>
+        <p>
+          Cada refugio tiene su propio panel de administración donde puede gestionar sus animales, actualizar
+          información, subir fotografías y mantener el estado de cada mascota al día. Esta autonomía permite que
+          la información esté siempre actualizada.
+        </p>
+        <p>
+          Los refugios pueden publicar nuevos animales en cuestión de minutos, añadir descripciones detalladas,
+          especificar necesidades especiales y mantener actualizado el estado de salud de cada animal. Además,
+          tienen acceso a todas las solicitudes de adopción recibidas.
+        </p>
+        <ul>
+          <li>Panel de control exclusivo para cada refugio</li>
+          <li>Gestión completa de animales y solicitudes</li>
+          <li>Perfiles públicos con información de contacto</li>
+          <li>Estadísticas de visitas y solicitudes recibidas</li>
+        </ul>
+      </div>
+    </article>
+
+    <article id="favoritos-personales" class="info-section">
+      <div class="info-text">
+        <h2>Guarda tus favoritos y compara</h2>
+        <p>
+          ¿Encontraste varios animales que te interesan pero no te decides? El sistema de favoritos te permite
+          guardar todos los perfiles que te llamen la atención para revisarlos con calma más tarde y compararlos
+          antes de tomar una decisión.
+        </p>
+        <p>
+          Accede rápidamente a tu lista de favoritos desde tu panel personal. Cada animal guardado mantiene su
+          información actualizada, por lo que siempre verás si sigue disponible o si su estado ha cambiado.
+          Es la forma perfecta de hacer seguimiento sin perder de vista a tus candidatos.
+        </p>
+        <ul>
+          <li>Lista personalizada de animales guardados</li>
+          <li>Acceso rápido desde tu panel de usuario</li>
+          <li>Información siempre actualizada de cada favorito</li>
+          <li>Compara características entre diferentes animales</li>
+        </ul>
+      </div>
+      <div class="info-imagen">
+        <img src="https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg" alt="Favoritos personales" />
+      </div>
+    </article>
+
   </section>
 </div>
 
