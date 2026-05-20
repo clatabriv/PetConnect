@@ -27,7 +27,7 @@ h1 {
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
-  border: 2px solid #6b8e5e;
+  border: 1px solid #6b8e5e;
   transition: all 0.3s ease;
   font-size: 16px;
 }
@@ -119,7 +119,7 @@ td {
   object-fit: cover;
   background: #f0ede5;
   flex-shrink: 0;
-  border: 2px solid #d0e0c8;
+  border: 1px solid #d0e0c8;
   transition: all 0.3s ease;
 }
 
@@ -170,7 +170,7 @@ tbody tr:hover .animal-cell img {
 
 .btn-remove {
   background-color: #ffffff;
-  border: 2px solid #6b8e5e;
+  border: 1px solid #6b8e5e;
   color: #6b8e5e;
   padding: 8px 18px;
   border-radius: 8px;
@@ -194,7 +194,7 @@ tbody tr:hover .animal-cell img {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   border-radius: 16px;
-  border: 2px dashed #d0e0c8;
+  border: 1px dashed #d0e0c8;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -216,7 +216,7 @@ tbody tr:hover .animal-cell img {
   font-weight: 600;
   font-size: 16px;
   transition: all 0.3s ease;
-  border: 2px solid #6b8e5e;
+  border: 1px solid #6b8e5e;
 }
 
 .btn-primary:hover {
@@ -290,6 +290,7 @@ tbody tr:hover .animal-cell img {
   .btn-remove {
     padding: 6px 14px;
     font-size: 12px;
+    border: 1px;
   }
 
   .empty-state {

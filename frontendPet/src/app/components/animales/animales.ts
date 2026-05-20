@@ -8,13 +8,14 @@ import { Animal } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from '../footer/footer';
+import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top';
 
 const PAGE_SIZE = 12;
 
 @Component({
   selector: 'app-animales',
   standalone: true,
-  imports: [NgFor, NgIf, NavbarComponent, FormsModule, FooterComponent],
+  imports: [NgFor, NgIf, NavbarComponent, FormsModule, FooterComponent, ScrollToTopComponent],
   templateUrl: './animales.html',
   styleUrl: './animales.css',
 })

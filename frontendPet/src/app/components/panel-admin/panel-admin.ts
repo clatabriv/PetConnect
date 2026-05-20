@@ -7,11 +7,20 @@ import { Animal, EstadoAdopcion, Rol, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
 import { ImageUploadComponent } from '../image-upload/image-upload';
 import { FooterComponent } from '../footer/footer';
+import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top';
 
 @Component({
   selector: 'app-panel-admin',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf, NavbarComponent, ImageUploadComponent, FooterComponent],
+  imports: [
+    FormsModule,
+    NgFor,
+    NgIf,
+    NavbarComponent,
+    ImageUploadComponent,
+    FooterComponent,
+    ScrollToTopComponent,
+  ],
   templateUrl: './panel-admin.html',
   styleUrl: './panel-admin.css',
 })

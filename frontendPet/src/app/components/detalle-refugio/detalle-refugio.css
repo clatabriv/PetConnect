@@ -157,7 +157,7 @@
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
   border-radius: 12px;
-  border: 2px dashed #d0e0c8;
+  border: 1px dashed #d0e0c8;
 }
 
 /* ── Grid de animales ── */

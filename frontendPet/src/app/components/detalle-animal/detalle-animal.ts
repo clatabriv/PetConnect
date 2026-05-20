@@ -9,11 +9,12 @@ import { CloudinaryService } from '../../services/cloudinary';
 import { Animal, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
 import { FooterComponent } from '../footer/footer';
+import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top';
 
 @Component({
   selector: 'app-detalle-animal',
   standalone: true,
-  imports: [RouterLink, NgIf, FormsModule, NavbarComponent, FooterComponent],
+  imports: [ScrollToTopComponent, RouterLink, NgIf, FormsModule, NavbarComponent, FooterComponent],
   templateUrl: './detalle-animal.html',
   styleUrl: './detalle-animal.css',
 })

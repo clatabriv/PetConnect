@@ -5,11 +5,12 @@ import { ApiService } from '../../services/api';
 import { Animal, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
 import { FooterComponent } from '../footer/footer';
+import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top';
 
 @Component({
   selector: 'app-detalle-refugio',
   standalone: true,
-  imports: [RouterLink, NgFor, NgIf, NavbarComponent, FooterComponent],
+  imports: [RouterLink, NgFor, NgIf, NavbarComponent, FooterComponent, ScrollToTopComponent],
   templateUrl: './detalle-refugio.html',
   styleUrl: './detalle-refugio.css',
 })

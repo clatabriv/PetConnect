@@ -229,7 +229,7 @@
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #88a878;
+  border: 1px solid #88a878;
 }
 
 .refugio-nombre {
@@ -280,7 +280,7 @@
 .btn-primary {
   background: linear-gradient(135deg, #6b8e5e, #88a878);
   color: #ffffff;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -298,7 +298,7 @@
 .btn-secondary {
   background: #f5f3ee;
   color: #2d3e28;
-  border: 2px solid #d0e0c8;
+  border: 1px solid #d0e0c8;
 }
 
 .btn-secondary:hover:not(:disabled) {
@@ -374,7 +374,7 @@
 .modal-contenido textarea {
   width: 100%;
   padding: 14px 16px;
-  border: 2px solid #d0e0c8;
+  border: 1px solid #d0e0c8;
   border-radius: 12px;
   font-family: inherit;
   font-size: 15px;

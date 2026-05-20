@@ -6,11 +6,12 @@ import { Animal } from '../../models/types';
 import { AuthService } from '../../services/auth';
 import { NavbarComponent } from '../navbar/navbar';
 import { FooterComponent } from '../footer/footer';
+import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top';
 
 @Component({
   selector: 'app-favoritos',
   standalone: true,
-  imports: [RouterLink, NgFor, NgIf, NavbarComponent, FooterComponent],
+  imports: [RouterLink, NgFor, NgIf, NavbarComponent, FooterComponent, ScrollToTopComponent],
   templateUrl: './favoritos.html',
   styleUrl: './favoritos.css',
 })

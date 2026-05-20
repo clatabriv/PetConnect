@@ -7,13 +7,22 @@ import { Animal, EstadoAdopcion, Usuario } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
 import { ImageUploadComponent } from '../image-upload/image-upload';
 import { FooterComponent } from '../footer/footer';
+import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top';
 
 type AnimalForm = Omit<Animal, 'id'>;
 
 @Component({
   selector: 'app-panel-refugio',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf, NavbarComponent, ImageUploadComponent, FooterComponent],
+  imports: [
+    ScrollToTopComponent,
+    FormsModule,
+    NgFor,
+    NgIf,
+    NavbarComponent,
+    ImageUploadComponent,
+    FooterComponent,
+  ],
   templateUrl: './panel-refugio.html',
   styleUrl: './panel-refugio.css',
 })
