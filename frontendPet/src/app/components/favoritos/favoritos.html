@@ -2,7 +2,6 @@
 <section class="page">
   <header>
     <h1>Mis favoritos</h1>
-    <a routerLink="/animales" class="btn-secondary">Ver más animales</a>
   </header>
 
   <div class="table-container" *ngIf="favoritos.length > 0">
@@ -41,6 +40,11 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- Botón "Ver más animales" debajo de la tabla -->
+  <div class="btn-container" *ngIf="favoritos.length > 0">
+    <a routerLink="/animales" class="btn-secondary">Ver más animales</a>
   </div>
 
   <div class="empty-state" *ngIf="favoritos.length === 0">
