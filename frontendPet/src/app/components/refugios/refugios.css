@@ -1,16 +1,16 @@
 .page {
   min-height: 100vh;
-  background-color: #f5f8fc;
-  padding: 24px 5vw 60px;
+  background: linear-gradient(135deg, #fffefb 0%, #f5f3ee 100%);
+  padding: 32px 5vw 60px;
 }
 
 header {
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
 
 h1 {
-  color: #1f3147;
-  font-size: 32px;
+  color: #2d3e28;
+  font-size: clamp(26px, 4vw, 36px);
   margin: 0;
   font-weight: 700;
 }
@@ -19,26 +19,46 @@ h1 {
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  gap: 28px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 article {
-  background-color: #fff;
-  border: 1px solid #dde5f0;
+  background-color: #ffffff;
+  border: 1px solid #e8e4da;
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 12px rgba(82, 122, 69, 0.08);
+  position: relative;
+}
+
+/* Barra superior que se desliza al hover */
+article::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6b8e5e, #88a878);
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
 }
 
 article:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(31, 49, 71, 0.12);
-  border-color: #cbd5e1;
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(82, 122, 69, 0.18);
+  border-color: #88a878;
+}
+
+article:hover::before {
+  transform: translateX(0);
 }
 
 /* Imagen grande arriba */
@@ -46,8 +66,13 @@ img {
   width: 100%;
   height: 280px;
   object-fit: cover;
-  background: #f0f4f8;
+  background: #f0ede5;
   border-radius: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+article:hover img {
+  transform: scale(1.05);
 }
 
 /* Info debajo de la imagen */
@@ -55,38 +80,40 @@ img {
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 h3 {
   margin: 0 0 4px 0;
-  color: #1f3147;
+  color: #2d3e28;
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .email {
   margin: 0 0 12px 0;
-  color: #64748b;
+  color: #527a45;
   font-size: 15px;
+  font-weight: 500;
 }
 
 .badge {
   display: inline-block;
   font-size: 12px;
   font-weight: 600;
-  color: #166534;
-  background-color: #dcfce7;
+  color: #2d5a2e;
+  background-color: #e5efe0;
   border-radius: 999px;
   padding: 6px 12px;
   text-transform: uppercase;
   letter-spacing: 0.3px;
   align-self: flex-start;
+  border: 1px solid #d0e0c8;
 }
 
 @media (max-width: 768px) {
   .page {
-    padding: 20px 4vw 40px;
+    padding: 24px 4vw 48px;
   }
 
   h1 {
@@ -95,11 +122,11 @@ h3 {
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 22px;
   }
 
   img {
-    height: 220px;
+    height: 240px;
   }
 
   .info {
@@ -108,5 +135,27 @@ h3 {
 
   h3 {
     font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 20px 4vw 40px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .grid {
+    gap: 18px;
+  }
+
+  img {
+    height: 220px;
+  }
+
+  .info {
+    padding: 18px;
   }
 }
