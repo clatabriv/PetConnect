@@ -8,9 +8,6 @@
   <section class="card">
     <div class="card-header">
       <h2>Usuarios</h2>
-      <!-- <button class="btn-primary" (click)="mostrarFormUsuario = !mostrarFormUsuario">
-        {{ mostrarFormUsuario ? 'Cancelar' : '+ Nuevo usuario' }}
-      </button> -->
       <button [class]="mostrarFormUsuario ? 'btn-secondary' : 'btn-primary'"
         (click)="mostrarFormUsuario = !mostrarFormUsuario">
         {{ mostrarFormUsuario ? 'Cancelar' : '+ Nuevo usuario' }}
@@ -40,6 +37,14 @@
           <option value="ADMIN">ADMIN</option>
         </select>
       </div>
+
+      <!-- Campo de descripción (solo para REFUGIO) -->
+      <div *ngIf="nuevoUsuario.rol === 'REFUGIO'" style="padding: 0 24px;">
+        <textarea [(ngModel)]="nuevoUsuario.descripcion"
+          placeholder="Descripción del refugio (misión, instalaciones, historia...)"
+          style="margin-top: 14px; width: 100%; box-sizing: border-box;"></textarea>
+      </div>
+
       <button class="btn-primary btn-create" (click)="crearUsuario()">Crear</button>
     </div>
   </section>
@@ -199,6 +204,13 @@
         <option value="ADMIN">ADMIN</option>
       </select>
     </label>
+
+    <!-- Campo de descripción (solo para REFUGIO) -->
+    <label *ngIf="usuarioEdit.rol === 'REFUGIO'">Descripción del refugio
+      <textarea [(ngModel)]="usuarioEdit.descripcion" placeholder="Misión, instalaciones, historia..."
+        rows="4"></textarea>
+    </label>
+
     <label>Foto de perfil
       <app-image-upload [urlActual]="usuarioEdit.foto || ''" (imagenSubida)="usuarioEdit.foto = $event" />
     </label>

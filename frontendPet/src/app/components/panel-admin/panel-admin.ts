@@ -36,12 +36,19 @@ export class PanelAdminComponent implements OnInit {
 
   // ── Crear usuario ──────────────────────────────────────────
   mostrarFormUsuario = false;
-  nuevoUsuario = { nombre: '', email: '', password: '', rol: 'ADOPTANTE' as Rol };
+  nuevoUsuario = { nombre: '', email: '', password: '', rol: 'ADOPTANTE' as Rol, descripcion: '' };
   errorUsuario = { nombre: '', email: '', password: '' };
 
   // ── Editar usuario ─────────────────────────────────────────
   usuarioEditando: Usuario | null = null;
-  usuarioEdit = { nombre: '', email: '', rol: 'ADOPTANTE' as Rol, password: '', foto: '' };
+  usuarioEdit = {
+    nombre: '',
+    email: '',
+    rol: 'ADOPTANTE' as Rol,
+    password: '',
+    foto: '',
+    descripcion: '',
+  };
 
   // ── Editar animal ──────────────────────────────────────────
   animalEditando: Animal | null = null;
@@ -172,7 +179,13 @@ export class PanelAdminComponent implements OnInit {
 
     this.apiService.crearUsuario(this.nuevoUsuario).subscribe(() => {
       this.mostrarFormUsuario = false;
-      this.nuevoUsuario = { nombre: '', email: '', password: '', rol: 'ADOPTANTE' };
+      this.nuevoUsuario = {
+        nombre: '',
+        email: '',
+        password: '',
+        rol: 'ADOPTANTE',
+        descripcion: '',
+      };
       this.errorUsuario = { nombre: '', email: '', password: '' };
       this.recargar();
     });
@@ -186,6 +199,7 @@ export class PanelAdminComponent implements OnInit {
       rol: u.rol,
       password: '',
       foto: u.foto ?? '',
+      descripcion: u.descripcion ?? '',
     };
   }
 
@@ -196,6 +210,7 @@ export class PanelAdminComponent implements OnInit {
       email: this.usuarioEdit.email,
       rol: this.usuarioEdit.rol,
       foto: this.usuarioEdit.foto,
+      descripcion: this.usuarioEdit.descripcion,
     };
     if (this.usuarioEdit.password) payload['password'] = this.usuarioEdit.password;
 
