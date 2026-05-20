@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
@@ -14,7 +14,7 @@ const PAGE_SIZE = 12;
 @Component({
   selector: 'app-animales',
   standalone: true,
-  imports: [RouterLink, NgFor, NgIf, NavbarComponent, FormsModule, FooterComponent],
+  imports: [NgFor, NgIf, NavbarComponent, FormsModule, FooterComponent],
   templateUrl: './animales.html',
   styleUrl: './animales.css',
 })

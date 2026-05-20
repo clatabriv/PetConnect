@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { Usuario } from '../../models/types';
@@ -9,7 +9,7 @@ import { FooterComponent } from '../footer/footer';
 @Component({
   selector: 'app-refugios',
   standalone: true,
-  imports: [RouterLink, NgFor, NavbarComponent, FooterComponent],
+  imports: [NgFor, NavbarComponent, FooterComponent],
   templateUrl: './refugios.html',
   styleUrl: './refugios.css',
 })

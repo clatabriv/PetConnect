@@ -11,15 +11,7 @@ import { FooterComponent } from '../footer/footer';
 @Component({
   selector: 'app-panel-admin',
   standalone: true,
-  imports: [
-    FormsModule,
-    RouterLink,
-    NgFor,
-    NgIf,
-    NavbarComponent,
-    ImageUploadComponent,
-    FooterComponent,
-  ],
+  imports: [FormsModule, NgFor, NgIf, NavbarComponent, ImageUploadComponent, FooterComponent],
   templateUrl: './panel-admin.html',
   styleUrl: './panel-admin.css',
 })

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
@@ -14,15 +13,7 @@ type AnimalForm = Omit<Animal, 'id'>;
 @Component({
   selector: 'app-panel-refugio',
   standalone: true,
-  imports: [
-    FormsModule,
-    RouterLink,
-    NgFor,
-    NgIf,
-    NavbarComponent,
-    ImageUploadComponent,
-    FooterComponent,
-  ],
+  imports: [FormsModule, NgFor, NgIf, NavbarComponent, ImageUploadComponent, FooterComponent],
   templateUrl: './panel-refugio.html',
   styleUrl: './panel-refugio.css',
 })

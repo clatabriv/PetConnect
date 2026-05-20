@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Location } from '@angular/common';
-import { NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
@@ -13,7 +13,7 @@ import { FooterComponent } from '../footer/footer';
 @Component({
   selector: 'app-detalle-animal',
   standalone: true,
-  imports: [RouterLink, NgFor, NgIf, FormsModule, NavbarComponent, FooterComponent],
+  imports: [RouterLink, NgIf, FormsModule, NavbarComponent, FooterComponent],
   templateUrl: './detalle-animal.html',
   styleUrl: './detalle-animal.css',
 })
