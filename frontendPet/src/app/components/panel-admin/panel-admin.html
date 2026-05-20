@@ -8,7 +8,11 @@
   <section class="card">
     <div class="card-header">
       <h2>Usuarios</h2>
-      <button class="btn-primary" (click)="mostrarFormUsuario = !mostrarFormUsuario">
+      <!-- <button class="btn-primary" (click)="mostrarFormUsuario = !mostrarFormUsuario">
+        {{ mostrarFormUsuario ? 'Cancelar' : '+ Nuevo usuario' }}
+      </button> -->
+      <button [class]="mostrarFormUsuario ? 'btn-secondary' : 'btn-primary'"
+        (click)="mostrarFormUsuario = !mostrarFormUsuario">
         {{ mostrarFormUsuario ? 'Cancelar' : '+ Nuevo usuario' }}
       </button>
     </div>
@@ -74,7 +78,8 @@
   <section class="card">
     <div class="card-header">
       <h2>Animales</h2>
-      <button class="btn-primary" (click)="mostrarFormAnimal = !mostrarFormAnimal">
+      <button [class]="mostrarFormAnimal ? 'btn-secondary' : 'btn-primary'"
+        (click)="mostrarFormAnimal = !mostrarFormAnimal">
         {{ mostrarFormAnimal ? 'Cancelar' : '+ Nuevo animal' }}
       </button>
     </div>
