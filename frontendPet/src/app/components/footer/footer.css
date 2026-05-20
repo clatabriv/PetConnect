@@ -1,5 +1,5 @@
 .footer {
-  background: linear-gradient(135deg, #1f3147 0%, #2c4460 100%);
+  background: linear-gradient(135deg, #527a45 0%, #6b8e5e 100%);
   color: #ffffff;
   margin-top: auto;
 }
@@ -7,31 +7,32 @@
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 48px 5vw 32px;
+  padding: 52px 5vw 36px;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  gap: 40px;
+  gap: 48px;
 }
 
 .footer-section h3 {
-  font-size: 1.4rem;
-  margin: 0 0 12px;
+  font-size: 1.5rem;
+  margin: 0 0 14px;
   color: #ffffff;
   font-weight: 700;
 }
 
 .footer-section h4 {
-  font-size: 1rem;
-  margin: 0 0 16px;
-  color: #e4ebf5;
+  font-size: 1.05rem;
+  margin: 0 0 18px;
+  color: #fffefb;
   font-weight: 600;
 }
 
 .footer-section p {
-  color: #c8d4e3;
-  line-height: 1.6;
-  font-size: 0.9rem;
+  color: #e5efe0;
+  line-height: 1.7;
+  font-size: 0.95rem;
   margin: 0;
+  font-weight: 400;
 }
 
 .footer-section ul {
@@ -40,71 +41,81 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .footer-section ul li a {
-  color: #c8d4e3;
+  color: #e5efe0;
   text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s ease;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  font-weight: 400;
 }
 
 .footer-section ul li a:hover {
   color: #ffffff;
+  padding-left: 6px;
 }
 
 /* Iconos sociales */
 .social-icons {
   display: flex;
   gap: 16px;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 .social-icons a {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
   color: #ffffff;
   transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .social-icons a:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .social-icons svg {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 /* Barra inferior */
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 20px 5vw;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 22px 5vw;
   text-align: center;
 }
 
 .footer-bottom p {
   margin: 0;
-  color: #9bafc4;
-  font-size: 0.85rem;
+  color: #d0e0c8;
+  font-size: 0.9rem;
+  font-weight: 400;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .footer-content {
     grid-template-columns: 1fr;
-    gap: 32px;
-    padding: 32px 5vw 24px;
+    gap: 36px;
+    padding: 36px 5vw 28px;
   }
 
   .footer-section h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+  }
+
+  .footer-section h4 {
+    font-size: 1rem;
   }
 }
