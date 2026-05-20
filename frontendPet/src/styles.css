@@ -1,3 +1,6 @@
+/* Importar fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -5,13 +8,52 @@
 body {
   margin: 0;
   font-family:
-    Inter,
-    'Segoe UI',
-    Roboto,
+    'Plus Jakarta Sans',
+    'Inter',
     -apple-system,
     BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
     'Helvetica Neue',
     Arial,
     sans-serif;
-  color: #1f3147;
+  color: #2d3e28;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tipografía para títulos principales */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  color: #2d3e28;
+  line-height: 1.2;
+}
+
+/* Tipografía para texto de cuerpo */
+p,
+span,
+a,
+li,
+td,
+th,
+label,
+input,
+select,
+textarea,
+button {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Mejoras de legibilidad */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
