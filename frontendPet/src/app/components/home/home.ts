@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgFor, NgClass } from '@angular/common';
 import { AuthService } from '../../services/auth';
@@ -15,6 +15,7 @@ import { FooterComponent } from '../footer/footer';
 export class HomeComponent implements OnInit, OnDestroy {
   indiceActual = 0;
   private intervalo: any;
+  mostrarScrollTop = false;
 
   readonly imagenes: string[] = [
     'https://images.pexels.com/photos/34479907/pexels-photo-34479907.jpeg',
@@ -40,6 +41,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.intervalo) {
       clearInterval(this.intervalo);
     }
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    // Mostrar botón cuando se ha scrolleado más de 300px
+    this.mostrarScrollTop = window.pageYOffset > 300;
   }
 
   siguiente() {
@@ -69,6 +76,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   cerrarSesion() {

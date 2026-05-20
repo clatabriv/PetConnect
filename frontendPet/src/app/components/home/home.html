@@ -66,10 +66,7 @@
       </div>
     </article>
 
-    <article id="refugios-activos" class="info-section reverse">
-      <div class="info-imagen">
-        <img src="https://images.pexels.com/photos/20595085/pexels-photo-20595085.jpeg" alt="Refugios de animales" />
-      </div>
+    <article id="refugios-activos" class="info-section">
       <div class="info-text">
         <h2>Red de refugios comprometidos</h2>
         <p>
@@ -88,6 +85,9 @@
           <li>Perfiles públicos con información de contacto</li>
           <li>Estadísticas de visitas y solicitudes recibidas</li>
         </ul>
+      </div>
+      <div class="info-imagen">
+        <img src="https://images.pexels.com/photos/20595085/pexels-photo-20595085.jpeg" alt="Refugios de animales" />
       </div>
     </article>
 
@@ -117,6 +117,11 @@
     </article>
 
   </section>
+
+  <!-- Botón scroll to top -->
+  <button class="scroll-to-top" [class.visible]="mostrarScrollTop" (click)="scrollToTop()" aria-label="Volver arriba">
+    ↑
+  </button>
 </div>
 
 <app-footer />
