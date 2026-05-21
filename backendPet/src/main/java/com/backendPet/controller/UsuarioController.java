@@ -38,7 +38,7 @@ public class UsuarioController {
     public Usuario obtenerUsuario(@PathVariable Long id) {
         return usuarioService.findById(id);
     }
-    
+
     @GetMapping("/refugios/{id}")
     public Usuario obtenerRefugioPublico(@PathVariable Long id) {
         Usuario u = usuarioService.findById(id);
@@ -99,4 +99,25 @@ public class UsuarioController {
         return usuarioService.login(email, password);
     }
 
+    // PARA MI PERFIL
+    // ── Perfil propio del adoptante ──
+    @GetMapping("/usuarios/mi-perfil")
+    public Usuario miPerfil() {
+        return authContextService.currentUser();
+    }
+
+    @PreAuthorize("hasRole('ADOPTANTE')")
+    @PutMapping("/usuarios/mi-perfil")
+    public Usuario actualizarMiPerfil(@RequestBody Map<String, String> datos) {
+        Usuario actor = authContextService.currentUser();
+        return usuarioService.updatePerfilAdoptante(actor.getId(), datos);
+    }
+
+    @PreAuthorize("hasRole('ADOPTANTE')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/usuarios/mi-cuenta")
+    public void eliminarMiCuenta() {
+        Usuario actor = authContextService.currentUser();
+        usuarioService.delete(actor.getId());
+    }
 }

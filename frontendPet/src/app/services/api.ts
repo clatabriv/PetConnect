@@ -145,4 +145,17 @@ export class ApiService {
   eliminarFavorito(adoptanteId: number, animalId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/adoptantes/${adoptanteId}/favoritos/${animalId}`);
   }
+
+  // MI PERFIL
+  getMiPerfil(): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/usuarios/me`);
+  }
+
+  actualizarMiPerfil(datos: { nombre?: string; foto?: string }): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.apiUrl}/usuarios/mi-perfil`, datos);
+  }
+
+  eliminarMiCuenta(): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/usuarios/mi-cuenta`);
+  }
 }

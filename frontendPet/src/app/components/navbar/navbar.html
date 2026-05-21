@@ -14,6 +14,9 @@
         @if (authService.hasRole('ADOPTANTE', 'ADMIN')) {
         <a routerLink="/favoritos">Favoritos</a>
         }
+        @if (authService.hasRole('ADOPTANTE')) {
+        <a routerLink="/mi-perfil">Mi perfil</a>
+        }
         @if (authService.hasRole('REFUGIO')) {
         <a routerLink="/panel-refugio">Mi refugio</a>
         }
@@ -25,5 +28,6 @@
         } @else {
         <a routerLink="/home" (click)="cerrarSesion()">Salir</a>
         }
+
     </div>
 </nav>

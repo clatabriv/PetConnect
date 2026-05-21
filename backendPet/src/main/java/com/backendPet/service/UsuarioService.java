@@ -11,6 +11,7 @@ import java.util.List;
 import com.backendPet.repo.FavoritoRepository;
 import com.backendPet.repo.SolicitudAdopcionRepository;
 import com.backendPet.repo.AnimalRepository;
+import java.util.Map;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -139,4 +140,16 @@ public class UsuarioService {
         }
         return usuario;
     }
+    
+    // MI PERFIL
+    public Usuario updatePerfilAdoptante(Long id, Map<String, String> datos) {
+    Usuario u = findById(id);
+    if (datos.containsKey("nombre") && !datos.get("nombre").isBlank()) {
+        u.setNombre(datos.get("nombre"));
+    }
+    if (datos.containsKey("foto")) {
+        u.setFoto(datos.get("foto"));
+    }
+    return usuarioRepository.save(u);
+}
 }
