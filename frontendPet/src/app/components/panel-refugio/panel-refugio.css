@@ -1,3 +1,31 @@
+.estado-verificacion {
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  padding: 0 24px;
+}
+
+.badge-verificado {
+  background: linear-gradient(135deg, #6b8e5e, #88a878);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(107, 142, 94, 0.2);
+}
+
+.badge-pendiente {
+  background-color: #fff5f5;
+  color: #c25656;
+  border: 1px solid #fecaca;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-block;
+}
+
 .page {
   min-height: 100vh;
   padding: 32px 5vw 60px;

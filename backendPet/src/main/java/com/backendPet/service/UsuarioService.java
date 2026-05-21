@@ -47,31 +47,47 @@ public class UsuarioService {
                 .orElseThrow(() -> new ResponseStatusException(
                 HttpStatus.NOT_FOUND, "Usuario no encontrado"));
     }
-
-    public Usuario create(Usuario u) {
-        // Comprobamos que el email no esté ya registrado
-        if (usuarioRepository.existsByEmail(u.getEmail())) {
+    
+    public Usuario cambiarEstadoVerificacion(Long id, Boolean verificado) {
+        Usuario u = findById(id);
+        if (u.getRol() != Usuario.Rol.REFUGIO) {
             throw new ResponseStatusException(
-                    HttpStatus.CONFLICT, "El email ya está registrado");
+                HttpStatus.BAD_REQUEST, "Solo los refugios pueden ser verificados");
         }
-
-        // Seguridad: solo un ADMIN autenticado puede crear otros ADMINs
-        if (u.getRol() == Usuario.Rol.ADMIN) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            boolean esAdmin = auth != null && auth.isAuthenticated()
-                && auth.getAuthorities().stream()
-                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-
-            if (!esAdmin) {
-                throw new ResponseStatusException(
-                    HttpStatus.FORBIDDEN, "No puedes registrarte como administrador");
-            }
-        }
-
-        u.setId(null);
-        u.setPassword(passwordEncoder.encode(u.getPassword()));
+        u.setVerificado(verificado);
         return usuarioRepository.save(u);
     }
+
+    public Usuario create(Usuario u) {
+    if (usuarioRepository.existsByEmail(u.getEmail())) {
+        throw new ResponseStatusException(
+                HttpStatus.CONFLICT, "El email ya está registrado");
+    }
+
+    if (u.getRol() == Usuario.Rol.ADMIN) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean esAdmin = auth != null && auth.isAuthenticated()
+            && auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!esAdmin) {
+            throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN, "No puedes registrarte como administrador");
+        }
+    }
+
+    u.setId(null);
+    u.setPassword(passwordEncoder.encode(u.getPassword()));
+    
+    // Los refugios empiezan sin verificar, los demás verificados por defecto
+    if (u.getRol() == Usuario.Rol.REFUGIO) {
+        u.setVerificado(false);
+    } else {
+        u.setVerificado(true);
+    }
+    
+    return usuarioRepository.save(u);
+}
 
     public Usuario update(Long id, Usuario u) {
         Usuario existing = findById(id);
@@ -89,10 +105,20 @@ public class UsuarioService {
 
     public Usuario updatePerfilRefugio(Long id, Usuario u) {
         Usuario existing = findById(id);
-        existing.setNombre(u.getNombre());
-        existing.setDescripcion(u.getDescripcion());
-        existing.setFoto(u.getFoto());
-        existing.setTelefono(u.getTelefono());
+    
+        if (u.getNombre() != null && !u.getNombre().isBlank()) {
+            existing.setNombre(u.getNombre());
+        }
+        if (u.getDescripcion() != null) {
+            existing.setDescripcion(u.getDescripcion());
+        }
+        if (u.getFoto() != null) {
+            existing.setFoto(u.getFoto());
+        }
+        if (u.getTelefono() != null) {
+            existing.setTelefono(u.getTelefono());
+        }
+    
         return usuarioRepository.save(existing);
     }
 

@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -54,9 +55,19 @@ public class UsuarioController {
     }
 
     @GetMapping("/usuarios/refugios")
-    public List<Usuario> listarRefugios() {
-        return usuarioService.findByRol(Usuario.Rol.REFUGIO);
+public List<Usuario> listarRefugios(@RequestParam(required = false) Boolean pendientes) {
+    List<Usuario> refugios = usuarioService.findByRol(Usuario.Rol.REFUGIO);
+    
+    if (Boolean.TRUE.equals(pendientes)) {
+        return refugios.stream()
+            .filter(u -> Boolean.FALSE.equals(u.getVerificado()))
+            .collect(Collectors.toList());
     }
+    
+    return refugios.stream()
+        .filter(u -> Boolean.TRUE.equals(u.getVerificado()))
+        .collect(Collectors.toList());
+}
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/usuarios")
@@ -67,12 +78,11 @@ public class UsuarioController {
 
     @PreAuthorize("hasRole('REFUGIO') or hasRole('ADMIN')")
     @PutMapping("/usuarios/{id}/perfil")
-    public Usuario editarPerfilRefugio(@PathVariable Long id,
-            @Valid @RequestBody Usuario usuario) {
+    public Usuario editarPerfilRefugio(@PathVariable Long id, @RequestBody Usuario usuario) {
         Usuario actor = authContextService.currentUser();
         if (!authContextService.isAdmin(actor) && !actor.getId().equals(id)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                    "Solo puedes editar tu propio perfil");
+                "Solo puedes editar tu propio perfil");
         }
         return usuarioService.updatePerfilRefugio(id, usuario);
     }
@@ -119,5 +129,20 @@ public class UsuarioController {
     public void eliminarMiCuenta() {
         Usuario actor = authContextService.currentUser();
         usuarioService.delete(actor.getId());
+    }
+    
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/usuarios/{id}/verificacion")
+    public Usuario cambiarVerificacion(@PathVariable Long id, @RequestBody Map<String, Boolean> datos) {
+        Boolean verificado = datos.get("verificado");
+        return usuarioService.cambiarEstadoVerificacion(id, verificado);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/usuarios/refugios-pendientes")
+    public List<Usuario> listarRefugiosPendientes() {
+        return usuarioService.findByRol(Usuario.Rol.REFUGIO).stream()
+            .filter(u -> Boolean.FALSE.equals(u.getVerificado()))
+            .toList();
     }
 }

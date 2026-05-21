@@ -11,6 +11,7 @@ export interface Usuario {
   foto?: string;
   telefono?: string;
   ubicacion?: string;
+  verificado?: boolean;
 }
 
 export interface Animal {

@@ -27,248 +27,264 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top';
 export class PanelAdminComponent implements OnInit {
   usuarios: Usuario[] = [];
   animales: Animal[] = [];
+  refugiosPendientes: Usuario[] = [];
 
-  // ── Opciones para los desplegables ──────────────────────────
-  especiesDisponibles = [
-    'Perro',
-    'Gato',
-    'Conejo',
-    'Cobaya',
-    'Rata',
-    'Tortuga',
-    'Gallina',
-    'Pájaro',
-    'Hámster',
-  ];
-  generosDisponibles = ['Macho', 'Hembra'];
-  estadosSaludDisponibles = ['Bueno', 'Regular', 'Malo'];
-
-  // ── Crear usuario ──────────────────────────────────────────
-  mostrarFormUsuario = false;
-  nuevoUsuario = { nombre: '', email: '', password: '', rol: 'ADOPTANTE' as Rol, descripcion: '' };
-  errorUsuario = { nombre: '', email: '', password: '' };
-
-  // ── Editar usuario ─────────────────────────────────────────
-  usuarioEditando: Usuario | null = null;
-  usuarioEdit = {
+  // Formulario de usuario
+  formUsuario: Partial<Usuario> & { password?: string } = {
     nombre: '',
     email: '',
-    rol: 'ADOPTANTE' as Rol,
     password: '',
-    foto: '',
+    rol: 'ADOPTANTE',
     descripcion: '',
+    foto: '',
+    telefono: '',
   };
 
-  // ── Editar animal ──────────────────────────────────────────
-  animalEditando: Animal | null = null;
-  mostrarFormAnimal = false;
-  refugios: Usuario[] = [];
-  nuevoAnimalRefugioId: number | null = null;
-  nuevoAnimal = {
+  editandoUsuarioId: number | null = null;
+  errorUsuario: Record<string, string> = {};
+
+  // Formulario de animal
+  formAnimal: Partial<Animal> = {
     nombre: '',
     especie: '',
     raza: '',
-    edad: undefined as number | undefined,
+    edad: undefined,
     genero: '',
     estadoSalud: '',
     descripcion: '',
     ubicacion: '',
     foto: '',
-    estadoAdopcion: 'DISPONIBLE' as EstadoAdopcion,
-  };
-  errorAnimal = { refugio: '', nombre: '', especie: '', genero: '' };
-
-  animalEdit = {
-    nombre: '',
-    especie: '',
-    raza: '',
-    edad: undefined as number | undefined,
-    genero: '',
-    estadoSalud: '',
-    descripcion: '',
-    ubicacion: '',
-    foto: '',
-    estadoAdopcion: 'DISPONIBLE' as EstadoAdopcion,
+    estadoAdopcion: 'DISPONIBLE',
+    refugioId: undefined,
   };
 
-  constructor(private apiService: ApiService) {}
+  editandoAnimalId: number | null = null;
+  errorAnimal: Record<string, string> = {};
 
-  ngOnInit(): void {
-    this.recargar();
-    this.apiService.getRefugios().subscribe((r) => (this.refugios = r));
+  rolesDisponibles: Rol[] = ['ADOPTANTE', 'REFUGIO', 'ADMIN'];
+  especiesDisponibles = ['Perro', 'Gato', 'Conejo', 'Ave', 'Otro'];
+  generosDisponibles = ['Macho', 'Hembra'];
+  estadosSaludDisponibles = ['Sano', 'En tratamiento', 'Necesita cuidados especiales'];
+
+  constructor(private api: ApiService) {}
+
+  ngOnInit() {
+    this.cargarUsuarios();
+    this.cargarAnimales();
+    this.cargarRefugiosPendientes();
   }
 
-  crearAnimal(): void {
-    // Resetear errores
-    this.errorAnimal = { refugio: '', nombre: '', especie: '', genero: '' };
+  // ──────────────────────────────────────────────────────────────
+  // USUARIOS
+  // ──────────────────────────────────────────────────────────────
 
-    // Validaciones
-    if (!this.nuevoAnimalRefugioId) {
-      this.errorAnimal.refugio = 'Debe seleccionar un refugio';
-      return;
-    }
-
-    if (!this.nuevoAnimal.nombre.trim()) {
-      this.errorAnimal.nombre = 'El nombre del animal es obligatorio';
-      return;
-    }
-
-    if (!this.nuevoAnimal.especie) {
-      this.errorAnimal.especie = 'Debe seleccionar una especie';
-      return;
-    }
-
-    if (!this.nuevoAnimal.genero) {
-      this.errorAnimal.genero = 'Debe seleccionar el género';
-      return;
-    }
-
-    this.apiService.crearAnimal(this.nuevoAnimalRefugioId, this.nuevoAnimal).subscribe(() => {
-      this.mostrarFormAnimal = false;
-      this.nuevoAnimal = {
-        nombre: '',
-        especie: '',
-        raza: '',
-        edad: undefined,
-        genero: '',
-        estadoSalud: '',
-        descripcion: '',
-        ubicacion: '',
-        foto: '',
-        estadoAdopcion: 'DISPONIBLE',
-      };
-      this.nuevoAnimalRefugioId = null;
-      this.errorAnimal = { refugio: '', nombre: '', especie: '', genero: '' };
-      this.recargar();
+  cargarUsuarios() {
+    this.api.getUsuarios().subscribe((data) => {
+      this.usuarios = data;
     });
   }
 
-  recargar(): void {
-    this.apiService.getUsuarios().subscribe({
-      next: (u) => (this.usuarios = u),
-      error: (e) => console.error('Error cargando usuarios:', e),
-    });
-    this.apiService.getAnimales().subscribe({
-      next: (a) => (this.animales = a),
-      error: (e) => console.error('Error cargando animales:', e),
-    });
+  guardarUsuario() {
+    this.errorUsuario = {};
+
+    if (!this.formUsuario.nombre?.trim()) {
+      this.errorUsuario['nombre'] = 'El nombre es obligatorio';
+    }
+    if (!this.formUsuario.email?.trim()) {
+      this.errorUsuario['email'] = 'El email es obligatorio';
+    }
+    if (!this.editandoUsuarioId && !this.formUsuario.password?.trim()) {
+      this.errorUsuario['password'] = 'La contraseña es obligatoria';
+    }
+
+    if (Object.keys(this.errorUsuario).length > 0) {
+      return;
+    }
+
+    if (this.editandoUsuarioId) {
+      this.api.editarUsuario(this.editandoUsuarioId, this.formUsuario).subscribe(() => {
+        this.cargarUsuarios();
+        this.cancelarEdicionUsuario();
+      });
+    } else {
+      this.api.crearUsuario(this.formUsuario as Usuario & { password: string }).subscribe(() => {
+        this.cargarUsuarios();
+        this.limpiarFormularioUsuario();
+      });
+    }
   }
 
-  // ── CRUD usuarios ──────────────────────────────────────────
-  crearUsuario(): void {
-    // Resetear errores
-    this.errorUsuario = { nombre: '', email: '', password: '' };
-
-    // Validaciones
-    if (!this.nuevoUsuario.nombre.trim()) {
-      this.errorUsuario.nombre = 'El nombre es obligatorio';
-      return;
-    }
-
-    if (!this.nuevoUsuario.email.trim()) {
-      this.errorUsuario.email = 'El email es obligatorio';
-      return;
-    }
-
-    if (!this.nuevoUsuario.email.includes('@')) {
-      this.errorUsuario.email = 'Debe introducir un @ en el email';
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(this.nuevoUsuario.email)) {
-      this.errorUsuario.email = 'El formato del email no es válido';
-      return;
-    }
-
-    if (!this.nuevoUsuario.password || this.nuevoUsuario.password.length < 4) {
-      this.errorUsuario.password = 'La contraseña debe tener al menos 4 caracteres';
-      return;
-    }
-
-    this.apiService.crearUsuario(this.nuevoUsuario).subscribe(() => {
-      this.mostrarFormUsuario = false;
-      this.nuevoUsuario = {
-        nombre: '',
-        email: '',
-        password: '',
-        rol: 'ADOPTANTE',
-        descripcion: '',
-      };
-      this.errorUsuario = { nombre: '', email: '', password: '' };
-      this.recargar();
-    });
-  }
-
-  abrirEditarUsuario(u: Usuario): void {
-    this.usuarioEditando = u;
-    this.usuarioEdit = {
-      nombre: u.nombre,
-      email: u.email,
-      rol: u.rol,
+  editarUsuario(usuario: Usuario) {
+    this.mostrarFormUsuario = true;
+    this.editandoUsuarioId = usuario.id;
+    this.formUsuario = {
+      nombre: usuario.nombre,
+      email: usuario.email,
+      rol: usuario.rol,
+      descripcion: usuario.descripcion || '',
+      foto: usuario.foto || '',
+      telefono: usuario.telefono || '',
       password: '',
-      foto: u.foto ?? '',
-      descripcion: u.descripcion ?? '',
     };
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  guardarUsuario(): void {
-    if (!this.usuarioEditando) return;
-    const payload: Partial<Usuario> & { password?: string } = {
-      nombre: this.usuarioEdit.nombre,
-      email: this.usuarioEdit.email,
-      rol: this.usuarioEdit.rol,
-      foto: this.usuarioEdit.foto,
-      descripcion: this.usuarioEdit.descripcion,
-    };
-    if (this.usuarioEdit.password) payload['password'] = this.usuarioEdit.password;
+  cancelarEdicionUsuario() {
+    this.editandoUsuarioId = null;
+    this.mostrarFormUsuario = false;
+    this.limpiarFormularioUsuario();
+  }
 
-    this.apiService.editarUsuario(this.usuarioEditando.id, payload).subscribe(() => {
-      this.usuarioEditando = null;
-      this.recargar();
+  limpiarFormularioUsuario() {
+    this.formUsuario = {
+      nombre: '',
+      email: '',
+      password: '',
+      rol: 'ADOPTANTE',
+      descripcion: '',
+      foto: '',
+      telefono: '',
+    };
+    this.errorUsuario = {};
+  }
+
+  borrarUsuario(id: number) {
+    if (!confirm('¿Estás seguro de borrar este usuario?')) return;
+    this.api.borrarUsuario(id).subscribe(() => {
+      this.cargarUsuarios();
     });
   }
 
-  cancelarUsuario(): void {
-    this.usuarioEditando = null;
-  }
+  // ──────────────────────────────────────────────────────────────
+  // ANIMALES
+  // ──────────────────────────────────────────────────────────────
 
-  borrarUsuario(id: number): void {
-    if (!confirm('¿Seguro que quieres borrar este usuario?')) return;
-    this.apiService.borrarUsuario(id).subscribe(() => this.recargar());
-  }
-
-  // ── CRUD animales ──────────────────────────────────────────
-  abrirEditarAnimal(a: Animal): void {
-    this.animalEditando = a;
-    this.animalEdit = {
-      nombre: a.nombre,
-      especie: a.especie,
-      raza: a.raza ?? '',
-      edad: a.edad ?? 0,
-      genero: a.genero ?? '',
-      estadoSalud: a.estadoSalud ?? '',
-      descripcion: a.descripcion ?? '',
-      ubicacion: a.ubicacion ?? '',
-      foto: a.foto ?? '',
-      estadoAdopcion: a.estadoAdopcion,
-    };
-  }
-
-  guardarAnimal(): void {
-    if (!this.animalEditando) return;
-    this.apiService.editarAnimal(this.animalEditando.id, this.animalEdit).subscribe(() => {
-      this.animalEditando = null;
-      this.recargar();
+  cargarAnimales() {
+    this.api.getAnimales().subscribe((data) => {
+      this.animales = data;
     });
   }
 
-  cancelarAnimal(): void {
-    this.animalEditando = null;
+  guardarAnimal() {
+    this.errorAnimal = {};
+
+    if (!this.formAnimal.nombre?.trim()) {
+      this.errorAnimal['nombre'] = 'El nombre es obligatorio';
+    }
+    if (!this.formAnimal.especie?.trim()) {
+      this.errorAnimal['especie'] = 'La especie es obligatoria';
+    }
+    if (!this.formAnimal.genero?.trim()) {
+      this.errorAnimal['genero'] = 'El género es obligatorio';
+    }
+    if (!this.formAnimal.refugioId) {
+      this.errorAnimal['refugioId'] = 'El refugio es obligatorio';
+    }
+
+    if (Object.keys(this.errorAnimal).length > 0) {
+      return;
+    }
+
+    if (this.editandoAnimalId) {
+      this.api.editarAnimal(this.editandoAnimalId, this.formAnimal).subscribe(() => {
+        this.cargarAnimales();
+        this.cancelarEdicionAnimal();
+      });
+    } else {
+      this.api.crearAnimal(this.formAnimal.refugioId!, this.formAnimal).subscribe(() => {
+        this.cargarAnimales();
+        this.limpiarFormularioAnimal();
+      });
+    }
   }
 
-  borrarAnimal(id: number): void {
-    if (!confirm('¿Seguro que quieres borrar este animal?')) return;
-    this.apiService.borrarAnimal(id).subscribe(() => this.recargar());
+  editarAnimal(animal: Animal) {
+    this.mostrarFormAnimal = true;
+    this.editandoAnimalId = animal.id;
+    this.formAnimal = {
+      nombre: animal.nombre,
+      especie: animal.especie,
+      raza: animal.raza || '',
+      edad: animal.edad,
+      genero: animal.genero || '',
+      estadoSalud: animal.estadoSalud || '',
+      descripcion: animal.descripcion || '',
+      ubicacion: animal.ubicacion || '',
+      foto: animal.foto || '',
+      estadoAdopcion: animal.estadoAdopcion,
+      refugioId: animal.refugioId,
+    };
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  cancelarEdicionAnimal() {
+    this.editandoAnimalId = null;
+    this.mostrarFormAnimal = false;
+    this.limpiarFormularioAnimal();
+  }
+
+  limpiarFormularioAnimal() {
+    this.formAnimal = {
+      nombre: '',
+      especie: '',
+      raza: '',
+      edad: undefined,
+      genero: '',
+      estadoSalud: '',
+      descripcion: '',
+      ubicacion: '',
+      foto: '',
+      estadoAdopcion: 'DISPONIBLE',
+      refugioId: undefined,
+    };
+    this.errorAnimal = {};
+  }
+
+  borrarAnimal(id: number) {
+    if (!confirm('¿Estás seguro de borrar este animal?')) return;
+    this.api.borrarAnimal(id).subscribe(() => {
+      this.cargarAnimales();
+    });
+  }
+
+  getNombreRefugio(refugioId?: number): string {
+    if (!refugioId) return '—';
+    const refugio = this.usuarios.find((u) => u.id === refugioId && u.rol === 'REFUGIO');
+    return refugio ? refugio.nombre : '—';
+  }
+
+  get refugiosDisponibles(): Usuario[] {
+    return this.usuarios.filter((u) => u.rol === 'REFUGIO');
+  }
+
+  // ──────────────────────────────────────────────────────────────
+  // VERIFICACIÓN DE REFUGIOS
+  // ──────────────────────────────────────────────────────────────
+
+  cargarRefugiosPendientes() {
+    this.api.getRefugiosPendientes().subscribe((data) => {
+      this.refugiosPendientes = data;
+    });
+  }
+
+  verificarRefugio(id: number, verificado: boolean) {
+    const accion = verificado ? 'verificar' : 'rechazar';
+    if (!confirm(`¿Seguro que quieres ${accion} este refugio?`)) return;
+
+    if (verificado) {
+      this.api.cambiarVerificacionRefugio(id, true).subscribe(() => {
+        this.cargarRefugiosPendientes();
+        this.cargarUsuarios();
+      });
+    } else {
+      // Rechazar = borrar
+      this.api.borrarUsuario(id).subscribe(() => {
+        this.cargarRefugiosPendientes();
+        this.cargarUsuarios();
+      });
+    }
+  }
+
+  mostrarFormUsuario = false;
+  mostrarFormAnimal = false;
 }

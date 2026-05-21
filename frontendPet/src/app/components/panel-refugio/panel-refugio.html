@@ -4,6 +4,15 @@
     <h1>Gestión de mi refugio</h1>
   </header>
 
+  <!-- ── Estado de verificación ── -->
+  <div class="estado-verificacion">
+    @if (perfil.verificado) {
+    <div class="badge-verificado">✓ Refugio verificado</div>
+    } @else {
+    <div class="badge-pendiente"> * Pendiente de verificación por el administrador</div>
+    }
+  </div>
+
   <!-- ── Perfil del refugio ── -->
   <form class="editor perfil-form" (ngSubmit)="guardarPerfil()">
     <h2>Mi perfil de refugio</h2>
@@ -36,7 +45,7 @@
     <div class="grid-form">
       <div class="field-group">
         <input [(ngModel)]="form.nombre" name="nombre" placeholder="Nombre del animal *" />
-        <span class="error-message" *ngIf="errorAnimal.nombre">{{ errorAnimal.nombre }}</span>
+        <span class="error-message" *ngIf="errorAnimal['nombre']">{{ errorAnimal['nombre'] }}</span>
       </div>
 
       <div class="field-group">
@@ -46,7 +55,7 @@
             {{ especie }}
           </option>
         </select>
-        <span class="error-message" *ngIf="errorAnimal.especie">{{ errorAnimal.especie }}</span>
+        <span class="error-message" *ngIf="errorAnimal['especie']">{{ errorAnimal['especie'] }}</span>
       </div>
 
       <input [(ngModel)]="form.raza" name="raza" placeholder="Raza (opcional)" />
@@ -59,7 +68,7 @@
             {{ genero }}
           </option>
         </select>
-        <span class="error-message" *ngIf="errorAnimal.genero">{{ errorAnimal.genero }}</span>
+        <span class="error-message" *ngIf="errorAnimal['genero']">{{ errorAnimal['genero'] }}</span>
       </div>
 
       <select [(ngModel)]="form.estadoSalud" name="estadoSalud">

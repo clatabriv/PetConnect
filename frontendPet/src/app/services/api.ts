@@ -163,4 +163,12 @@ export class ApiService {
   eliminarMiCuenta(): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/mi-cuenta`);
   }
+
+  getRefugiosPendientes(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.apiUrl}/usuarios/refugios?pendientes=true`);
+  }
+
+  cambiarVerificacionRefugio(id: number, verificado: boolean): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.apiUrl}/usuarios/${id}/verificacion`, { verificado });
+  }
 }
