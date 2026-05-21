@@ -22,6 +22,13 @@
 
                 <label class="campo-label">Rol</label>
                 <input [value]="usuario.rol" disabled class="input-disabled" />
+
+                <label class="campo-label">Ubicación</label>
+                <input [(ngModel)]="form.ubicacion" name="ubicacion" placeholder="Tu ciudad (opcional)" />
+
+                <label class="campo-label">Descripción</label>
+                <textarea [(ngModel)]="form.descripcion" name="descripcion"
+                    placeholder="Cuéntanos algo sobre ti (opcional)" rows="3"></textarea>
             </div>
         </div>
 

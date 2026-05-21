@@ -101,13 +101,13 @@ public class UsuarioController {
 
     // PARA MI PERFIL
     // ── Perfil propio del adoptante ──
-    @GetMapping("/usuarios/mi-perfil")
+    @GetMapping("/mi-perfil")
     public Usuario miPerfil() {
         return authContextService.currentUser();
     }
 
     @PreAuthorize("hasRole('ADOPTANTE')")
-    @PutMapping("/usuarios/mi-perfil")
+    @PutMapping("/mi-perfil")
     public Usuario actualizarMiPerfil(@RequestBody Map<String, String> datos) {
         Usuario actor = authContextService.currentUser();
         return usuarioService.updatePerfilAdoptante(actor.getId(), datos);
@@ -115,7 +115,7 @@ public class UsuarioController {
 
     @PreAuthorize("hasRole('ADOPTANTE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/usuarios/mi-cuenta")
+    @DeleteMapping("/mi-cuenta")
     public void eliminarMiCuenta() {
         Usuario actor = authContextService.currentUser();
         usuarioService.delete(actor.getId());

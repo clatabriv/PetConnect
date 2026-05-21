@@ -151,11 +151,16 @@ export class ApiService {
     return this.http.get<Usuario>(`${this.apiUrl}/usuarios/me`);
   }
 
-  actualizarMiPerfil(datos: { nombre?: string; foto?: string }): Observable<Usuario> {
-    return this.http.put<Usuario>(`${this.apiUrl}/usuarios/mi-perfil`, datos);
+  actualizarMiPerfil(datos: {
+    nombre?: string;
+    foto?: string;
+    ubicacion?: string;
+    descripcion?: string;
+  }): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.apiUrl}/mi-perfil`, datos);
   }
 
   eliminarMiCuenta(): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/usuarios/mi-cuenta`);
+    return this.http.delete<void>(`${this.apiUrl}/mi-cuenta`);
   }
 }

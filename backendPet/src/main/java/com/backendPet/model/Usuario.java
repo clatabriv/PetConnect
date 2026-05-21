@@ -42,6 +42,9 @@ public class Usuario {
 
     private String telefono;
     
+    @Column(length = 200)
+    private String ubicacion;
+    
     // Para que funcione la clase Animal
     @JsonManagedReference
     @OneToMany(mappedBy = "refugio", cascade = CascadeType.ALL)
@@ -54,7 +57,7 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(String nombre, String email, String password, Rol rol, String descripcion, String foto, String telefono) {
+    public Usuario(String nombre, String email, String password, Rol rol, String descripcion, String foto, String telefono, String ubicacion) {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
@@ -62,6 +65,7 @@ public class Usuario {
         this.descripcion = descripcion;
         this.foto = foto;
         this.telefono = telefono;
+        this.ubicacion = ubicacion;
     }
 
     // Getters y Setters
@@ -81,4 +85,7 @@ public class Usuario {
     public void setFoto(String foto) { this.foto = foto; }
     public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
+    public String getUbicacion() { return ubicacion; }
+    public void setUbicacion(String ubicacion) { this.ubicacion = ubicacion; }
 }
+

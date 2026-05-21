@@ -26,7 +26,7 @@ import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top';
 })
 export class MiPerfilComponent implements OnInit {
   usuario: Usuario | null = null;
-  form = { nombre: '', foto: '' };
+  form = { nombre: '', foto: '', ubicacion: '', descripcion: '' };
 
   guardando = false;
   guardado = false;
@@ -43,6 +43,8 @@ export class MiPerfilComponent implements OnInit {
       this.usuario = u;
       this.form.nombre = u.nombre;
       this.form.foto = u.foto ?? '';
+      this.form.ubicacion = u.ubicacion ?? '';
+      this.form.descripcion = u.descripcion ?? '';
     });
   }
 

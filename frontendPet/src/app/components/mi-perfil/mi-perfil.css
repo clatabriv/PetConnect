@@ -148,14 +148,14 @@ input:focus {
 }
 
 .aviso {
-  color: #527a45;
+  color: #c25656;
   font-size: 14px;
   margin: 0 0 16px;
   line-height: 1.6;
 }
 
 .aviso strong {
-  color: #2d3e28;
+  color: #c25656;
 }
 
 .aviso-confirmar {

@@ -10,6 +10,7 @@ export interface Usuario {
   descripcion?: string;
   foto?: string;
   telefono?: string;
+  ubicacion?: string;
 }
 
 export interface Animal {

@@ -150,6 +150,12 @@ public class UsuarioService {
     if (datos.containsKey("foto")) {
         u.setFoto(datos.get("foto"));
     }
+    if (datos.containsKey("ubicacion")) {
+        u.setUbicacion(datos.get("ubicacion"));
+    }
+    if (datos.containsKey("descripcion")) {
+        u.setDescripcion(datos.get("descripcion"));
+    }
     return usuarioRepository.save(u);
-}
+    }
 }
