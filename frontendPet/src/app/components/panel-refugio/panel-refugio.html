@@ -58,7 +58,7 @@
         <span class="error-message" *ngIf="errorAnimal['especie']">{{ errorAnimal['especie'] }}</span>
       </div>
 
-      <input [(ngModel)]="form.raza" name="raza" placeholder="Raza (opcional)" />
+      <input [(ngModel)]="form.raza" name="raza" placeholder="Raza" />
       <input [(ngModel)]="form.edad" name="edad" type="number" placeholder="Edad en años (ej: 2)" min="0" />
 
       <div class="field-group">
@@ -72,7 +72,7 @@
       </div>
 
       <select [(ngModel)]="form.estadoSalud" name="estadoSalud">
-        <option value="">Estado de salud (opcional)</option>
+        <option value="">Estado de salud</option>
         <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
           {{ estado }}
         </option>

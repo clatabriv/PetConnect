@@ -1,7 +1,7 @@
 .estado-verificacion {
-  max-width: 1200px;
-  margin: 0 auto 24px;
-  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
 }
 
 .badge-verificado {
@@ -112,7 +112,7 @@ header h1 {
   border-radius: 12px;
   border: 1px solid #d0e0c8;
   font-family: inherit;
-  color: #2d3e28;
+  color: #527a45;
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -177,7 +177,7 @@ textarea {
   box-sizing: border-box;
   background: #ffffff;
   font-family: inherit;
-  color: #2d3e28;
+  color: #527a45;
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -377,4 +377,33 @@ td .danger:hover {
     padding: 14px;
     font-size: 13px;
   }
+}
+
+/* ── Placeholders verdes ── */
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: #88a878;
+  opacity: 1;
+}
+
+input::-webkit-input-placeholder,
+select::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #88a878;
+  opacity: 1;
+}
+
+input::-moz-placeholder,
+select::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: #88a878;
+  opacity: 1;
+}
+
+input:-ms-input-placeholder,
+select:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #88a878;
+  opacity: 1;
 }

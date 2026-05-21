@@ -56,7 +56,7 @@ export class PanelRefugioComponent implements OnInit {
 
   especiesDisponibles = ['Perro', 'Gato', 'Conejo', 'Ave', 'Otro'];
   generosDisponibles = ['Macho', 'Hembra'];
-  estadosSaludDisponibles = ['Sano', 'En tratamiento', 'Necesita cuidados especiales'];
+  estadosSaludDisponibles = ['Bueno', 'Regular', 'Malo'];
 
   constructor(
     private api: ApiService,
@@ -150,7 +150,13 @@ export class PanelRefugioComponent implements OnInit {
       foto: animal.foto || '',
       estadoAdopcion: animal.estadoAdopcion,
     };
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll solo hasta el formulario de edición
+    setTimeout(() => {
+      const formulario = document.querySelector('form');
+      if (formulario) {
+        formulario.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   }
 
   cancelarEdicion() {
