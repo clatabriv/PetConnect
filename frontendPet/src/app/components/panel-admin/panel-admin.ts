@@ -87,29 +87,42 @@ export class PanelAdminComponent implements OnInit {
   guardarUsuario() {
     this.errorUsuario = {};
 
-    if (!this.formUsuario.nombre?.trim()) {
-      this.errorUsuario['nombre'] = 'El nombre es obligatorio';
-    }
-    if (!this.formUsuario.email?.trim()) {
-      this.errorUsuario['email'] = 'El email es obligatorio';
-    }
-    if (!this.editandoUsuarioId && !this.formUsuario.password?.trim()) {
-      this.errorUsuario['password'] = 'La contraseña es obligatoria';
-    }
-
-    if (Object.keys(this.errorUsuario).length > 0) {
-      return;
-    }
+    // Preparar el objeto con solo los campos que tienen valor
+    const usuarioData = {
+      nombre: this.formUsuario.nombre || '',
+      email: this.formUsuario.email || '',
+      password: this.formUsuario.password || '',
+      rol: this.formUsuario.rol || 'ADOPTANTE',
+      telefono: this.formUsuario.telefono || undefined,
+      ubicacion: this.formUsuario.ubicacion || undefined,
+      descripcion: this.formUsuario.descripcion || undefined,
+      foto: this.formUsuario.foto || undefined,
+    };
 
     if (this.editandoUsuarioId) {
-      this.api.editarUsuario(this.editandoUsuarioId, this.formUsuario).subscribe(() => {
-        this.cargarUsuarios();
-        this.cancelarEdicionUsuario();
+      this.api.editarUsuario(this.editandoUsuarioId, usuarioData).subscribe({
+        next: () => {
+          this.cargarUsuarios();
+          this.cancelarEdicionUsuario();
+        },
+        error: (err) => {
+          if (err.error && typeof err.error === 'object') {
+            this.errorUsuario = err.error;
+          }
+        },
       });
     } else {
-      this.api.crearUsuario(this.formUsuario as Usuario & { password: string }).subscribe(() => {
-        this.cargarUsuarios();
-        this.limpiarFormularioUsuario();
+      this.api.crearUsuario(usuarioData).subscribe({
+        next: () => {
+          this.cargarUsuarios();
+          this.cargarRefugiosPendientes();
+          this.cancelarEdicionUsuario();
+        },
+        error: (err) => {
+          if (err.error && typeof err.error === 'object') {
+            this.errorUsuario = err.error;
+          }
+        },
       });
     }
   }
