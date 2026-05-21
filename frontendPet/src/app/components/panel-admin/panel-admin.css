@@ -362,8 +362,9 @@ td {
 }
 
 .badge-disponible {
-  background: linear-gradient(135deg, #6b8e5e, #88a878);
+  background: #2d3e28;
   color: #ffffff;
+  border: 1px solid #2d3e28;
 }
 
 .badge-en_proceso {
