@@ -165,7 +165,7 @@ textarea {
   font-size: 14px;
   width: 100%;
   box-sizing: border-box;
-  background: #ffffff;
+  background-color: #ffffff;
   font-family: inherit;
   color: #2d3e28;
   font-weight: 500;
@@ -464,4 +464,16 @@ td {
     padding: 14px;
     font-size: 13px;
   }
+}
+
+/* ── Color verde claro para los placeholders ── */
+input::placeholder,
+textarea::placeholder {
+  color: #88a878;
+  opacity: 1;
+}
+
+/* Para los <select> con opción placeholder (value="" disabled) */
+select:has(option[value='']:checked) {
+  color: #88a878;
 }

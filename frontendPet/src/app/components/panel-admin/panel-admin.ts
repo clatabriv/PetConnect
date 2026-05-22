@@ -64,7 +64,7 @@ export class PanelAdminComponent implements OnInit {
   rolesDisponibles: Rol[] = ['ADOPTANTE', 'REFUGIO', 'ADMIN'];
   especiesDisponibles = ['Perro', 'Gato', 'Conejo', 'Ave', 'Otro'];
   generosDisponibles = ['Macho', 'Hembra'];
-  estadosSaludDisponibles = ['Sano', 'En tratamiento', 'Necesita cuidados especiales'];
+  estadosSaludDisponibles = ['Bueno', 'Regular', 'Malo'];
 
   constructor(private api: ApiService) {}
 
@@ -139,7 +139,11 @@ export class PanelAdminComponent implements OnInit {
       telefono: usuario.telefono || '',
       password: '',
     };
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      document
+        .getElementById('form-usuario')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
 
   cancelarEdicionUsuario() {
@@ -165,6 +169,7 @@ export class PanelAdminComponent implements OnInit {
     if (!confirm('¿Estás seguro de borrar este usuario?')) return;
     this.api.borrarUsuario(id).subscribe(() => {
       this.cargarUsuarios();
+      this.cargarAnimales();
     });
   }
 
@@ -227,7 +232,11 @@ export class PanelAdminComponent implements OnInit {
       estadoAdopcion: animal.estadoAdopcion,
       refugioId: animal.refugioId,
     };
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      document
+        .getElementById('form-animal')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
 
   cancelarEdicionAnimal() {
@@ -294,6 +303,7 @@ export class PanelAdminComponent implements OnInit {
       this.api.borrarUsuario(id).subscribe(() => {
         this.cargarRefugiosPendientes();
         this.cargarUsuarios();
+        this.cargarAnimales();
       });
     }
   }

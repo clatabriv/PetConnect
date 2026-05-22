@@ -58,7 +58,7 @@
     </div>
 
     @if (mostrarFormUsuario) {
-    <form (ngSubmit)="guardarUsuario()">
+    <form id="form-usuario" (ngSubmit)="guardarUsuario()">
       <div class="card-body">
         <h3>{{ editandoUsuarioId ? 'Editar usuario' : 'Crear usuario' }}</h3>
 
@@ -105,11 +105,6 @@
           <button type="submit" class="btn-primary">
             {{ editandoUsuarioId ? 'Guardar cambios' : 'Crear usuario' }}
           </button>
-          @if (editandoUsuarioId) {
-          <button type="button" class="btn-secondary" (click)="cancelarEdicionUsuario()">
-            Cancelar
-          </button>
-          }
         </div>
       </div>
     </form>
@@ -166,7 +161,7 @@
     </div>
 
     @if (mostrarFormAnimal) {
-    <form (ngSubmit)="guardarAnimal()">
+    <form id="form-animal" (ngSubmit)="guardarAnimal()">
       <div class="card-body">
         <h3>{{ editandoAnimalId ? 'Editar animal' : 'Crear animal' }}</h3>
 
@@ -180,7 +175,7 @@
 
           <div class="field-group">
             <select [(ngModel)]="formAnimal.especie" name="animalEspecie">
-              <option value="" disabled>Especie *</option>
+              <option value="" hidden>Especie *</option>
               <option *ngFor="let especie of especiesDisponibles" [value]="especie">
                 {{ especie }}
               </option>
@@ -196,7 +191,7 @@
 
           <div class="field-group">
             <select [(ngModel)]="formAnimal.genero" name="animalGenero">
-              <option value="" disabled>Género *</option>
+              <option value="" hidden>Género *</option>
               <option *ngFor="let genero of generosDisponibles" [value]="genero">
                 {{ genero }}
               </option>
@@ -207,13 +202,15 @@
           </div>
 
           <select [(ngModel)]="formAnimal.estadoSalud" name="animalEstadoSalud">
-            <option value="">Estado de salud</option>
+            <option value="" hidden>Estado de salud</option>
             <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
               {{ estado }}
             </option>
           </select>
 
-          <input [(ngModel)]="formAnimal.ubicacion" name="animalUbicacion" placeholder="Ubicación" />
+          <div class="field-group">
+            <input [(ngModel)]="formAnimal.ubicacion" name="animalUbicacion" placeholder="Ubicación" />
+          </div>
 
           <div class="field-group">
             <select [(ngModel)]="formAnimal.refugioId" name="animalRefugioId">
@@ -243,11 +240,6 @@
           <button type="submit" class="btn-primary">
             {{ editandoAnimalId ? 'Guardar cambios' : 'Crear animal' }}
           </button>
-          @if (editandoAnimalId) {
-          <button type="button" class="btn-secondary" (click)="cancelarEdicionAnimal()">
-            Cancelar
-          </button>
-          }
         </div>
       </div>
     </form>
