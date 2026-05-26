@@ -8,23 +8,11 @@
 .home-container {
   min-height: 100vh;
   background: #ffffff;
-}
-
-/* ══════════════════════════════════════
-   PRIMERA PARTE: HERO (fondo clarito)
-══════════════════════════════════════ */
-.hero {
-  display: grid;
-  grid-template-columns: 1fr minmax(300px, 760px);
-  gap: 40px;
-  padding: 60px 5vw 80px;
-  align-items: center;
-  background: linear-gradient(135deg, #fffefb 0%, #faf8f3 100%);
   position: relative;
 }
 
-/* Textura granulada sutil */
-.hero::before {
+/* Textura granulada global para todo el home */
+.home-container::before {
   content: '';
   position: absolute;
   top: 0;
@@ -51,9 +39,21 @@
   z-index: 0;
 }
 
-.hero > * {
+.home-container > * {
   position: relative;
   z-index: 1;
+}
+
+/* ══════════════════════════════════════
+   PRIMERA PARTE: HERO (fondo clarito)
+══════════════════════════════════════ */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr minmax(300px, 760px);
+  gap: 40px;
+  padding: 60px 5vw 80px;
+  align-items: center;
+  background: linear-gradient(135deg, #fffefb 0%, #faf8f3 100%);
 }
 
 .titulo-container {
