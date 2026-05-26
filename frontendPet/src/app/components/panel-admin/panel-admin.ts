@@ -62,7 +62,17 @@ export class PanelAdminComponent implements OnInit {
   errorAnimal: Record<string, string> = {};
 
   rolesDisponibles: Rol[] = ['ADOPTANTE', 'REFUGIO', 'ADMIN'];
-  especiesDisponibles = ['Perro', 'Gato', 'Conejo', 'Ave', 'Otro'];
+  especiesDisponibles = [
+    'Perro',
+    'Gato',
+    'Conejo',
+    'Cobaya',
+    'Rata',
+    'Tortuga',
+    'Gallina',
+    'Pájaro',
+    'Hámster',
+  ];
   generosDisponibles = ['Macho', 'Hembra'];
   estadosSaludDisponibles = ['Bueno', 'Regular', 'Malo'];
 
