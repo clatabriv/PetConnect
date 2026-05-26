@@ -1,3 +1,188 @@
+/* .login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #fffefb 0%, #f5f3ee 50%, #e5efe0 100%);
+  padding: 24px;
+}
+
+.login-card {
+  width: min(440px, 100%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid #d0e0c8;
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 16px 40px rgba(82, 122, 69, 0.15);
+}
+
+h1 {
+  margin: 0 0 8px;
+  color: #2d3e28;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin-top: 0;
+  margin-bottom: 28px;
+  color: #527a45;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+label {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #2d3e28;
+  font-weight: 700;
+}
+
+input,
+select {
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #d0e0c8;
+  font-size: 14px;
+  color: #2d3e28;
+  font-weight: 500;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #6b8e5e;
+  box-shadow: 0 0 0 4px rgba(107, 142, 94, 0.15);
+}
+
+input::placeholder {
+  color: #a8c49a;
+}
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: all 0.3s ease;
+}
+
+.primary {
+  background-color: #6b8e5e;
+  color: #ffffff;
+  border: 1px solid #6b8e5e;
+}
+
+.primary:hover:not(:disabled) {
+  background-color: #527a45;
+  border-color: #527a45;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(82, 122, 69, 0.25);
+}
+
+.primary:disabled {
+  background-color: #d0e0c8;
+  border-color: #d0e0c8;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.secondary {
+  background-color: #f5f3ee;
+  color: #2d3e28;
+  border: 2px solid #d0e0c8;
+}
+
+.secondary:hover {
+  background-color: #e5efe0;
+  border-color: #88a878;
+  transform: translateY(-2px);
+}
+
+.error {
+  border: 1px solid #fecaca;
+  background-color: #fff5f5;
+  color: #c25656;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.exito {
+  border: 1px solid #d0e0c8;
+  background-color: #e5efe0;
+  color: #2d3e28;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.rol-descripcion {
+  background-color: #e5efe0;
+  border: 1px solid #d0e0c8;
+  color: #2d5a2e;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 14px;
+  margin-top: 8px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.rol-descripcion.refugio {
+  background: linear-gradient(135deg, #e5efe0 0%, #f0f8ed 100%);
+  border-color: #a8d5ba;
+  color: #2d5a2e;
+}
+
+a {
+  display: inline-block;
+  margin-top: 16px;
+  color: #6b8e5e;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: #527a45;
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 28px 24px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  button {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+} */
 /* Pantalla de login con paleta verde salvia */
 .login-page {
   min-height: 100vh;
@@ -5,6 +190,46 @@
   place-items: center;
   background: linear-gradient(135deg, #fffefb 0%, #f5f3ee 50%, #e5efe0 100%);
   padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ondas decorativas de fondo */
+.login-page::before,
+.login-page::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.login-page::before {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #6b8e5e 0%, transparent 70%);
+  top: -200px;
+  left: -200px;
+  animation: float 20s ease-in-out infinite;
+}
+
+.login-page::after {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #88a878 0%, transparent 70%);
+  bottom: -150px;
+  right: -150px;
+  animation: float 15s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(30px, -30px) scale(1.05);
+  }
 }
 
 .login-card {
