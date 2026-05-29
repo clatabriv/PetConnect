@@ -17,4 +17,10 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
     // Buscar animales disponibles
     List<Animal> findByEstadoAdopcion(Animal.EstadoAdopcion estadoAdopcion);
+
+    // Animales de refugios verificados
+    List<Animal> findByRefugio_VerificadoTrue();
+
+    // Animales disponibles de refugios verificados
+    List<Animal> findByEstadoAdopcionAndRefugio_VerificadoTrue(Animal.EstadoAdopcion estado);
 }
