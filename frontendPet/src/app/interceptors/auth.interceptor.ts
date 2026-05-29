@@ -15,7 +15,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     req.url.includes('/api/login') ||
     req.url.includes('/api/usuarios/refugios') ||
     req.url.includes('/api/animales/disponibles') ||
-    (req.url.includes('/api/animales') && req.method === 'GET') ||
+    (req.url.match(/\/api\/animales\/\d+$/) && req.method === 'GET') || // solo /api/animales/{id}
+    (req.url.match(/\/api\/animales$/) && req.method === 'GET') || // solo /api/animales
     (req.url.includes('/api/refugios/') && req.method === 'GET') ||
     (req.url.includes('/api/usuarios') && req.method === 'POST');
 
