@@ -123,7 +123,7 @@
               <button class="danger" (click)="borrar(animal.id)">Borrar</button>
               <button *ngIf="solicitudesPorAnimal[animal.id] && solicitudesPorAnimal[animal.id].length > 0"
                 class="btn-solicitudes" (click)="verSolicitudes(animal.id)">
-                {{ animalExpandido === animal.id ? 'Ocultar' : '📋 ' + solicitudesPorAnimal[animal.id].length + '
+                {{ animalExpandido === animal.id ? 'Ocultar' : ' ' + solicitudesPorAnimal[animal.id].length + '
                 solicitud/es' }}
               </button>
             </td>
