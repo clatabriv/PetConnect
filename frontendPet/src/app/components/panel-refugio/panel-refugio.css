@@ -407,3 +407,49 @@ textarea:-ms-input-placeholder {
   color: #88a878;
   opacity: 1;
 }
+
+.aviso-no-verificado {
+  background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+  border: 2px solid #ffc107;
+  border-radius: 8px;
+  padding: 24px;
+  margin: 20px 0;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+}
+
+.aviso-no-verificado .icono {
+  font-size: 36px;
+  margin-bottom: 12px;
+  display: block;
+  animation: pulse 1.5s infinite;
+}
+
+.aviso-no-verificado h3 {
+  color: #856404;
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.aviso-no-verificado p {
+  color: #856404;
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.aviso-no-verificado .texto-secundario {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-top: 12px;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
