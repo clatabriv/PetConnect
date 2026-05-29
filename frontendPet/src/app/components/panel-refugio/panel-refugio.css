@@ -439,3 +439,8 @@ textarea:-ms-input-placeholder {
   font-weight: 500;
   margin: 0;
 }
+
+.grid-form input[name='ubicacion'] {
+  grid-column: span 1;
+  max-width: 100%;
+}

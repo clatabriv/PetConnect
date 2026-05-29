@@ -54,7 +54,17 @@ export class PanelRefugioComponent implements OnInit {
   editandoId: number | null = null;
   errorAnimal: Record<string, string> = {};
 
-  especiesDisponibles = ['Perro', 'Gato', 'Conejo', 'Ave', 'Otro'];
+  especiesDisponibles = [
+    'Perro',
+    'Gato',
+    'Conejo',
+    'Cobaya',
+    'Rata',
+    'Tortuga',
+    'Gallina',
+    'Pájaro',
+    'Hámster',
+  ];
   generosDisponibles = ['Macho', 'Hembra'];
   estadosSaludDisponibles = ['Bueno', 'Regular', 'Malo'];
 
