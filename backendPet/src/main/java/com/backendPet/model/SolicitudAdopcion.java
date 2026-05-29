@@ -1,5 +1,6 @@
 package com.backendPet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -11,7 +12,6 @@ public class SolicitudAdopcion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Fecha de la solicitud, se pone automaticamente
     @Column(nullable = false)
     private LocalDateTime fechaSolicitud;
 
@@ -28,11 +28,13 @@ public class SolicitudAdopcion {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "adoptante_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_solicitud_adoptante"))
+    @JsonIgnoreProperties({"password", "animales", "hibernateLazyInitializer"})
     private Usuario adoptante;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "animal_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_solicitud_animal"))
+    @JsonIgnoreProperties({"refugio", "hibernateLazyInitializer"})
     private Animal animal;
 
     public SolicitudAdopcion() {}
@@ -56,3 +58,61 @@ public class SolicitudAdopcion {
     public Animal getAnimal() { return animal; }
     public void setAnimal(Animal animal) { this.animal = animal; }
 }
+//package com.backendPet.model;
+//
+//import jakarta.persistence.*;
+//import java.time.LocalDateTime;
+//
+//@Entity
+//@Table(name = "solicitudes_adopcion")
+//public class SolicitudAdopcion {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
+//
+//    // Fecha de la solicitud, se pone automaticamente
+//    @Column(nullable = false)
+//    private LocalDateTime fechaSolicitud;
+//
+//    private String mensaje;
+//
+//    @Enumerated(EnumType.STRING)
+//    @Column(nullable = false)
+//    private EstadoSolicitud estadoSolicitud;
+//
+//    public enum EstadoSolicitud {
+//        PENDIENTE, APROBADA, RECHAZADA
+//    }
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "adoptante_id", nullable = false,
+//            foreignKey = @ForeignKey(name = "fk_solicitud_adoptante"))
+//    private Usuario adoptante;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "animal_id", nullable = false,
+//            foreignKey = @ForeignKey(name = "fk_solicitud_animal"))
+//    private Animal animal;
+//
+//    public SolicitudAdopcion() {}
+//
+//    public SolicitudAdopcion(String mensaje) {
+//        this.mensaje = mensaje;
+//        this.fechaSolicitud = LocalDateTime.now();
+//        this.estadoSolicitud = EstadoSolicitud.PENDIENTE;
+//    }
+//
+//    public Long getId() { return id; }
+//    public void setId(Long id) { this.id = id; }
+//    public LocalDateTime getFechaSolicitud() { return fechaSolicitud; }
+//    public void setFechaSolicitud(LocalDateTime fechaSolicitud) { this.fechaSolicitud = fechaSolicitud; }
+//    public String getMensaje() { return mensaje; }
+//    public void setMensaje(String mensaje) { this.mensaje = mensaje; }
+//    public EstadoSolicitud getEstadoSolicitud() { return estadoSolicitud; }
+//    public void setEstadoSolicitud(EstadoSolicitud estadoSolicitud) { this.estadoSolicitud = estadoSolicitud; }
+//    public Usuario getAdoptante() { return adoptante; }
+//    public void setAdoptante(Usuario adoptante) { this.adoptante = adoptante; }
+//    public Animal getAnimal() { return animal; }
+//    public void setAnimal(Animal animal) { this.animal = animal; }
+//}
