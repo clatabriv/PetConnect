@@ -71,6 +71,7 @@ export class PanelRefugioComponent implements OnInit {
   ];
   generosDisponibles = ['Macho', 'Hembra'];
   estadosSaludDisponibles = ['Bueno', 'Regular', 'Malo'];
+  animalesConSolicitudes = new Set<number>();
 
   constructor(
     private api: ApiService,
@@ -112,11 +113,14 @@ export class PanelRefugioComponent implements OnInit {
     if (!usuario) return;
     this.api.getAnimalesDeRefugio(usuario.id).subscribe((data) => {
       this.animales = data;
-      // Cargar solicitudes de cada animal al mismo tiempo
+      this.animalesConSolicitudes.clear();
       this.animales.forEach((animal) => {
         this.api.getSolicitudesDeAnimal(animal.id).subscribe({
           next: (solicitudes) => {
             this.solicitudesPorAnimal[animal.id] = solicitudes;
+            if (solicitudes.length > 0) {
+              this.animalesConSolicitudes.add(animal.id);
+            }
           },
           error: () => {
             this.solicitudesPorAnimal[animal.id] = [];
@@ -127,7 +131,7 @@ export class PanelRefugioComponent implements OnInit {
   }
 
   tieneSolicitudes(animalId: number): boolean {
-    return (this.solicitudesPorAnimal[animalId] ?? []).length > 0;
+    return this.animalesConSolicitudes.has(animalId);
   }
 
   verSolicitudes(animalId: number): void {
@@ -456,4 +460,3 @@ export class PanelRefugioComponent implements OnInit {
     });
   }
 }*/
- 
