@@ -8,6 +8,7 @@ import { NavbarComponent } from '../navbar/navbar';
 import { ImageUploadComponent } from '../image-upload/image-upload';
 import { FooterComponent } from '../footer/footer';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-panel-refugio',
@@ -71,6 +72,7 @@ export class PanelRefugioComponent implements OnInit {
   constructor(
     private api: ApiService,
     private auth: AuthService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -194,6 +196,21 @@ export class PanelRefugioComponent implements OnInit {
     if (!confirm('¿Estás seguro de borrar este animal?')) return;
     this.api.borrarAnimal(id).subscribe(() => {
       this.cargarAnimales();
+    });
+  }
+
+  eliminarCuenta(): void {
+    if (
+      !confirm(
+        '¿Estás seguro de que quieres eliminar tu refugio? Esta acción no se puede deshacer.',
+      )
+    )
+      return;
+    this.api.eliminarMiRefugio().subscribe({
+      next: () => {
+        this.auth.logout();
+        this.router.navigate(['/']);
+      },
     });
   }
 }

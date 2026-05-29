@@ -460,3 +460,23 @@ textarea:-ms-input-placeholder {
   color: #88a878;
   opacity: 1;
 }
+
+.btn-eliminar-cuenta {
+  background-color: #ffffff;
+  color: #c25656;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 22px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-left: auto;
+}
+
+.btn-eliminar-cuenta:hover {
+  background-color: #fff5f5;
+  border-color: #c25656;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(194, 86, 86, 0.2);
+}

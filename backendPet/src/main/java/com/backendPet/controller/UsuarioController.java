@@ -149,4 +149,12 @@ public List<Usuario> listarRefugios(@RequestParam(required = false) Boolean pend
             .filter(u -> Boolean.FALSE.equals(u.getVerificado()))
             .toList();
     }
+    
+   @PreAuthorize("hasRole('REFUGIO')")
+   @ResponseStatus(HttpStatus.NO_CONTENT)
+   @DeleteMapping("/mi-refugio")
+    public void eliminarMiRefugio() {
+        Usuario actor = authContextService.currentUser();
+        usuarioService.delete(actor.getId());
+    }
 }

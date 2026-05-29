@@ -35,6 +35,9 @@
         {{ guardandoPerfil ? 'Guardando...' : 'Guardar perfil' }}
       </button>
       <span class="ok-msg" *ngIf="perfilGuardado">✓ Perfil actualizado</span>
+      <button type="button" class="btn-eliminar-cuenta" (click)="eliminarCuenta()">
+        Eliminar mi refugio
+      </button>
     </div>
   </form>
 
