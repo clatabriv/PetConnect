@@ -120,6 +120,7 @@
     <table>
       <thead>
         <tr>
+          <th>Foto</th>
           <th>Nombre</th>
           <th>Especie</th>
           <th>Género</th>
@@ -129,6 +130,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let animal of animales">
+          <td>
+            <img [src]="animal.foto || 'https://placehold.co/48x48?text=🐾'" [alt]="animal.nombre"
+              class="tabla-foto-animal" />
+          </td>
           <td>{{ animal.nombre }}</td>
           <td>{{ animal.especie }}</td>
           <td>{{ animal.genero || '—' }}</td>

@@ -260,6 +260,15 @@ textarea:focus {
 }
 
 /* ── Tabla ── */
+.tabla-foto-animal {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #d0e0c8;
+  display: block;
+}
+
 .table-wrap {
   overflow-x: auto;
   background: rgba(255, 255, 255, 0.9);
