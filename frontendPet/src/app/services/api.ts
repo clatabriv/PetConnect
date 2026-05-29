@@ -96,6 +96,10 @@ export class ApiService {
     );
   }
 
+  getSolicitudesDeAnimal(animalId: number): Observable<SolicitudAdopcion[]> {
+    return this.http.get<SolicitudAdopcion[]>(`${this.apiUrl}/animales/${animalId}/solicitudes`);
+  }
+
   existeSolicitud(adoptanteId: number, animalId: number): Observable<{ yaSolicitado: boolean }> {
     return this.http.get<{ yaSolicitado: boolean }>(
       `${this.apiUrl}/adoptantes/${adoptanteId}/animales/${animalId}/solicitudes/existe`,

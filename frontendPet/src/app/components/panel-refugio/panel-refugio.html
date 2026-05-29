@@ -129,20 +129,61 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let animal of animales">
-          <td>
-            <img [src]="animal.foto || 'https://placehold.co/48x48?text=🐾'" [alt]="animal.nombre"
-              class="tabla-foto-animal" />
-          </td>
-          <td>{{ animal.nombre }}</td>
-          <td>{{ animal.especie }}</td>
-          <td>{{ animal.genero || '—' }}</td>
-          <td>{{ animal.estadoAdopcion }}</td>
-          <td>
-            <button (click)="editar(animal)">Editar</button>
-            <button class="danger" (click)="borrar(animal.id)">Borrar</button>
-          </td>
-        </tr>
+        <ng-container *ngFor="let animal of animales">
+          <tr>
+            <td>
+              <img [src]="animal.foto || 'https://placehold.co/48x48?text=🐾'" [alt]="animal.nombre"
+                class="tabla-foto-animal" />
+            </td>
+            <td>{{ animal.nombre }}</td>
+            <td>{{ animal.especie }}</td>
+            <td>{{ animal.genero || '—' }}</td>
+            <td>{{ animal.estadoAdopcion }}</td>
+            <td>
+              <button (click)="editar(animal)">Editar</button>
+              <button class="danger" (click)="borrar(animal.id)">Borrar</button>
+              <button class="secondary" (click)="verSolicitudes(animal.id)">
+                {{ animalExpandido === animal.id ? 'Ocultar' : 'Solicitudes' }}
+              </button>
+            </td>
+          </tr>
+
+          <!-- Fila expandida con solicitudes -->
+          <tr *ngIf="animalExpandido === animal.id" class="fila-solicitudes">
+            <td colspan="6">
+              <div class="solicitudes-wrap">
+                <p *ngIf="solicitudesPorAnimal[animal.id]?.length === 0" class="empty">
+                  No hay solicitudes para este animal.
+                </p>
+                <table *ngIf="solicitudesPorAnimal[animal.id] && solicitudesPorAnimal[animal.id].length > 0"
+                  class="tabla-solicitudes">
+                  <thead>
+                    <tr>
+                      <th>Adoptante</th>
+                      <th>Email</th>
+                      <th>Mensaje</th>
+                      <th>Fecha</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let s of solicitudesPorAnimal[animal.id]">
+                      <td>{{ s.adoptante?.nombre || '—' }}</td>
+                      <td>{{ s.adoptante?.email || '—' }}</td>
+                      <td>{{ s.mensaje || '—' }}</td>
+                      <td>{{ s.fechaSolicitud | date:'dd/MM/yyyy' }}</td>
+                      <td>
+                        <span [class]="'estado-' + s.estadoSolicitud.toLowerCase()">
+                          {{ s.estadoSolicitud }}
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>

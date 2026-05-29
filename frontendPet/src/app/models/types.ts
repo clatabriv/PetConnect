@@ -35,4 +35,10 @@ export interface SolicitudAdopcion {
   estadoSolicitud: 'PENDIENTE' | 'APROBADA' | 'RECHAZADA';
   fechaSolicitud: string;
   animal: Animal;
+  adoptante?: {
+    id: number;
+    nombre: string;
+    email: string;
+    telefono?: string;
+  };
 }

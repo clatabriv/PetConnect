@@ -3,12 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { ApiService } from '../../services/api';
 import { AuthService } from '../../services/auth';
-import { Animal, Usuario } from '../../models/types';
+import { Animal, Usuario, SolicitudAdopcion } from '../../models/types';
 import { NavbarComponent } from '../navbar/navbar';
 import { ImageUploadComponent } from '../image-upload/image-upload';
 import { FooterComponent } from '../footer/footer';
 import { ScrollToTopComponent } from '../scroll-to-top/scroll-to-top';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-panel-refugio',
@@ -17,6 +18,7 @@ import { Router } from '@angular/router';
     FormsModule,
     NgFor,
     NgIf,
+    DatePipe,
     NavbarComponent,
     ImageUploadComponent,
     FooterComponent,
@@ -210,6 +212,22 @@ export class PanelRefugioComponent implements OnInit {
       next: () => {
         this.auth.logout();
         this.router.navigate(['/']);
+      },
+    });
+  }
+
+  solicitudesPorAnimal: Record<number, SolicitudAdopcion[]> = {};
+  animalExpandido: number | null = null;
+
+  verSolicitudes(animalId: number): void {
+    if (this.animalExpandido === animalId) {
+      this.animalExpandido = null;
+      return;
+    }
+    this.api.getSolicitudesDeAnimal(animalId).subscribe({
+      next: (solicitudes) => {
+        this.solicitudesPorAnimal[animalId] = solicitudes;
+        this.animalExpandido = animalId;
       },
     });
   }
