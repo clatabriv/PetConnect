@@ -90,12 +90,7 @@ header h1 {
   margin: 8px 0;
 }
 
-.perfil-foto-col {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
+.perfil-foto-col,
 .perfil-datos-col {
   display: flex;
   flex-direction: column;
@@ -146,7 +141,6 @@ header h1 {
   gap: 10px;
 }
 
-/* ── Grid del formulario de animal ── */
 .grid-form {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -165,7 +159,6 @@ header h1 {
   gap: 6px;
 }
 
-/* ── Mensaje de error ── */
 .error-message {
   color: #d97878;
   font-size: 12px;
@@ -259,6 +252,26 @@ textarea:focus {
   box-shadow: 0 4px 12px rgba(136, 168, 120, 0.3);
 }
 
+.btn-eliminar-cuenta {
+  background-color: #ffffff;
+  color: #c25656;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 22px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-left: auto;
+}
+
+.btn-eliminar-cuenta:hover {
+  background-color: #fff5f5;
+  border-color: #c25656;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(194, 86, 86, 0.2);
+}
+
 /* ── Tabla ── */
 .tabla-foto-animal {
   width: 48px;
@@ -322,7 +335,7 @@ td {
   font-weight: 500;
 }
 
-/* ── Botones de tabla ── */
+/* ── Botones de tabla (Editar / Borrar) ── */
 td button {
   margin-right: 6px;
   background-color: #6b8e5e;
@@ -356,6 +369,20 @@ td .danger:hover {
   box-shadow: 0 4px 12px rgba(45, 62, 40, 0.3);
 }
 
+/* ── Botón solicitudes (verde oscuro) ── */
+td button.btn-solicitudes {
+  background-color: #2d3e28;
+  color: #ffffff;
+  border: 1px solid #2d3e28;
+}
+
+td button.btn-solicitudes:hover {
+  background-color: #1a2416;
+  border-color: #1a2416;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 62, 40, 0.3);
+}
+
 .empty {
   color: #88a878;
   font-style: italic;
@@ -363,6 +390,147 @@ td .danger:hover {
   padding: 32px;
   font-weight: 500;
   font-size: 16px;
+}
+
+/* ── Columna acciones ── */
+.acciones-col {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ── Badge estado animal ── */
+.badge-estado {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-disponible {
+  background-color: #e5efe0;
+  color: #2d6a4f;
+}
+
+.badge-en_proceso {
+  background-color: #fff5cc;
+  color: #a07800;
+}
+
+.badge-adoptado {
+  background-color: #f5f3ee;
+  color: #88a878;
+}
+
+/* ── Fila activa ── */
+.fila-activa td {
+  background-color: #f5f3ee;
+}
+
+/* ── Solicitudes expandidas ── */
+.fila-solicitudes > td {
+  padding: 0;
+  background-color: #f5f3ee;
+  border-top: 2px solid #d0e0c8;
+}
+
+.solicitudes-wrap {
+  padding: 20px 24px;
+}
+
+.solicitudes-titulo {
+  color: #2d3e28;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.solicitudes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.solicitud-card {
+  background: #ffffff;
+  border: 1px solid #d0e0c8;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.solicitud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.solicitud-adoptante {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.solicitud-nombre {
+  font-weight: 700;
+  color: #2d3e28;
+  font-size: 15px;
+}
+
+.solicitud-email {
+  font-size: 13px;
+  color: #527a45;
+}
+
+.solicitud-datos {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: #527a45;
+  flex-wrap: wrap;
+}
+
+.solicitud-mensaje {
+  font-size: 13px;
+  color: #527a45;
+  margin: 0;
+  font-style: italic;
+  border-left: 3px solid #d0e0c8;
+  padding-left: 12px;
+  line-height: 1.5;
+}
+
+.estado-pendiente {
+  background-color: #fff5cc;
+  color: #a07800;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.estado-aprobada {
+  background-color: #e5efe0;
+  color: #2d6a4f;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.estado-rechazada {
+  background-color: #fff5f5;
+  color: #c25656;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /* ── Aviso no verificado ── */
@@ -415,10 +583,6 @@ td .danger:hover {
     grid-template-columns: 1fr;
   }
 
-  .table-wrap {
-    overflow-x: auto;
-  }
-
   table {
     min-width: 600px;
   }
@@ -447,397 +611,4 @@ select::placeholder,
 textarea::placeholder {
   color: #88a878;
   opacity: 1;
-}
-
-input::-webkit-input-placeholder,
-select::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder {
-  color: #88a878;
-  opacity: 1;
-}
-
-input::-moz-placeholder,
-select::-moz-placeholder,
-textarea::-moz-placeholder {
-  color: #88a878;
-  opacity: 1;
-}
-
-input:-ms-input-placeholder,
-select:-ms-input-placeholder,
-textarea:-ms-input-placeholder {
-  color: #88a878;
-  opacity: 1;
-}
-
-.btn-eliminar-cuenta {
-  background-color: #ffffff;
-  color: #c25656;
-  border: 1px solid #fecaca;
-  border-radius: 8px;
-  padding: 10px 22px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  margin-left: auto;
-}
-
-.btn-eliminar-cuenta:hover {
-  background-color: #fff5f5;
-  border-color: #c25656;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(194, 86, 86, 0.2);
-}
-
-/* ── Solicitudes expandidas ── */
-.fila-solicitudes td {
-  padding: 0;
-  background-color: #f5f3ee;
-}
-
-.solicitudes-wrap {
-  padding: 16px 20px;
-  border-top: 1px solid #d0e0c8;
-}
-
-.tabla-solicitudes {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.tabla-solicitudes th {
-  padding: 10px 14px;
-  font-size: 11px;
-}
-
-.tabla-solicitudes td {
-  padding: 10px 14px;
-  color: #527a45;
-}
-
-.estado-pendiente {
-  background-color: #fff5cc;
-  color: #a07800;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.estado-aprobada {
-  background-color: #e5efe0;
-  color: #2d6a4f;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.estado-rechazada {
-  background-color: #fff5f5;
-  color: #c25656;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-/* ── Badge estado animal ── */
-.badge-estado {
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.badge-disponible {
-  background-color: #e5efe0;
-  color: #2d6a4f;
-}
-
-.badge-en_proceso {
-  background-color: #fff5cc;
-  color: #a07800;
-}
-
-.badge-adoptado {
-  background-color: #f5f3ee;
-  color: #88a878;
-}
-
-/* ── Fila activa ── */
-.fila-activa td {
-  background-color: #f5f3ee;
-}
-
-/* ── Columna acciones ── */
-.acciones-col {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-/* ── Botón solicitudes ── */
-.btn-solicitudes {
-  background-color: #2d3e28;
-  color: #ffffff;
-  border: 1px solid #2d3e28;
-  border-radius: 8px;
-  padding: 7px 14px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.btn-solicitudes:hover {
-  background-color: #1a2416;
-  border-color: #1a2416;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(45, 62, 40, 0.3);
-}
-
-/* ── Solicitudes expandidas ── */
-.fila-solicitudes > td {
-  padding: 0;
-  background-color: #f5f3ee;
-  border-top: 2px solid #d0e0c8;
-}
-
-.solicitudes-wrap {
-  padding: 20px 24px;
-}
-
-.solicitudes-titulo {
-  color: #2d3e28;
-  font-size: 15px;
-  font-weight: 700;
-  margin: 0 0 16px;
-}
-
-.solicitudes-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.solicitud-card {
-  background: #ffffff;
-  border: 1px solid #d0e0c8;
-  border-radius: 12px;
-  padding: 16px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.solicitud-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.solicitud-adoptante {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.solicitud-nombre {
-  font-weight: 700;
-  color: #2d3e28;
-  font-size: 15px;
-}
-
-.solicitud-email {
-  font-size: 13px;
-  color: #527a45;
-}
-
-.solicitud-datos {
-  display: flex;
-  gap: 16px;
-  font-size: 13px;
-  color: #527a45;
-  flex-wrap: wrap;
-}
-
-.solicitud-mensaje {
-  font-size: 13px;
-  color: #527a45;
-  margin: 0;
-  font-style: italic;
-  border-left: 3px solid #d0e0c8;
-  padding-left: 12px;
-  line-height: 1.5;
-}
-
-.estado-pendiente {
-  background-color: #fff5cc;
-  color: #a07800;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.estado-aprobada {
-  background-color: #e5efe0;
-  color: #2d6a4f;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.estado-rechazada {
-  background-color: #fff5f5;
-  color: #c25656;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-/* ── Fila activa ── */
-.fila-activa td {
-  background-color: #f5f3ee;
-}
-
-/* ── Botón solicitudes ── */
-.btn-solicitudes {
-  background-color: #2d3e28;
-  color: #ffffff;
-  border: 1px solid #2d3e28;
-  border-radius: 8px;
-  padding: 7px 14px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.btn-solicitudes:hover {
-  background-color: #1a2416;
-  border-color: #1a2416;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(45, 62, 40, 0.3);
-}
-
-.acciones-col {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-/* ── Solicitudes expandidas ── */
-.fila-solicitudes > td {
-  padding: 0;
-  background-color: #f5f3ee;
-  border-top: 2px solid #d0e0c8;
-}
-
-.solicitudes-wrap {
-  padding: 20px 24px;
-}
-
-.solicitudes-titulo {
-  color: #2d3e28;
-  font-size: 15px;
-  font-weight: 700;
-  margin: 0 0 16px;
-}
-
-.solicitudes-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.solicitud-card {
-  background: #ffffff;
-  border: 1px solid #d0e0c8;
-  border-radius: 12px;
-  padding: 16px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.solicitud-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.solicitud-adoptante {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.solicitud-nombre {
-  font-weight: 700;
-  color: #2d3e28;
-  font-size: 15px;
-}
-
-.solicitud-email {
-  font-size: 13px;
-  color: #527a45;
-}
-
-.solicitud-datos {
-  display: flex;
-  gap: 16px;
-  font-size: 13px;
-  color: #527a45;
-  flex-wrap: wrap;
-}
-
-.solicitud-mensaje {
-  font-size: 13px;
-  color: #527a45;
-  margin: 0;
-  font-style: italic;
-  border-left: 3px solid #d0e0c8;
-  padding-left: 12px;
-  line-height: 1.5;
-}
-
-.estado-pendiente {
-  background-color: #fff5cc;
-  color: #a07800;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.estado-aprobada {
-  background-color: #e5efe0;
-  color: #2d6a4f;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.estado-rechazada {
-  background-color: #fff5f5;
-  color: #c25656;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
 }
