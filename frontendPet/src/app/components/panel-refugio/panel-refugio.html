@@ -79,7 +79,7 @@
         </option>
       </select>
 
-      <input [(ngModel)]="form.ubicacion" name="ubicacion" placeholder="Ubicación (ej: Madrid)" />
+
       <app-image-upload [urlActual]="form.foto || ''" (imagenSubida)="form.foto = $event" />
 
       <select [(ngModel)]="form.estadoAdopcion" name="estadoAdopcion">
@@ -87,6 +87,7 @@
         <option value="EN_PROCESO">En proceso</option>
         <option value="ADOPTADO">Adoptado</option>
       </select>
+      <input [(ngModel)]="form.ubicacion" name="ubicacion" placeholder="Ubicación (ej: Madrid)" />
     </div>
 
     <textarea [(ngModel)]="form.descripcion" name="descripcion"
