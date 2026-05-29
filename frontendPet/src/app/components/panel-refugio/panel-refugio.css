@@ -409,31 +409,33 @@ textarea:-ms-input-placeholder {
 }
 
 .aviso-no-verificado {
-  background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
-  border: 2px solid #ffc107;
+  background: linear-gradient(135deg, #e7f5e1 0%, #d1e7dd 100%);
+  border: 2px solid #51cf66;
   border-radius: 8px;
   padding: 24px;
   margin: 20px 0;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);
+  box-shadow: 0 2px 8px rgba(81, 207, 102, 0.15);
 }
 
 .aviso-no-verificado .icono {
-  font-size: 36px;
+  font-size: 40px;
   margin-bottom: 12px;
   display: block;
+  color: #2d6a4f;
+  font-weight: bold;
   animation: pulse 1.5s infinite;
 }
 
 .aviso-no-verificado h3 {
-  color: #856404;
+  color: #2d6a4f;
   margin: 0 0 12px 0;
   font-size: 18px;
   font-weight: 600;
 }
 
 .aviso-no-verificado p {
-  color: #856404;
+  color: #2d6a4f;
   margin: 8px 0;
   line-height: 1.6;
 }
