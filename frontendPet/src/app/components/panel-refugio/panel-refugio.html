@@ -39,6 +39,7 @@
   </form>
 
   <!-- ── Gestión de animales ── -->
+  @if (perfil.verificado) {
   <form class="editor" (ngSubmit)="guardar()">
     <h2>{{ editandoId ? 'Editar animal' : 'Nuevo animal' }}</h2>
 
@@ -124,6 +125,14 @@
       </tbody>
     </table>
   </div>
+
+  } @else {
+  <div class="aviso-no-verificado">
+    <p>Tu refugio está pendiente de verificación por parte del administrador.
+      Una vez verificado podrás publicar animales.</p>
+  </div>
+  }
+
 </section>
 
 <app-scroll-to-top />

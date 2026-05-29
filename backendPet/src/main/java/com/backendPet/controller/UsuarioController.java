@@ -46,6 +46,10 @@ public class UsuarioController {
         if (u.getRol() != Usuario.Rol.REFUGIO) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Refugio no encontrado");
         }
+        // ✅ Añadir esta comprobación
+        if (Boolean.FALSE.equals(u.getVerificado())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Refugio no disponible");
+        }
         return u;
     }
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AnimalService {
@@ -34,8 +35,9 @@ public class AnimalService {
     }
 
     public List<Animal> findAll() {
-        return animalRepository.findAll();
+        return animalRepository.findByRefugio_VerificadoTrue();
     }
+   
 
     public Animal findById(Long id) {
         return animalRepository.findById(id)
@@ -45,12 +47,19 @@ public class AnimalService {
 
     // Listar animales de un refugio concreto
     public List<Animal> findByRefugio(Long refugioId) {
+        Usuario refugio = usuarioRepository.findById(refugioId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Refugio no encontrado"));
+    
+        if (Boolean.FALSE.equals(refugio.getVerificado())) {
+            return List.of(); // refugio no verificado → lista vacía (o lanzar 404)
+        }
+    
         return animalRepository.findByRefugio_Id(refugioId);
     }
 
     // Listar animales disponibles
     public List<Animal> findDisponibles() {
-        return animalRepository.findByEstadoAdopcion(
+        return animalRepository.findByEstadoAdopcionAndRefugio_VerificadoTrue(
             Animal.EstadoAdopcion.DISPONIBLE);
     }
 

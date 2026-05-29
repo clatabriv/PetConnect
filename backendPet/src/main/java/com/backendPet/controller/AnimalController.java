@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/api")
@@ -29,7 +31,7 @@ public class AnimalController {
     public Animal obtenerAnimal(@PathVariable Long id) {
         return animalService.findById(id);
     }
-
+    
     // Listar animales disponibles para adopción
     @GetMapping("/animales/disponibles")
     public List<Animal> listarDisponibles() {
@@ -64,4 +66,6 @@ public class AnimalController {
     public void borrarAnimal(@PathVariable Long id) {
         animalService.delete(id);
     }
+    
+  
 }
