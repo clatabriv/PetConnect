@@ -51,7 +51,7 @@ header h1 {
 /* ── Editor / formulario ── */
 .editor {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: 1fr;
   gap: 14px;
   margin-bottom: 24px;
   background: rgba(255, 255, 255, 0.9);
@@ -66,7 +66,6 @@ header h1 {
 }
 
 .editor h2 {
-  grid-column: 1 / -1;
   margin: 0 0 8px;
   color: #2d3e28;
   font-size: 20px;
@@ -74,7 +73,6 @@ header h1 {
 }
 
 .editor textarea {
-  grid-column: 1 / -1;
   resize: vertical;
   min-height: 80px;
   font-family: inherit;
@@ -86,7 +84,6 @@ header h1 {
 }
 
 .perfil-grid {
-  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 20px;
@@ -130,12 +127,35 @@ header h1 {
   align-self: center;
 }
 
+/* ── Layout formulario animal ── */
+.animal-form-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.animal-foto-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.animal-campos-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 /* ── Grid del formulario de animal ── */
 .grid-form {
-  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 10px;
+}
+
+.animal-campos-col textarea {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ── Grupo de campo con mensaje de error ── */
@@ -202,7 +222,6 @@ textarea:focus {
 
 /* ── Botones de formulario (actions) ── */
 .actions {
-  grid-column: 1 / -1;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -337,9 +356,43 @@ td .danger:hover {
   font-size: 16px;
 }
 
+/* ── Aviso no verificado ── */
+.aviso-no-verificado {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #d0e0c8;
+  border-radius: 16px;
+  padding: 40px 24px;
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(82, 122, 69, 0.1);
+}
+
+.aviso-icono {
+  font-size: 28px;
+  color: #2d3e28;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.aviso-titulo {
+  color: #2d3e28;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.aviso-texto {
+  color: #88a878;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
 /* ── Responsive ── */
 @media (max-width: 640px) {
-  .perfil-grid {
+  .perfil-grid,
+  .animal-form-layout {
     grid-template-columns: 1fr;
   }
 }
@@ -406,41 +459,4 @@ select:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
   color: #88a878;
   opacity: 1;
-}
-
-.aviso-no-verificado {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid #d0e0c8;
-  border-radius: 16px;
-  padding: 40px 24px;
-  max-width: 1200px;
-  margin: 0 auto 24px;
-  text-align: center;
-  box-shadow: 0 4px 16px rgba(82, 122, 69, 0.1);
-}
-
-.aviso-icono {
-  font-size: 28px;
-  color: #2d3e28;
-  display: block;
-  margin-bottom: 14px;
-}
-
-.aviso-titulo {
-  color: #2d3e28;
-  font-size: 17px;
-  font-weight: 700;
-  margin: 0 0 8px;
-}
-
-.aviso-texto {
-  color: #88a878;
-  font-size: 14px;
-  font-weight: 500;
-  margin: 0;
-}
-
-.grid-form input[name='ubicacion'] {
-  grid-column: span 1;
-  max-width: 100%;
 }

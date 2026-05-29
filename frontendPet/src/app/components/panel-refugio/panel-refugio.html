@@ -43,55 +43,67 @@
   <form class="editor" (ngSubmit)="guardar()">
     <h2>{{ editandoId ? 'Editar animal' : 'Nuevo animal' }}</h2>
 
-    <div class="grid-form">
-      <div class="field-group">
-        <input [(ngModel)]="form.nombre" name="nombre" placeholder="Nombre del animal *" />
-        <span class="error-message" *ngIf="errorAnimal['nombre']">{{ errorAnimal['nombre'] }}</span>
+    <div class="animal-form-layout">
+
+      <!-- Imagen -->
+      <div class="animal-foto-col">
+        <app-image-upload [urlActual]="form.foto || ''" (imagenSubida)="form.foto = $event" />
       </div>
 
-      <div class="field-group">
-        <select [(ngModel)]="form.especie" name="especie">
-          <option value="" disabled>Especie *</option>
-          <option *ngFor="let especie of especiesDisponibles" [value]="especie">
-            {{ especie }}
-          </option>
-        </select>
-        <span class="error-message" *ngIf="errorAnimal['especie']">{{ errorAnimal['especie'] }}</span>
+      <!-- Campos -->
+      <div class="animal-campos-col">
+        <div class="grid-form">
+
+          <div class="field-group">
+            <input [(ngModel)]="form.nombre" name="nombre" placeholder="Nombre del animal *" />
+            <span class="error-message" *ngIf="errorAnimal['nombre']">{{ errorAnimal['nombre'] }}</span>
+          </div>
+
+          <div class="field-group">
+            <select [(ngModel)]="form.especie" name="especie">
+              <option value="" disabled>Especie *</option>
+              <option *ngFor="let especie of especiesDisponibles" [value]="especie">
+                {{ especie }}
+              </option>
+            </select>
+            <span class="error-message" *ngIf="errorAnimal['especie']">{{ errorAnimal['especie'] }}</span>
+          </div>
+
+          <input [(ngModel)]="form.raza" name="raza" placeholder="Raza" />
+          <input [(ngModel)]="form.edad" name="edad" type="number" placeholder="Edad en años (ej: 2)" min="0" />
+
+          <div class="field-group">
+            <select [(ngModel)]="form.genero" name="genero">
+              <option value="" disabled>Género *</option>
+              <option *ngFor="let genero of generosDisponibles" [value]="genero">
+                {{ genero }}
+              </option>
+            </select>
+            <span class="error-message" *ngIf="errorAnimal['genero']">{{ errorAnimal['genero'] }}</span>
+          </div>
+
+          <select [(ngModel)]="form.estadoSalud" name="estadoSalud">
+            <option value="">Estado de salud</option>
+            <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
+              {{ estado }}
+            </option>
+          </select>
+
+          <select [(ngModel)]="form.estadoAdopcion" name="estadoAdopcion">
+            <option value="DISPONIBLE">Disponible</option>
+            <option value="EN_PROCESO">En proceso</option>
+            <option value="ADOPTADO">Adoptado</option>
+          </select>
+
+          <input [(ngModel)]="form.ubicacion" name="ubicacion" placeholder="Ubicación (ej: Madrid)" />
+
+        </div>
+
+        <textarea [(ngModel)]="form.descripcion" name="descripcion"
+          placeholder="Descripción del animal (carácter, historia, necesidades...)" rows="3"></textarea>
       </div>
 
-      <input [(ngModel)]="form.raza" name="raza" placeholder="Raza" />
-      <input [(ngModel)]="form.edad" name="edad" type="number" placeholder="Edad en años (ej: 2)" min="0" />
-
-      <div class="field-group">
-        <select [(ngModel)]="form.genero" name="genero">
-          <option value="" disabled>Género *</option>
-          <option *ngFor="let genero of generosDisponibles" [value]="genero">
-            {{ genero }}
-          </option>
-        </select>
-        <span class="error-message" *ngIf="errorAnimal['genero']">{{ errorAnimal['genero'] }}</span>
-      </div>
-
-      <select [(ngModel)]="form.estadoSalud" name="estadoSalud">
-        <option value="">Estado de salud</option>
-        <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
-          {{ estado }}
-        </option>
-      </select>
-
-
-      <app-image-upload [urlActual]="form.foto || ''" (imagenSubida)="form.foto = $event" />
-
-      <select [(ngModel)]="form.estadoAdopcion" name="estadoAdopcion">
-        <option value="DISPONIBLE">Disponible</option>
-        <option value="EN_PROCESO">En proceso</option>
-        <option value="ADOPTADO">Adoptado</option>
-      </select>
-      <input [(ngModel)]="form.ubicacion" name="ubicacion" placeholder="Ubicación (ej: Madrid)" />
     </div>
-
-    <textarea [(ngModel)]="form.descripcion" name="descripcion"
-      placeholder="Descripción del animal (carácter, historia, necesidades...)" rows="3"></textarea>
 
     <div class="actions">
       <button type="submit">{{ editandoId ? 'Guardar cambios' : 'Crear animal' }}</button>
