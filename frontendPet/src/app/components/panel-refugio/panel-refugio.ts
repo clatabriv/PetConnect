@@ -28,12 +28,14 @@ import { DatePipe } from '@angular/common';
   styleUrl: './panel-refugio.css',
 })
 export class PanelRefugioComponent implements OnInit {
-  perfil: Partial<Usuario> = {
+  perfil: Partial<Usuario> & { password?: string } = {
     nombre: '',
+    email: '',
     telefono: '',
     descripcion: '',
     foto: '',
     verificado: false,
+    password: '',
   };
 
   guardandoPerfil = false;
@@ -88,10 +90,12 @@ export class PanelRefugioComponent implements OnInit {
     this.api.getUsuarioActual().subscribe((u) => {
       this.perfil = {
         nombre: u.nombre,
+        email: u.email,
         telefono: u.telefono || '',
         descripcion: u.descripcion || '',
         foto: u.foto || '',
         verificado: u.verificado || false,
+        password: '',
       };
     });
   }
@@ -101,9 +105,23 @@ export class PanelRefugioComponent implements OnInit {
     this.perfilGuardado = false;
     const usuario = this.auth.getCurrentUser();
     if (!usuario) return;
-    this.api.editarPerfilRefugio(usuario.id, this.perfil as Usuario).subscribe(() => {
+
+    // Construir objeto a enviar; solo incluir password si se ha escrito uno nuevo
+    const datos: Partial<Usuario> & { password?: string } = {
+      nombre: this.perfil.nombre,
+      email: this.perfil.email,
+      telefono: this.perfil.telefono,
+      descripcion: this.perfil.descripcion,
+      foto: this.perfil.foto,
+    };
+    if (this.perfil.password && this.perfil.password.trim()) {
+      datos.password = this.perfil.password;
+    }
+
+    this.api.editarPerfilRefugio(usuario.id, datos).subscribe(() => {
       this.guardandoPerfil = false;
       this.perfilGuardado = true;
+      this.perfil.password = ''; // limpiar el campo tras guardar
       setTimeout(() => (this.perfilGuardado = false), 3000);
     });
   }

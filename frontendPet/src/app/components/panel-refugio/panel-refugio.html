@@ -22,6 +22,9 @@
       </div>
       <div class="perfil-datos-col">
         <input [(ngModel)]="perfil.nombre" name="perfilNombre" placeholder="Nombre del refugio" required />
+        <input [(ngModel)]="perfil.email" name="perfilEmail" type="email" placeholder="Correo electrónico" />
+        <input [(ngModel)]="perfil.password" name="perfilPassword" type="password"
+          placeholder="Nueva contraseña (dejar vacío para no cambiarla)" />
         <input [(ngModel)]="perfil.telefono" name="perfilTelefono" placeholder="Teléfono de contacto" />
         <textarea [(ngModel)]="perfil.descripcion" name="perfilDescripcion" rows="6"
           placeholder="Descripción del refugio..."></textarea>
