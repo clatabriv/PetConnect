@@ -40,5 +40,6 @@ export interface SolicitudAdopcion {
     nombre: string;
     email: string;
     telefono?: string;
+    ubicacion?: string;
   };
 }

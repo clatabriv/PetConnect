@@ -121,13 +121,14 @@
             <td class="acciones-col">
               <button (click)="editar(animal)">Editar</button>
               <button class="danger" (click)="borrar(animal.id)">Borrar</button>
-              <button *ngIf="tieneSolicitudes(animal.id)" class="btn-solicitudes" (click)="verSolicitudes(animal.id)">
-                {{ animalExpandido === animal.id ? 'Ocultar' : '📋 ' + solicitudesPorAnimal[animal.id].length }}
+              <button *ngIf="solicitudesPorAnimal[animal.id] && solicitudesPorAnimal[animal.id].length > 0"
+                class="btn-solicitudes" (click)="verSolicitudes(animal.id)">
+                {{ animalExpandido === animal.id ? 'Ocultar' : '📋 ' + solicitudesPorAnimal[animal.id].length + '
+                solicitud/es' }}
               </button>
             </td>
           </tr>
 
-          <!-- Fila expandida con solicitudes -->
           <tr *ngIf="animalExpandido === animal.id" class="fila-solicitudes">
             <td colspan="6">
               <div class="solicitudes-wrap">
@@ -135,16 +136,20 @@
                 <div class="solicitudes-lista">
                   <div *ngFor="let s of solicitudesPorAnimal[animal.id]" class="solicitud-card">
                     <div class="solicitud-header">
-                      <span class="solicitud-nombre">{{ s.adoptante?.nombre || '—' }}</span>
+                      <div class="solicitud-adoptante">
+                        <span class="solicitud-nombre">{{ s.adoptante?.nombre || '—' }}</span>
+                        <span class="solicitud-email">{{ s.adoptante?.email || '—' }}</span>
+                      </div>
                       <span [class]="'estado-' + s.estadoSolicitud.toLowerCase()">
                         {{ s.estadoSolicitud }}
                       </span>
                     </div>
                     <div class="solicitud-datos">
-                      <span>{{ s.adoptante?.email || '—' }}</span>
                       <span>{{ s.fechaSolicitud | date:'dd/MM/yyyy' }}</span>
+                      <span *ngIf="s.adoptante?.telefono"> {{ s.adoptante?.telefono }}</span>
+                      <span *ngIf="s.adoptante?.ubicacion"> {{ s.adoptante?.ubicacion }}</span>
                     </div>
-                    <p *ngIf="s.mensaje" class="solicitud-mensaje">{{ s.mensaje }}</p>
+                    <p *ngIf="s.mensaje" class="solicitud-mensaje">"{{ s.mensaje }}"</p>
                   </div>
                 </div>
               </div>
