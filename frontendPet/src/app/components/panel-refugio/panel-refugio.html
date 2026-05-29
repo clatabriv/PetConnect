@@ -16,6 +16,175 @@
   <!-- ── Perfil del refugio ── -->
   <form class="editor perfil-form" (ngSubmit)="guardarPerfil()">
     <h2>Mi perfil de refugio</h2>
+    <div class="perfil-grid">
+      <div class="perfil-foto-col">
+        <app-image-upload [urlActual]="perfil.foto || ''" (imagenSubida)="perfil.foto = $event" />
+      </div>
+      <div class="perfil-datos-col">
+        <input [(ngModel)]="perfil.nombre" name="perfilNombre" placeholder="Nombre del refugio" required />
+        <input [(ngModel)]="perfil.telefono" name="perfilTelefono" placeholder="Teléfono de contacto" />
+        <textarea [(ngModel)]="perfil.descripcion" name="perfilDescripcion" rows="6"
+          placeholder="Descripción del refugio..."></textarea>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="submit" [disabled]="guardandoPerfil">
+        {{ guardandoPerfil ? 'Guardando...' : 'Guardar perfil' }}
+      </button>
+      <span class="ok-msg" *ngIf="perfilGuardado">✓ Perfil actualizado</span>
+      <button type="button" class="btn-eliminar-cuenta" (click)="eliminarCuenta()">
+        Eliminar mi refugio
+      </button>
+    </div>
+  </form>
+
+  <!-- ── Gestión de animales ── -->
+  @if (perfil.verificado) {
+  <form class="editor" (ngSubmit)="guardar()">
+    <h2>{{ editandoId ? 'Editar animal' : 'Nuevo animal' }}</h2>
+    <div class="animal-form-layout">
+      <div class="animal-foto-col">
+        <app-image-upload [urlActual]="form.foto || ''" (imagenSubida)="form.foto = $event" />
+      </div>
+      <div class="animal-campos-col">
+        <div class="grid-form">
+          <div class="field-group">
+            <input [(ngModel)]="form.nombre" name="nombre" placeholder="Nombre del animal *" />
+            <span class="error-message" *ngIf="errorAnimal['nombre']">{{ errorAnimal['nombre'] }}</span>
+          </div>
+          <div class="field-group">
+            <select [(ngModel)]="form.especie" name="especie">
+              <option value="" disabled>Especie *</option>
+              <option *ngFor="let especie of especiesDisponibles" [value]="especie">{{ especie }}</option>
+            </select>
+            <span class="error-message" *ngIf="errorAnimal['especie']">{{ errorAnimal['especie'] }}</span>
+          </div>
+          <input [(ngModel)]="form.raza" name="raza" placeholder="Raza" />
+          <input [(ngModel)]="form.edad" name="edad" type="number" placeholder="Edad en años (ej: 2)" min="0" />
+          <div class="field-group">
+            <select [(ngModel)]="form.genero" name="genero">
+              <option value="" disabled>Género *</option>
+              <option *ngFor="let genero of generosDisponibles" [value]="genero">{{ genero }}</option>
+            </select>
+            <span class="error-message" *ngIf="errorAnimal['genero']">{{ errorAnimal['genero'] }}</span>
+          </div>
+          <select [(ngModel)]="form.estadoSalud" name="estadoSalud">
+            <option value="">Estado de salud</option>
+            <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">{{ estado }}</option>
+          </select>
+          <select [(ngModel)]="form.estadoAdopcion" name="estadoAdopcion">
+            <option value="DISPONIBLE">Disponible</option>
+            <option value="EN_PROCESO">En proceso</option>
+            <option value="ADOPTADO">Adoptado</option>
+          </select>
+          <input [(ngModel)]="form.ubicacion" name="ubicacion" placeholder="Ubicación (ej: Madrid)" />
+        </div>
+        <textarea [(ngModel)]="form.descripcion" name="descripcion"
+          placeholder="Descripción del animal (carácter, historia, necesidades...)" rows="3"></textarea>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="submit">{{ editandoId ? 'Guardar cambios' : 'Crear animal' }}</button>
+      @if (editandoId) {
+      <button type="button" class="secondary" (click)="cancelarEdicion()">Cancelar</button>
+      }
+    </div>
+  </form>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Nombre</th>
+          <th>Especie</th>
+          <th>Género</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let animal of animales">
+          <tr [class.fila-activa]="animalExpandido === animal.id">
+            <td>
+              <img [src]="animal.foto || 'https://placehold.co/48x48?text=🐾'" [alt]="animal.nombre"
+                class="tabla-foto-animal" />
+            </td>
+            <td>{{ animal.nombre }}</td>
+            <td>{{ animal.especie }}</td>
+            <td>{{ animal.genero || '—' }}</td>
+            <td>
+              <span [class]="'badge-estado badge-' + animal.estadoAdopcion.toLowerCase()">
+                {{ animal.estadoAdopcion }}
+              </span>
+            </td>
+            <td class="acciones-col">
+              <button (click)="editar(animal)">Editar</button>
+              <button class="danger" (click)="borrar(animal.id)">Borrar</button>
+              <button *ngIf="tieneSolicitudes(animal.id)" class="btn-solicitudes" (click)="verSolicitudes(animal.id)">
+                {{ animalExpandido === animal.id ? 'Ocultar' : '📋 ' + solicitudesPorAnimal[animal.id].length }}
+              </button>
+            </td>
+          </tr>
+
+          <!-- Fila expandida con solicitudes -->
+          <tr *ngIf="animalExpandido === animal.id" class="fila-solicitudes">
+            <td colspan="6">
+              <div class="solicitudes-wrap">
+                <h4 class="solicitudes-titulo">Solicitudes para {{ animal.nombre }}</h4>
+                <div class="solicitudes-lista">
+                  <div *ngFor="let s of solicitudesPorAnimal[animal.id]" class="solicitud-card">
+                    <div class="solicitud-header">
+                      <span class="solicitud-nombre">{{ s.adoptante?.nombre || '—' }}</span>
+                      <span [class]="'estado-' + s.estadoSolicitud.toLowerCase()">
+                        {{ s.estadoSolicitud }}
+                      </span>
+                    </div>
+                    <div class="solicitud-datos">
+                      <span>{{ s.adoptante?.email || '—' }}</span>
+                      <span>{{ s.fechaSolicitud | date:'dd/MM/yyyy' }}</span>
+                    </div>
+                    <p *ngIf="s.mensaje" class="solicitud-mensaje">{{ s.mensaje }}</p>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+  } @else {
+  <div class="aviso-no-verificado">
+    <span class="aviso-icono">✦</span>
+    <p class="aviso-titulo">Refugio pendiente de verificación</p>
+    <p class="aviso-texto">Una vez aprobado por el administrador podrás publicar animales.</p>
+  </div>
+  }
+
+</section>
+
+<app-scroll-to-top />
+<app-footer />
+<!--<app-navbar />
+<section class="page">
+  <header>
+    <h1>Gestión de mi refugio</h1>
+  </header>
+
+  
+  <div class="estado-verificacion">
+    @if (perfil.verificado) {
+    <div class="badge-verificado">✓ Refugio verificado</div>
+    } @else {
+    <div class="badge-pendiente"> * Pendiente de verificación por el administrador</div>
+    }
+  </div>
+
+  
+  <form class="editor perfil-form" (ngSubmit)="guardarPerfil()">
+    <h2>Mi perfil de refugio</h2>
 
     <div class="perfil-grid">
       <div class="perfil-foto-col">
@@ -41,19 +210,19 @@
     </div>
   </form>
 
-  <!-- ── Gestión de animales ── -->
+  
   @if (perfil.verificado) {
   <form class="editor" (ngSubmit)="guardar()">
     <h2>{{ editandoId ? 'Editar animal' : 'Nuevo animal' }}</h2>
 
     <div class="animal-form-layout">
 
-      <!-- Imagen -->
+      
       <div class="animal-foto-col">
         <app-image-upload [urlActual]="form.foto || ''" (imagenSubida)="form.foto = $event" />
       </div>
 
-      <!-- Campos -->
+      
       <div class="animal-campos-col">
         <div class="grid-form">
 
@@ -148,7 +317,7 @@
             </td>
           </tr>
 
-          <!-- Fila expandida con solicitudes -->
+          
           <tr *ngIf="animalExpandido === animal.id" class="fila-solicitudes">
             <td colspan="6">
               <div class="solicitudes-wrap">
@@ -200,3 +369,4 @@
 
 <app-scroll-to-top />
 <app-footer />
+-->

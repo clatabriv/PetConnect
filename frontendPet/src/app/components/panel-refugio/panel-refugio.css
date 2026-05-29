@@ -543,3 +543,119 @@ textarea:-ms-input-placeholder {
   font-size: 12px;
   font-weight: 600;
 }
+
+/* ── Badge estado animal ── */
+.badge-estado {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-disponible {
+  background-color: #e5efe0;
+  color: #2d6a4f;
+}
+
+.badge-en_proceso {
+  background-color: #fff5cc;
+  color: #a07800;
+}
+
+.badge-adoptado {
+  background-color: #f5f3ee;
+  color: #88a878;
+}
+
+/* ── Fila activa ── */
+.fila-activa td {
+  background-color: #f5f3ee;
+}
+
+/* ── Botón solicitudes ── */
+.btn-solicitudes {
+  background-color: #2d3e28;
+  color: #ffffff;
+  border: 1px solid #2d3e28;
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-solicitudes:hover {
+  background-color: #1a2416;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 62, 40, 0.3);
+}
+
+.acciones-col {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ── Solicitudes expandidas ── */
+.fila-solicitudes td {
+  padding: 0;
+  background-color: #f5f3ee;
+  border-top: 2px solid #d0e0c8;
+}
+
+.solicitudes-wrap {
+  padding: 20px;
+}
+
+.solicitudes-titulo {
+  color: #2d3e28;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.solicitudes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.solicitud-card {
+  background: #ffffff;
+  border: 1px solid #d0e0c8;
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.solicitud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.solicitud-nombre {
+  font-weight: 700;
+  color: #2d3e28;
+  font-size: 15px;
+}
+
+.solicitud-datos {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+  color: #527a45;
+}
+
+.solicitud-mensaje {
+  font-size: 13px;
+  color: #527a45;
+  margin: 0;
+  font-style: italic;
+  border-left: 3px solid #d0e0c8;
+  padding-left: 10px;
+}
