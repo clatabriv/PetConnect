@@ -612,3 +612,8 @@ textarea::placeholder {
   color: #88a878;
   opacity: 1;
 }
+
+/* ── Fila activa ── */
+.fila-activa td {
+  background-color: #f5f3ee !important;
+}
