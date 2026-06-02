@@ -13,7 +13,7 @@
       <table>
         <thead>
           <tr>
-            <th>Imagen</th>
+            <th>Foto</th>
             <th>Nombre</th>
             <th>Email</th>
             <th>Teléfono</th>
@@ -242,6 +242,7 @@
       <table>
         <thead>
           <tr>
+            <th>Foto</th>
             <th>Nombre</th>
             <th>Especie</th>
             <th>Refugio</th>
@@ -251,6 +252,13 @@
         </thead>
         <tbody>
           <tr *ngFor="let animal of animalesFiltrados">
+            <td>
+              @if (animal.foto) {
+              <img [src]="animal.foto" [alt]="animal.nombre" class="tabla-foto" />
+              } @else {
+              <div class="tabla-foto-vacia"></div>
+              }
+            </td>
             <td>{{ animal.nombre }}</td>
             <td>{{ animal.especie }}</td>
             <td>{{ getNombreRefugio(animal.refugioId) }}</td>
@@ -277,278 +285,3 @@
 
 <app-scroll-to-top />
 <app-footer />
-<!-- <app-navbar />
-<section class="page">
-  <header>
-    <h1>Panel de administración</h1>
-  </header>
-
-
-  <div class="card">
-    <div class="card-header">
-      <h2>Refugios pendientes de verificación</h2>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Imagen</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Teléfono</th>
-            <th>Ubicación</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let refugio of refugiosPendientes">
-            <td>
-              @if (refugio.foto) {
-              <img [src]="refugio.foto" alt="{{ refugio.nombre }}" class="refugio-img" />
-              } @else {
-              <div class="refugio-sin-foto">Sin foto</div>
-              }
-            </td>
-            <td>{{ refugio.nombre }}</td>
-            <td>{{ refugio.email }}</td>
-            <td>{{ refugio.telefono || '—' }}</td>
-            <td>{{ refugio.ubicacion || '—' }}</td>
-            <td class="actions">
-              <button class="btn-edit" (click)="verificarRefugio(refugio.id, true)">Verificar</button>
-              <button class="btn-danger" (click)="verificarRefugio(refugio.id, false)">Rechazar</button>
-            </td>
-          </tr>
-          <tr *ngIf="refugiosPendientes.length === 0">
-            <td colspan="6" class="empty">No hay refugios pendientes de verificación</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-
-  <div class="card">
-    <div class="card-header">
-      <h2>Usuarios</h2>
-      <button class="btn-primary" (click)="mostrarFormUsuario = !mostrarFormUsuario">
-        {{ mostrarFormUsuario ? 'Cancelar' : '+ Nuevo usuario' }}
-      </button>
-    </div>
-
-    @if (mostrarFormUsuario) {
-    <form id="form-usuario" (ngSubmit)="guardarUsuario()" autocomplete="off">
-
-      
-      <input type="text" style="display:none" autocomplete="username" />
-      <input type="password" style="display:none" autocomplete="current-password" />
-
-      <div class="card-body">
-        <h3>{{ editandoUsuarioId ? 'Editar usuario' : 'Crear usuario' }}</h3>
-
-        <div class="perfil-grid">
-          <div class="perfil-foto-col">
-            <app-image-upload [urlActual]="formUsuario.foto || ''" (imagenSubida)="formUsuario.foto = $event" />
-          </div>
-
-          <div class="perfil-datos-col">
-            <div class="field-group">
-              <input [(ngModel)]="formUsuario.nombre" name="usuarioNombre" placeholder="Nombre *" autocomplete="off" />
-              <span class="error-message" *ngIf="errorUsuario['nombre']">{{ errorUsuario['nombre'] }}</span>
-            </div>
-
-            <div class="field-group">
-              <input #emailInput [(ngModel)]="formUsuario.email" name="usuarioEmail" type="email" placeholder="Email *"
-                readonly (focus)="emailInput.removeAttribute('readonly')" />
-              <span class="error-message" *ngIf="errorUsuario['email']">{{ errorUsuario['email'] }}</span>
-            </div>
-
-            <div class="field-group">
-              <input #passInput [(ngModel)]="formUsuario.password" name="usuarioPassword" type="password"
-                [placeholder]="editandoUsuarioId ? 'Contraseña (dejar vacío para no cambiar)' : 'Contraseña *'" readonly
-                (focus)="passInput.removeAttribute('readonly')" />
-              <span class="error-message" *ngIf="errorUsuario['password']">{{ errorUsuario['password'] }}</span>
-            </div>
-
-            <select [(ngModel)]="formUsuario.rol" name="usuarioRol">
-              <option *ngFor="let rol of rolesDisponibles" [value]="rol">{{ rol }}</option>
-            </select>
-
-            <div class="field-group">
-              <input [(ngModel)]="formUsuario.telefono" name="usuarioTelefono" placeholder="Teléfono *"
-                autocomplete="off" />
-              <span class="error-message" *ngIf="errorUsuario['telefono']">{{ errorUsuario['telefono'] }}</span>
-            </div>
-
-            <textarea [(ngModel)]="formUsuario.descripcion" name="usuarioDescripcion" rows="4"
-              placeholder="Descripción (opcional)"></textarea>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button type="submit" class="btn-primary">
-            {{ editandoUsuarioId ? 'Guardar cambios' : 'Crear usuario' }}
-          </button>
-        </div>
-      </div>
-    </form>
-    }
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Verificado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let usuario of usuarios">
-            <td>{{ usuario.nombre }}</td>
-            <td>{{ usuario.email }}</td>
-            <td>
-              <span class="badge" [class.badge-adoptante]="usuario.rol === 'ADOPTANTE'"
-                [class.badge-refugio]="usuario.rol === 'REFUGIO'" [class.badge-admin]="usuario.rol === 'ADMIN'">
-                {{ usuario.rol }}
-              </span>
-            </td>
-            <td>
-              @if (usuario.rol === 'REFUGIO') {
-              <span class="badge" [class.badge-disponible]="usuario.verificado"
-                [class.badge-en_proceso]="!usuario.verificado">
-                {{ usuario.verificado ? '✓ Verificado' : 'Pendiente' }}
-              </span>
-              } @else {
-              —
-              }
-            </td>
-            <td class="actions">
-              <button class="btn-edit" (click)="editarUsuario(usuario)">Editar</button>
-              <button class="btn-danger" (click)="borrarUsuario(usuario.id)">Borrar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-
-  <div class="card">
-    <div class="card-header">
-      <h2>Animales</h2>
-      <button class="btn-primary" (click)="mostrarFormAnimal = !mostrarFormAnimal">
-        {{ mostrarFormAnimal ? 'Cancelar' : '+ Nuevo animal' }}
-      </button>
-    </div>
-
-    @if (mostrarFormAnimal) {
-    <form id="form-animal" (ngSubmit)="guardarAnimal()">
-      <div class="card-body">
-        <h3>{{ editandoAnimalId ? 'Editar animal' : 'Crear animal' }}</h3>
-
-        <div class="perfil-grid">
-          <div class="perfil-foto-col">
-            <app-image-upload [urlActual]="formAnimal.foto || ''" (imagenSubida)="formAnimal.foto = $event" />
-          </div>
-
-          <div class="perfil-datos-col">
-            <div class="fields">
-              <div class="field-group">
-                <input [(ngModel)]="formAnimal.nombre" name="animalNombre" placeholder="Nombre *" />
-                <span class="error-message" *ngIf="errorAnimal['nombre']">{{ errorAnimal['nombre'] }}</span>
-              </div>
-
-              <div class="field-group">
-                <select [(ngModel)]="formAnimal.especie" name="animalEspecie">
-                  <option value="" hidden>Especie *</option>
-                  <option *ngFor="let especie of especiesDisponibles" [value]="especie">{{ especie }}</option>
-                </select>
-                <span class="error-message" *ngIf="errorAnimal['especie']">{{ errorAnimal['especie'] }}</span>
-              </div>
-
-              <input [(ngModel)]="formAnimal.raza" name="animalRaza" placeholder="Raza" />
-              <input [(ngModel)]="formAnimal.edad" name="animalEdad" type="number" placeholder="Edad (años)" />
-
-              <div class="field-group">
-                <select [(ngModel)]="formAnimal.genero" name="animalGenero">
-                  <option value="" hidden>Género *</option>
-                  <option *ngFor="let genero of generosDisponibles" [value]="genero">{{ genero }}</option>
-                </select>
-                <span class="error-message" *ngIf="errorAnimal['genero']">{{ errorAnimal['genero'] }}</span>
-              </div>
-
-              <select [(ngModel)]="formAnimal.estadoSalud" name="animalEstadoSalud">
-                <option value="" hidden>Estado de salud</option>
-                <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">{{ estado }}</option>
-              </select>
-
-              <input [(ngModel)]="formAnimal.ubicacion" name="animalUbicacion" placeholder="Ubicación" />
-
-              <div class="field-group">
-                <select [(ngModel)]="formAnimal.refugioId" name="animalRefugioId">
-                  <option [value]="undefined" disabled>Refugio *</option>
-                  <option *ngFor="let refugio of refugiosDisponibles" [value]="refugio.id">{{ refugio.nombre }}</option>
-                </select>
-                <span class="error-message" *ngIf="errorAnimal['refugioId']">{{ errorAnimal['refugioId'] }}</span>
-              </div>
-
-              <select [(ngModel)]="formAnimal.estadoAdopcion" name="animalEstadoAdopcion">
-                <option value="DISPONIBLE">Disponible</option>
-                <option value="EN_PROCESO">En proceso</option>
-                <option value="ADOPTADO">Adoptado</option>
-              </select>
-            </div>
-
-            <textarea [(ngModel)]="formAnimal.descripcion" name="animalDescripcion" placeholder="Descripción"
-              rows="3"></textarea>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button type="submit" class="btn-primary">
-            {{ editandoAnimalId ? 'Guardar cambios' : 'Crear animal' }}
-          </button>
-        </div>
-      </div>
-    </form>
-    }
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Especie</th>
-            <th>Refugio</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let animal of animales">
-            <td>{{ animal.nombre }}</td>
-            <td>{{ animal.especie }}</td>
-            <td>{{ getNombreRefugio(animal.refugioId) }}</td>
-            <td>
-              <span class="badge" [class.badge-disponible]="animal.estadoAdopcion === 'DISPONIBLE'"
-                [class.badge-en_proceso]="animal.estadoAdopcion === 'EN_PROCESO'"
-                [class.badge-adoptado]="animal.estadoAdopcion === 'ADOPTADO'">
-                {{ animal.estadoAdopcion }}
-              </span>
-            </td>
-            <td class="actions">
-              <button class="btn-edit" (click)="editarAnimal(animal)">Editar</button>
-              <button class="btn-danger" (click)="borrarAnimal(animal.id)">Borrar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<app-scroll-to-top />
-<app-footer /> -->
