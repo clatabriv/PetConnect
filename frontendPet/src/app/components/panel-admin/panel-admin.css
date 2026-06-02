@@ -91,13 +91,8 @@ header h1 {
 
 .perfil-datos-col .fields {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-}
-
-.perfil-datos-col .fields input[name='animalUbicacion'] {
-  grid-column: span 1;
-  max-width: 100%;
 }
 
 /* Padding solo para el formulario dentro del card */
