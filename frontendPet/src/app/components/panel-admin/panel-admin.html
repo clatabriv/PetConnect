@@ -102,7 +102,7 @@
             </div>
 
             <textarea [(ngModel)]="formUsuario.descripcion" name="usuarioDescripcion" rows="4"
-              placeholder="Descripción (para refugios)"></textarea>
+              placeholder="Descripción (opcional)"></textarea>
           </div>
         </div>
 
@@ -157,6 +157,7 @@
   </div>
 
   <!-- ── Gestión de animales ── -->
+  <!-- ── Gestión de animales ── -->
   <div class="card">
     <div class="card-header">
       <h2>Animales</h2>
@@ -170,76 +171,63 @@
       <div class="card-body">
         <h3>{{ editandoAnimalId ? 'Editar animal' : 'Crear animal' }}</h3>
 
-        <div class="fields">
-          <div class="field-group">
-            <input [(ngModel)]="formAnimal.nombre" name="animalNombre" placeholder="Nombre *" />
-            <span class="error-message" *ngIf="errorAnimal['nombre']">{{
-              errorAnimal['nombre']
-              }}</span>
+        <div class="perfil-grid">
+          <div class="perfil-foto-col">
+            <app-image-upload [urlActual]="formAnimal.foto || ''" (imagenSubida)="formAnimal.foto = $event" />
           </div>
 
-          <div class="field-group">
-            <select [(ngModel)]="formAnimal.especie" name="animalEspecie">
-              <option value="" hidden>Especie *</option>
-              <option *ngFor="let especie of especiesDisponibles" [value]="especie">
-                {{ especie }}
-              </option>
-            </select>
-            <span class="error-message" *ngIf="errorAnimal['especie']">{{
-              errorAnimal['especie']
-              }}</span>
+          <div class="perfil-datos-col">
+            <div class="fields">
+              <div class="field-group">
+                <input [(ngModel)]="formAnimal.nombre" name="animalNombre" placeholder="Nombre *" />
+                <span class="error-message" *ngIf="errorAnimal['nombre']">{{ errorAnimal['nombre'] }}</span>
+              </div>
+
+              <div class="field-group">
+                <select [(ngModel)]="formAnimal.especie" name="animalEspecie">
+                  <option value="" hidden>Especie *</option>
+                  <option *ngFor="let especie of especiesDisponibles" [value]="especie">{{ especie }}</option>
+                </select>
+                <span class="error-message" *ngIf="errorAnimal['especie']">{{ errorAnimal['especie'] }}</span>
+              </div>
+
+              <input [(ngModel)]="formAnimal.raza" name="animalRaza" placeholder="Raza" />
+              <input [(ngModel)]="formAnimal.edad" name="animalEdad" type="number" placeholder="Edad (años)" />
+
+              <div class="field-group">
+                <select [(ngModel)]="formAnimal.genero" name="animalGenero">
+                  <option value="" hidden>Género *</option>
+                  <option *ngFor="let genero of generosDisponibles" [value]="genero">{{ genero }}</option>
+                </select>
+                <span class="error-message" *ngIf="errorAnimal['genero']">{{ errorAnimal['genero'] }}</span>
+              </div>
+
+              <select [(ngModel)]="formAnimal.estadoSalud" name="animalEstadoSalud">
+                <option value="" hidden>Estado de salud</option>
+                <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">{{ estado }}</option>
+              </select>
+
+              <input [(ngModel)]="formAnimal.ubicacion" name="animalUbicacion" placeholder="Ubicación" />
+
+              <div class="field-group">
+                <select [(ngModel)]="formAnimal.refugioId" name="animalRefugioId">
+                  <option [value]="undefined" disabled>Refugio *</option>
+                  <option *ngFor="let refugio of refugiosDisponibles" [value]="refugio.id">{{ refugio.nombre }}</option>
+                </select>
+                <span class="error-message" *ngIf="errorAnimal['refugioId']">{{ errorAnimal['refugioId'] }}</span>
+              </div>
+
+              <select [(ngModel)]="formAnimal.estadoAdopcion" name="animalEstadoAdopcion">
+                <option value="DISPONIBLE">Disponible</option>
+                <option value="EN_PROCESO">En proceso</option>
+                <option value="ADOPTADO">Adoptado</option>
+              </select>
+            </div>
+
+            <textarea [(ngModel)]="formAnimal.descripcion" name="animalDescripcion" placeholder="Descripción"
+              rows="3"></textarea>
           </div>
-
-          <input [(ngModel)]="formAnimal.raza" name="animalRaza" placeholder="Raza" />
-
-          <input [(ngModel)]="formAnimal.edad" name="animalEdad" type="number" placeholder="Edad (años)" />
-
-          <div class="field-group">
-            <select [(ngModel)]="formAnimal.genero" name="animalGenero">
-              <option value="" hidden>Género *</option>
-              <option *ngFor="let genero of generosDisponibles" [value]="genero">
-                {{ genero }}
-              </option>
-            </select>
-            <span class="error-message" *ngIf="errorAnimal['genero']">{{
-              errorAnimal['genero']
-              }}</span>
-          </div>
-
-          <select [(ngModel)]="formAnimal.estadoSalud" name="animalEstadoSalud">
-            <option value="" hidden>Estado de salud</option>
-            <option *ngFor="let estado of estadosSaludDisponibles" [value]="estado">
-              {{ estado }}
-            </option>
-          </select>
-
-          <div class="field-group">
-            <input [(ngModel)]="formAnimal.ubicacion" name="animalUbicacion" placeholder="Ubicación" />
-          </div>
-
-          <div class="field-group">
-            <select [(ngModel)]="formAnimal.refugioId" name="animalRefugioId">
-              <option [value]="undefined" disabled>Refugio *</option>
-              <option *ngFor="let refugio of refugiosDisponibles" [value]="refugio.id">
-                {{ refugio.nombre }}
-              </option>
-            </select>
-            <span class="error-message" *ngIf="errorAnimal['refugioId']">{{
-              errorAnimal['refugioId']
-              }}</span>
-          </div>
-
-          <select [(ngModel)]="formAnimal.estadoAdopcion" name="animalEstadoAdopcion">
-            <option value="DISPONIBLE">Disponible</option>
-            <option value="EN_PROCESO">En proceso</option>
-            <option value="ADOPTADO">Adoptado</option>
-          </select>
-
-          <app-image-upload [urlActual]="formAnimal.foto || ''" (imagenSubida)="formAnimal.foto = $event" />
         </div>
-
-        <textarea [(ngModel)]="formAnimal.descripcion" name="animalDescripcion" placeholder="Descripción"
-          rows="3"></textarea>
 
         <div class="actions">
           <button type="submit" class="btn-primary">
