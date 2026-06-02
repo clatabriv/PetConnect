@@ -113,6 +113,7 @@
       <table>
         <thead>
           <tr>
+            <th>Foto</th>
             <th>Nombre</th>
             <th>Email</th>
             <th>Rol</th>
@@ -122,6 +123,13 @@
         </thead>
         <tbody>
           <tr *ngFor="let usuario of usuariosFiltrados">
+            <td>
+              @if (usuario.foto) {
+              <img [src]="usuario.foto" [alt]="usuario.nombre" class="tabla-foto" />
+              } @else {
+              <div class="tabla-foto-vacia"></div>
+              }
+            </td>
             <td>{{ usuario.nombre }}</td>
             <td>{{ usuario.email }}</td>
             <td>
