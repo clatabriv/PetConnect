@@ -79,15 +79,15 @@
             </div>
 
             <div class="field-group">
-              <input [(ngModel)]="formUsuario.email" name="usuarioEmail" type="email" placeholder="Email *" readonly
-                onfocus="this.removeAttribute('readonly')" autocomplete="off" />
+              <input #emailInput [(ngModel)]="formUsuario.email" name="usuarioEmail" type="email" placeholder="Email *"
+                readonly (focus)="emailInput.removeAttribute('readonly')" />
               <span class="error-message" *ngIf="errorUsuario['email']">{{ errorUsuario['email'] }}</span>
             </div>
 
             <div class="field-group">
-              <input [(ngModel)]="formUsuario.password" name="campo-clave-refugio" type="password"
-                [placeholder]="editandoUsuarioId ? 'Contraseña (dejar vacío para no cambiar)' : 'Contraseña *'"
-                autocomplete="new-password" />
+              <input #passInput [(ngModel)]="formUsuario.password" name="usuarioPassword" type="password"
+                [placeholder]="editandoUsuarioId ? 'Contraseña (dejar vacío para no cambiar)' : 'Contraseña *'" readonly
+                (focus)="passInput.removeAttribute('readonly')" />
               <span class="error-message" *ngIf="errorUsuario['password']">{{ errorUsuario['password'] }}</span>
             </div>
 
