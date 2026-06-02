@@ -129,8 +129,12 @@ export class PanelAdminComponent implements OnInit {
           this.cancelarEdicionUsuario();
         },
         error: (err) => {
-          if (err.error && typeof err.error === 'object') {
+          if (err.status === 409) {
+            this.errorUsuario = { email: 'Ya existe un usuario con este correo electrónico' };
+          } else if (err.error && typeof err.error === 'object') {
             this.errorUsuario = err.error;
+          } else {
+            this.errorUsuario = { general: 'Error al guardar el usuario' };
           }
         },
       });
