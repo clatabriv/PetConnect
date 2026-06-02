@@ -67,11 +67,11 @@ export class PanelAdminComponent implements OnInit {
     'Gato',
     'Conejo',
     'Cobaya',
+    'Hamster',
     'Rata',
     'Tortuga',
     'Gallina',
     'Pájaro',
-    'Hámster',
   ];
   generosDisponibles = ['Macho', 'Hembra'];
   estadosSaludDisponibles = ['Bueno', 'Regular', 'Malo'];
