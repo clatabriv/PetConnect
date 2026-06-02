@@ -89,6 +89,13 @@ export class PanelAdminComponent implements OnInit {
     return this.animales.filter((a) => a.refugioId === Number(this.filtroRefugioId));
   }
 
+  filtroRol: string | null = null;
+
+  get usuariosFiltrados(): Usuario[] {
+    if (!this.filtroRol) return this.usuarios;
+    return this.usuarios.filter((u) => u.rol === this.filtroRol);
+  }
+
   // ── USUARIOS ──
 
   cargarUsuarios() {
