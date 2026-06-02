@@ -58,7 +58,12 @@
     </div>
 
     @if (mostrarFormUsuario) {
-    <form id="form-usuario" (ngSubmit)="guardarUsuario()">
+    <form id="form-usuario" (ngSubmit)="guardarUsuario()" autocomplete="off">
+
+      <!-- Campos señuelo para engañar el autocompletado de Chrome -->
+      <input type="text" style="display:none" autocomplete="username" />
+      <input type="password" style="display:none" autocomplete="current-password" />
+
       <div class="card-body">
         <h3>{{ editandoUsuarioId ? 'Editar usuario' : 'Crear usuario' }}</h3>
 
@@ -80,9 +85,9 @@
             </div>
 
             <div class="field-group">
-              <input [(ngModel)]="formUsuario.password" name="usuarioPassword" type="password"
-                [placeholder]="editandoUsuarioId ? 'Contraseña (dejar vacío para no cambiar)' : 'Contraseña *'" readonly
-                onfocus="this.removeAttribute('readonly')" autocomplete="new-password" />
+              <input [(ngModel)]="formUsuario.password" name="campo-clave-refugio" type="password"
+                [placeholder]="editandoUsuarioId ? 'Contraseña (dejar vacío para no cambiar)' : 'Contraseña *'"
+                autocomplete="new-password" />
               <span class="error-message" *ngIf="errorUsuario['password']">{{ errorUsuario['password'] }}</span>
             </div>
 
