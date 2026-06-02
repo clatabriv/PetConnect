@@ -6,41 +6,6 @@
 
 header {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 32px;
-}
-
-.header-admin {
-  text-align: center;
-}
-
-.header-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: #88a878;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin: 0 0 8px;
-}
-
-header h1 {
-  color: #2d3e28;
-  font-size: clamp(28px, 5vw, 42px);
-  font-weight: 700;
-  margin: 0 0 10px;
-  line-height: 1.1;
-}
-
-.header-subtitulo {
-  font-size: 15px;
-  color: #88a878;
-  font-weight: 500;
-  margin: 0;
-}
-
-/* header {
-  display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
@@ -53,7 +18,7 @@ header h1 {
   font-size: clamp(24px, 4vw, 32px);
   font-weight: 700;
   margin: 0;
-} */
+}
 
 /* ── Cards ── */
 .card {
