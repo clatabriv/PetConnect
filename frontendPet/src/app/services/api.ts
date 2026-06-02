@@ -56,6 +56,10 @@ export class ApiService {
     return this.http.put<Usuario>(`${this.apiUrl}/usuarios/${id}/perfil`, perfil);
   }
 
+  crearUsuarioAdmin(usuario: Partial<Usuario> & { password?: string }): Observable<Usuario> {
+    return this.http.post<Usuario>(`${this.apiUrl}/usuarios/admin`, usuario);
+  }
+
   // -------- ANIMALES --------
   getAnimales(): Observable<Animal[]> {
     return this.http.get<Animal[]>(`${this.apiUrl}/animales`);

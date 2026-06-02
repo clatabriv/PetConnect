@@ -157,4 +157,12 @@ public List<Usuario> listarRefugios(@RequestParam(required = false) Boolean pend
         Usuario actor = authContextService.currentUser();
         usuarioService.delete(actor.getId());
     }
+    
+    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/usuarios/admin")
+    public Usuario crearUsuarioAdmin(@Valid @RequestBody Usuario usuario) {
+        usuario.setId(null);
+        return usuarioService.create(usuario);
+    }
 }
