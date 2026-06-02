@@ -18,7 +18,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     (req.url.match(/\/api\/animales\/\d+$/) && req.method === 'GET') || // solo /api/animales/{id}
     (req.url.match(/\/api\/animales$/) && req.method === 'GET') || // solo /api/animales
     (req.url.includes('/api/refugios/') && req.method === 'GET') ||
-    (req.url.includes('/api/usuarios') && req.method === 'POST');
+    (req.url.match(/\/api\/usuarios$/) && req.method === 'POST');
 
   if (!token || !isApiCall || isPublicEndpoint) {
     return next(req);
