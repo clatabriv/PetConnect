@@ -104,7 +104,7 @@ export class PanelAdminComponent implements OnInit {
     if (!this.formUsuario.email?.trim()) {
       this.errorUsuario['email'] = 'El email es obligatorio';
     }
-    if (!this.formUsuario.telefono?.trim()) {
+    if (!this.formUsuario.telefono?.trim?.()) {
       this.errorUsuario['telefono'] = 'El teléfono es obligatorio';
     }
 
@@ -123,7 +123,9 @@ export class PanelAdminComponent implements OnInit {
     // Comprobar teléfono duplicado
     const telefonoRepetido = this.usuarios.some(
       (u) =>
-        u.telefono && u.telefono === this.formUsuario.telefono && u.id !== this.editandoUsuarioId,
+        u.telefono?.trim() &&
+        u.telefono.trim() === this.formUsuario.telefono?.trim() &&
+        u.id !== this.editandoUsuarioId,
     );
     if (telefonoRepetido) {
       this.errorUsuario['telefono'] = 'Ya existe un usuario con este teléfono';
