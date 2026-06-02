@@ -101,8 +101,17 @@ export class PanelAdminComponent implements OnInit {
     if (!this.formUsuario.nombre?.trim()) {
       this.errorUsuario['nombre'] = 'El nombre es obligatorio';
     }
+    // Obligatorio
     if (!this.formUsuario.email?.trim()) {
       this.errorUsuario['email'] = 'El email es obligatorio';
+    } else if (!this.formUsuario.email.includes('@')) {
+      // Primero comprobar que tiene @
+      this.errorUsuario['email'] = 'El email debe contener @';
+    } else if (
+      !this.formUsuario.email.match(/^[^\s@]+@[^\s@]+\.(com|es|org|net|io|app|eu|info|co)$/i)
+    ) {
+      // Luego comprobar formato completo
+      this.errorUsuario['email'] = 'El email debe tener un formato válido (ej: nombre@dominio.com)';
     }
     if (!this.formUsuario.telefono?.trim?.()) {
       this.errorUsuario['telefono'] = 'El teléfono es obligatorio';
