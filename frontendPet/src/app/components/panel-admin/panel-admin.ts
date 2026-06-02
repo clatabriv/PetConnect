@@ -97,7 +97,38 @@ export class PanelAdminComponent implements OnInit {
   guardarUsuario() {
     this.errorUsuario = {};
 
-    // Preparar el objeto con solo los campos que tienen valor
+    // Validaciones obligatorias
+    if (!this.formUsuario.nombre?.trim()) {
+      this.errorUsuario['nombre'] = 'El nombre es obligatorio';
+    }
+    if (!this.formUsuario.email?.trim()) {
+      this.errorUsuario['email'] = 'El email es obligatorio';
+    }
+    if (!this.formUsuario.telefono?.trim()) {
+      this.errorUsuario['telefono'] = 'El teléfono es obligatorio';
+    }
+
+    // Comprobar email duplicado (excluyendo el usuario que se está editando)
+    const emailRepetido = this.usuarios.some(
+      (u) => u.email === this.formUsuario.email && u.id !== this.editandoUsuarioId,
+    );
+    if (emailRepetido) {
+      this.errorUsuario['email'] = 'Ya existe un usuario con este correo';
+    }
+
+    // Comprobar teléfono duplicado
+    const telefonoRepetido = this.usuarios.some(
+      (u) =>
+        u.telefono && u.telefono === this.formUsuario.telefono && u.id !== this.editandoUsuarioId,
+    );
+    if (telefonoRepetido) {
+      this.errorUsuario['telefono'] = 'Ya existe un usuario con este teléfono';
+    }
+
+    if (Object.keys(this.errorUsuario).length > 0) {
+      return;
+    }
+
     const usuarioData = {
       nombre: this.formUsuario.nombre || '',
       email: this.formUsuario.email || '',
@@ -116,8 +147,8 @@ export class PanelAdminComponent implements OnInit {
           this.cancelarEdicionUsuario();
         },
         error: (err) => {
-          if (err.error && typeof err.error === 'object') {
-            this.errorUsuario = err.error;
+          if (err.status === 409) {
+            this.errorUsuario['email'] = 'Ya existe un usuario con este correo';
           }
         },
       });
@@ -126,15 +157,12 @@ export class PanelAdminComponent implements OnInit {
         next: () => {
           this.cargarUsuarios();
           this.cargarRefugiosPendientes();
+          this.cargarAnimales();
           this.cancelarEdicionUsuario();
         },
         error: (err) => {
           if (err.status === 409) {
-            this.errorUsuario = { email: 'Ya existe un usuario con este correo electrónico' };
-          } else if (err.error && typeof err.error === 'object') {
-            this.errorUsuario = err.error;
-          } else {
-            this.errorUsuario = { general: 'Error al guardar el usuario' };
+            this.errorUsuario['email'] = 'Ya existe un usuario con este correo';
           }
         },
       });

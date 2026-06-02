@@ -69,44 +69,43 @@
 
           <div class="perfil-datos-col">
             <div class="field-group">
-              <input [(ngModel)]="formUsuario.nombre" name="usuarioNombre" placeholder="Nombre *" required />
-              <span class="error-message" *ngIf="errorUsuario['nombre']">{{
-                errorUsuario['nombre']
-                }}</span>
+              <input [(ngModel)]="formUsuario.nombre" name="usuarioNombre" placeholder="Nombre *" autocomplete="off" />
+              <span class="error-message" *ngIf="errorUsuario['nombre']">{{ errorUsuario['nombre'] }}</span>
             </div>
 
             <div class="field-group">
-              <input [(ngModel)]="formUsuario.email" name="usuarioEmail" type="email" placeholder="Email *" required />
-              <span class="error-message" *ngIf="errorUsuario['email']">{{
-                errorUsuario['email']
-                }}</span>
+              <input [(ngModel)]="formUsuario.email" name="usuarioEmail" type="email" placeholder="Email *"
+                autocomplete="off" />
+              <span class="error-message" *ngIf="errorUsuario['email']">{{ errorUsuario['email'] }}</span>
             </div>
 
             <div class="field-group">
               <input [(ngModel)]="formUsuario.password" name="usuarioPassword" type="password"
-                [placeholder]="editandoUsuarioId ? 'Contraseña (dejar vacío para no cambiar)' : 'Contraseña *'" />
-              <span class="error-message" *ngIf="errorUsuario['password']">{{
-                errorUsuario['password']
-                }}</span>
+                [placeholder]="editandoUsuarioId ? 'Contraseña (dejar vacío para no cambiar)' : 'Contraseña *'"
+                autocomplete="new-password" />
+              <span class="error-message" *ngIf="errorUsuario['password']">{{ errorUsuario['password'] }}</span>
             </div>
 
             <select [(ngModel)]="formUsuario.rol" name="usuarioRol">
               <option *ngFor="let rol of rolesDisponibles" [value]="rol">{{ rol }}</option>
             </select>
 
-            <input [(ngModel)]="formUsuario.telefono" name="usuarioTelefono" placeholder="Teléfono" />
+            <div class="field-group">
+              <input [(ngModel)]="formUsuario.telefono" name="usuarioTelefono" placeholder="Teléfono *"
+                autocomplete="off" />
+              <span class="error-message" *ngIf="errorUsuario['telefono']">{{ errorUsuario['telefono'] }}</span>
+            </div>
 
             <textarea [(ngModel)]="formUsuario.descripcion" name="usuarioDescripcion" rows="4"
               placeholder="Descripción (para refugios)"></textarea>
           </div>
-        </div>
 
-        <div class="actions">
-          <button type="submit" class="btn-primary">
-            {{ editandoUsuarioId ? 'Guardar cambios' : 'Crear usuario' }}
-          </button>
+          <div class="actions">
+            <button type="submit" class="btn-primary">
+              {{ editandoUsuarioId ? 'Guardar cambios' : 'Crear usuario' }}
+            </button>
+          </div>
         </div>
-      </div>
     </form>
     }
 
@@ -135,7 +134,7 @@
               @if (usuario.rol === 'REFUGIO') {
               <span class="badge" [class.badge-disponible]="usuario.verificado"
                 [class.badge-en_proceso]="!usuario.verificado">
-                {{ usuario.verificado ? '✓ Verificado' : '⏳ Pendiente' }}
+                {{ usuario.verificado ? '✓ Verificado' : 'Pendiente' }}
               </span>
               } @else {
               —
