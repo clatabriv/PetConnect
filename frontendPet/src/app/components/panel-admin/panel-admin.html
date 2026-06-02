@@ -104,13 +104,14 @@
             <textarea [(ngModel)]="formUsuario.descripcion" name="usuarioDescripcion" rows="4"
               placeholder="Descripción (para refugios)"></textarea>
           </div>
-
-          <div class="actions">
-            <button type="submit" class="btn-primary">
-              {{ editandoUsuarioId ? 'Guardar cambios' : 'Crear usuario' }}
-            </button>
-          </div>
         </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary">
+            {{ editandoUsuarioId ? 'Guardar cambios' : 'Crear usuario' }}
+          </button>
+        </div>
+      </div>
     </form>
     }
 
