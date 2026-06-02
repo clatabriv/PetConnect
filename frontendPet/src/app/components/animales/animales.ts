@@ -39,11 +39,11 @@ export class AnimalesComponent implements OnInit {
     'Gato',
     'Conejo',
     'Cobaya',
+    'Hamster',
     'Rata',
     'Tortuga',
     'Gallina',
     'Pájaro',
-    'Hámster',
   ];
   generosDisponibles = ['Macho', 'Hembra'];
 
