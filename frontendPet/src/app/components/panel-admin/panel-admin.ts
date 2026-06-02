@@ -108,6 +108,10 @@ export class PanelAdminComponent implements OnInit {
       this.errorUsuario['telefono'] = 'El teléfono es obligatorio';
     }
 
+    if (!this.editandoUsuarioId && !this.formUsuario.password?.trim()) {
+      this.errorUsuario['password'] = 'La contraseña es obligatoria';
+    }
+
     // Comprobar email duplicado (excluyendo el usuario que se está editando)
     const emailRepetido = this.usuarios.some(
       (u) => u.email === this.formUsuario.email && u.id !== this.editandoUsuarioId,
